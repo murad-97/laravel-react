@@ -1,16 +1,37 @@
-import React from "react";
+import React,{useState,} from "react";
 import { Card, CardBody, Col, Container, Input, Row } from "reactstrap";
+import { useNavigate } from "react-router-dom";
+import axios from "../../components/axios"
 
 //Import Image
 import lightLogo from "../../assets/images/logo-light.png";
 import darkLogo from "../../assets/images/logo-dark.png";
-
 import signInImage from "../../assets/images/auth/sign-in.png";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+
 const SignIn = () => {
-  document.title = "Sign In | Jobcy - Job Listing Template | Themesdesign";
+  document.title = "Sign In";
+  const [email,setemail] = useState("");
+  const [password,setpassword] = useState("");
+  const navigate = useNavigate();
+
+
+  const handleLogin = async (e) => {
+    e.preventDefault(); // Use e.preventDefault() to prevent form submission
+  
+    try {
+      const response = await axios.post("/login", { email, password });
+      setemail('');
+      setpassword('');
+      navigate('/');
+      console.log(response.data); // Log the user information
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <React.Fragment>
       <div>
@@ -54,19 +75,23 @@ const SignIn = () => {
                                   Sign in to continue to Jobcy.
                                 </p>
                               </div>
-                              <Form action="/" className="auth-form">
+                              <Form onSubmit={handleLogin} className="auth-form">
                                 <div className="mb-3">
                                   <label
                                     htmlFor="usernameInput"
                                     className="form-label"
                                   >
-                                    Username
+                                    Email
                                   </label>
                                   <Input
-                                    type="text"
+                                    type="email"
+                                    value= {email}
                                     className="form-control"
                                     id="usernameInput"
                                     placeholder="Enter your username"
+                                    onChange={(e) => setemail(e.target.value)
+                                      
+                                    }
                                     required
                                   />
                                 </div>
@@ -82,6 +107,8 @@ const SignIn = () => {
                                     className="form-control"
                                     id="passwordInput"
                                     placeholder="Enter your password"
+                                    value= {password}
+                                    onChange={(e) => setpassword(e.target.value)}
                                     required
                                   />
                                 </div>
