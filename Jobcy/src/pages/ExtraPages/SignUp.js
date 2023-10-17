@@ -25,12 +25,18 @@ const SignUp = () => {
     e.preventDefault(); // Use e.preventDefault() to prevent form submission
   
     try {
-      await axios.post("/register", { name,email, password,password_confirmation });
+      const csrfResponse = await axios.get('/get-csrf-token');
+      const csrfToken = csrfResponse.data.csrf_token;
+
+      
+      axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+      const response = await axios.post("/register", { name,email, password,password_confirmation });
       setemail('');
       setpassword('');
       setname('');
       setpasswordConfirmation('');
-      navigate('/login');
+      console.log(response.data);
+      navigate('/');
     } catch (e) {
       console.log(e);
     }
