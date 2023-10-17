@@ -36,4 +36,4 @@ Route::post('/register', [RegisteredUserController::class, 'store'])
 
 Route::get('/user', [AuthenticatedSessionController::class, 'user'])
                 ->middleware('auth')
-                ->name('logout');
+                ;
