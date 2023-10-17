@@ -21,6 +21,19 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'gender',
+        'address',
+        'phone_number',
+        'linkedin link',
+        'image',
+        'academic_specialization',
+        'academic_level',
+        'professional_level',
+        'career_field',
+        'jop_title',
+        'years_of_experience',
+        'cv',
+        'subscription',
     ];
 
     /**
@@ -41,4 +54,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function user_language()
+    {
+        return $this->hasMany(UserLanguage::class);
+    }
+    public function user_skill()
+    {
+        return $this->hasMany(UserSkill::class);
+    }
+    public function post()
+    {
+        return $this->hasMany(Post::class);
+    }
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
+    }
+    public function application()
+    {
+        return $this->hasMany(Application::class);
+    }
 }
