@@ -19,16 +19,25 @@ const SignIn = () => {
 
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Use e.preventDefault() to prevent form submission
-  
+    e.preventDefault();
+
     try {
+    
+      const csrfResponse = await axios.get('/get-csrf-token');
+      const csrfToken = csrfResponse.data.csrf_token;
+
+      
+      axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+
+      // Now, make your login request
       const response = await axios.post("/login", { email, password });
+
       setemail('');
       setpassword('');
-      navigate('/');
+      navigate("/")
       console.log(response.data); // Log the user information
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
     }
   }
 
