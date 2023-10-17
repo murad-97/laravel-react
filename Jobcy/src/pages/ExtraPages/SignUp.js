@@ -1,6 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React,{useState,} from "react";
+import { Link ,useNavigate } from "react-router-dom";
+
 import { Container, Card, Col, Input, Row, CardBody } from "reactstrap";
+import axios from "../../components/axios"
+
 
 import lightLogo from "../../assets/images/logo-light.png";
 import darkLogo from "../../assets/images/logo-dark.png";
@@ -9,7 +12,30 @@ import signUpImage from "../../assets/images/auth/sign-up.png";
 import { Form } from "react-bootstrap";
 
 const SignUp = () => {
-  document.title = "Sign Up | Jobcy - Job Listing Template | Themesdesign";
+  document.title = "Sign Up";
+
+  const [email,setemail] = useState("");
+  const [password,setpassword] = useState("");
+  const [name,setname] = useState("");
+  const [password_confirmation,setpasswordConfirmation] = useState("");
+  const navigate = useNavigate();
+
+
+  const handleRegister = async (e) => {
+    e.preventDefault(); // Use e.preventDefault() to prevent form submission
+  
+    try {
+      await axios.post("/register", { name,email, password,password_confirmation });
+      setemail('');
+      setpassword('');
+      setname('');
+      setpasswordConfirmation('');
+      navigate('/login');
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <React.Fragment>
       <div>
@@ -54,20 +80,23 @@ const SignUp = () => {
                                   Jobcy
                                 </p>
                               </div>
-                              <Form action="/" className="auth-form">
+                              <Form onSubmit={handleRegister} className="auth-form">
                                 <div className="mb-3">
                                   <label
                                     htmlFor="usernameInput"
                                     className="form-label"
                                   >
-                                    Username
+                                    name
                                   </label>
                                   <Input
                                     type="text"
+                                    value={name}
                                     className="form-control"
                                     required
                                     id="usernameInput"
                                     placeholder="Enter your username"
+                                    onChange={(e) => setname(e.target.value)}
+
                                   />
                                 </div>
                                 <div className="mb-3">
@@ -81,8 +110,10 @@ const SignUp = () => {
                                     type="email"
                                     className="form-control"
                                     required
+                                    value={email}
                                     id="emailInput"
                                     placeholder="Enter your email"
+                                    onChange={(e) => setemail(e.target.value)}
                                   />
                                 </div>
                                 <div className="mb-3">
@@ -93,33 +124,32 @@ const SignUp = () => {
                                     Password
                                   </label>
                                   <Input
+                                  value={password}
                                     type="password"
                                     className="form-control"
                                     id="passwordInput"
                                     placeholder="Enter your password"
+                                    onChange={(e) => setpassword(e.target.value)}
                                   />
                                 </div>
-                                <div className="mb-4">
-                                  <div className="form-check">
-                                    <Input
-                                      className="form-check-input"
-                                      type="checkbox"
-                                      id="flexCheckDefault"
-                                    />
-                                    <label
-                                      className="form-check-label"
-                                      htmlFor="flexCheckDefault"
-                                    >
-                                      I agree to the{" "}
-                                      <Link
-                                        to="#"
-                                        className="text-white text-decoration-underline"
-                                      >
-                                        Terms and conditions
-                                      </Link>
-                                    </label>
-                                  </div>
+                                <div className="mb-3">
+                                  <label
+                                    htmlFor="emailInput"
+                                    className="form-label"
+                                  >
+                                    Confirm Password
+                                  </label>
+                                  <Input
+                                 
+                                    type="password"
+                                    value={password_confirmation}
+                                    className="form-control"
+                                    id="passwordInput"
+                                    placeholder="Enter your password"
+                                    onChange={(e) => setpasswordConfirmation(e.target.value)}
+                                  />
                                 </div>
+                               
                                 <div className="text-center">
                                   <button
                                     type="submit"
