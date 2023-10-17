@@ -26,10 +26,11 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])
                 ->name('login');
 
 
-                Route::get('/get-csrf-token', function () {
-                    return response()->json(['token' => csrf_token()]);
-                });
-                Route::post('/register', [RegisteredUserController::class, 'store'])
-                ->middleware('guest')
-                ->name('register');
+Route::get('/get-csrf-token', function () {
+    return response()->json(['token' => csrf_token()]);
+});
+
+Route::post('/register', [RegisteredUserController::class, 'store'])
+->middleware('guest')
+->name('register');
 
