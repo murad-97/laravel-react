@@ -7,6 +7,8 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\IndustryController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\JobController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,8 @@ use App\Http\Controllers\CompanyController;
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('jobs',[JobController::class,'index']);
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
     ->middleware(['web', 'guest'])
@@ -49,3 +53,14 @@ Route::get('/jops', [JobController::class, 'getAllJobs']);
 
 //all Companies
 Route::get('/companies', [CompanyController::class, 'getAllCompanies']);
+->middleware('auth')
+;
+
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+->middleware('auth')
+->name('logout');
+
+
+
+
+Route::get('/jobdetails/{id}', [JobController::class, 'show']);

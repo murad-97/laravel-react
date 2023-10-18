@@ -10,8 +10,6 @@ import {
   TabPane
 } from "reactstrap";
 import classnames from "classnames";
-
-//Components Imports
 import FeaturedJobs from "../JobList/FeaturedJobs";
 import Freelancer from "../JobList/Freelancer.js";
 import Fulltime from "../JobList/Fulltime.js";

@@ -30,7 +30,9 @@ class JobController extends Controller
 
     public function index()
     {
-        //
+        $users = Job::all();
+
+        return response()->json($users, 200);
     }
 
 
@@ -45,13 +47,26 @@ class JobController extends Controller
         //
     }
 
-
-    public function show(Job $job)
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Job  $job
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
     {
-        //
+        $job = Job::with(['application', 'company', 'qualification', 'skill', 'responsible'])
+    ->find($id);
+        return response()->json($job);
+
     }
 
-
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Job  $job
+     * @return \Illuminate\Http\Response
+     */
     public function edit(Job $job)
     {
         //
@@ -67,4 +82,5 @@ class JobController extends Controller
     {
         //
     }
+
 }

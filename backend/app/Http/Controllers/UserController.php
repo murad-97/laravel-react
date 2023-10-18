@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+USE App\Models\User;
+use PhpParser\Node\Stmt\Return_;
 
 class UserController extends Controller
 {
