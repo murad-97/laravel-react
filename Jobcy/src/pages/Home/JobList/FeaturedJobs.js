@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Col, Row, Modal, ModalBody, Input, Label } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -85,6 +86,25 @@ const FeaturedJobs = () => {
       Notes: null
     }
   ];
+
+
+  const [jobs, setJobs] = useState([]);
+
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    await axios.get(`http://127.0.0.1:8000/api/jops`).then(({ data }) => {
+      const recentObjects = data.slice(-4).reverse();
+      setJobs(recentObjects);
+    });
+  };
+
+ 
+
+
 
   return (
     <React.Fragment>

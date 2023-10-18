@@ -49,6 +49,20 @@ const JobList = () => {
               >
                 <NavItem role="presentation">
                   <NavLink
+                    className={classnames({ active: activeTab === "2" })}
+                    onClick={() => {
+                      tabChange("2");
+                    }}
+                    id="featured-jobs-tab"
+                    type="button"
+                    role="tab"
+                  >
+                    All Jobs
+                  </NavLink>
+                </NavItem>
+                
+                <NavItem role="presentation">
+                  <NavLink
                     className={classnames({ active: activeTab === "1" })}
                     onClick={() => {
                       tabChange("1");
@@ -61,19 +75,7 @@ const JobList = () => {
                   </NavLink>
                 </NavItem>
 
-                <NavItem role="presentation">
-                  <NavLink
-                    className={classnames({ active: activeTab === "2" })}
-                    onClick={() => {
-                      tabChange("2");
-                    }}
-                    id="featured-jobs-tab"
-                    type="button"
-                    role="tab"
-                  >
-                    Featured Jobs
-                  </NavLink>
-                </NavItem>
+                
                 <NavItem role="presentation">
                   <NavLink
                     className={classnames({ active: activeTab === "3" })}

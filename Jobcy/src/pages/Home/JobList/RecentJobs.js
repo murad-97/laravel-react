@@ -146,7 +146,7 @@ const RecentJobs = () => {
                
                   <Link to="/company-details">
                   <img
-                      src={companyImg}
+                      src="/company.jpg"
                       alt="image"
                       className="img-fluid rounded-3"
                     />
