@@ -35,4 +35,4 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 Route::get('/user', [AuthenticatedSessionController::class, 'user'])
                 ->middleware('auth')
-                ->name('logout');
+                ;
