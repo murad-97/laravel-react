@@ -7,7 +7,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\IndustryController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\JobController;
+
 
 
 /*
@@ -53,8 +53,7 @@ Route::get('/jops', [JobController::class, 'getAllJobs']);
 
 //all Companies
 Route::get('/companies', [CompanyController::class, 'getAllCompanies']);
-->middleware('auth')
-;
+
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 ->middleware('auth')
