@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from 'react-redux';
 import {
   Col,
   Row,
@@ -15,18 +16,47 @@ import {
 import { Link } from "react-router-dom";
 import classname from "classnames";
 import withRouter from "../../components/withRouter"
-
+import { logoutSuccess } from '../../pages/ExtraPages/Components/redux/authActions';
+import { useDispatch } from 'react-redux';
 import darkLogo from "../../assets/images/logo-dark.png";
 import lightLogo from "../../assets/images/logo-light.png";
 import userImage2 from "../../assets/images/user/img-02.jpg";
 import jobImage4 from "../../assets/images/featured-job/img-04.png";
 import userImage1 from "../../assets/images/user/img-01.jpg";
 import jobImage from "../../assets/images/featured-job/img-01.png";
+import { useNavigate } from "react-router-dom";
+
+
 import profileImage from "../../assets/images/profile.jpg";
+import axios from "../../components/axios";
+
 
 const NavBar = (props) => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user)
+  console.log(user);
+  const isAuthenticated = useSelector((state) => state.isAuthenticated)
+  console.log(user);
+  console.log(isAuthenticated);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+const navigate = useNavigate()
+  const handleLogout = async (e) => {
+    e.preventDefault();
+
+    try {
+      const csrfResponse = await axios.get('/get-csrf-token');
+      const csrfToken = csrfResponse.data.csrf_token;
+      axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+     await axios.post("/logout");
+     dispatch(logoutSuccess());
+
+      navigate("/");
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const [home, setHome] = useState(false);
   const [company, setCompany] = useState(false);
@@ -376,7 +406,7 @@ const NavBar = (props) => {
               toggle={dropDownnotification}
               className="list-inline-item  me-4"
             >
-              <DropdownToggle
+              {/* <DropdownToggle
                 href="#"
                 className="header-item noti-icon position-relative"
                 id="notification"
@@ -385,8 +415,8 @@ const NavBar = (props) => {
               >
                 <i className="mdi mdi-bell fs-22"></i>
                 <div className="count position-absolute">3</div>
-              </DropdownToggle>
-              <DropdownMenu
+              </DropdownToggle> */}
+              {/* <DropdownMenu
                 className="dropdown-menu-sm dropdown-menu-end p-0"
                 aria-labelledby="notification"
                 end
@@ -500,60 +530,83 @@ const NavBar = (props) => {
                     <span>View More..</span>
                   </Link>
                 </div>
-              </DropdownMenu>
+              </DropdownMenu> */}
             </Dropdown>
-            <Dropdown
-              onClick={() => setUserProfile(!userProfile)}
-              isOpen={userProfile}
-              toggle={dropDownuserprofile}
-              className="list-inline-item"
-            >
-              <DropdownToggle
-                to="#"
-                className="header-item"
-                id="userdropdown"
-                type="button"
-                tag="a"
-                aria-expanded="false"
-              >
-                <img
-                  src={profileImage}
-                  alt="mdo"
-                  width="35"
-                  height="35"
-                  className="rounded-circle me-1"
-                />{" "}
-                <span className="d-none d-md-inline-block fw-medium">
-                  Hi, Jennifer
-                </span>
-              </DropdownToggle>
-              <DropdownMenu
-                className="dropdown-menu-end"
-                aria-labelledby="userdropdown"
-                end
-              >
-                <li>
-                  <Link className="dropdown-item" to="/managejobs">
-                    Manage Jobs
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/bookmarkjobs">
-                    Bookmarks Jobs
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/myprofile">
-                    My Profile
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/signout">
-                    Logout
-                  </Link>
-                </li>
-              </DropdownMenu>
-            </Dropdown>
+            {isAuthenticated ? (
+  // If the user is authenticated, show the user dropdown
+  <Dropdown
+    onClick={() => setUserProfile(!userProfile)}
+    isOpen={userProfile}
+    toggle={dropDownuserprofile}
+    className="list-inline-item"
+  >
+    {/* Dropdown toggle button with user image and name */}
+    <DropdownToggle
+      to="#"
+      className="header-item"
+      id="userdropdown"
+      type="button"
+      tag="a"
+      aria-expanded="false"
+    >
+      <img
+        src={user.image}
+        alt="mdo"
+        width="35"
+        height="35"
+        className="rounded-circle me-1"
+      />{" "}
+      <span className="d-none d-md-inline-block fw-medium">
+        Hi, {user.name}
+      </span>
+    </DropdownToggle>
+
+    {/* Dropdown menu with user options */}
+    <DropdownMenu
+      className="dropdown-menu-end"
+      aria-labelledby="userdropdown"
+      end
+    >
+      <li>
+        <Link className="dropdown-item" to="/managejobs">
+          Manage Jobs
+        </Link>
+      </li>
+      <li>
+        <Link className="dropdown-item" to="/bookmarkjobs">
+          Bookmarks Jobs
+        </Link>
+      </li>
+      <li>
+        <Link className="dropdown-item" to="/myprofile">
+          My Profile
+        </Link>
+      </li>
+      <li>
+        <button className="dropdown-item" onClick={handleLogout}>
+          Logout
+        </button>
+      </li>
+    </DropdownMenu>
+  </Dropdown>
+) : (
+  // If the user is not authenticated, show "Sign Up" and "Sign In" links
+  <ul className="navbar-nav mx-auto navbar-center">
+  
+ 
+    <Link className="nav-link" to="/signup">
+      Sign Up
+    </Link>
+  
+  
+    <Link className="nav-link" to="/signin">
+      Sign In
+    </Link>
+    
+  
+    </ul>
+)}
+
           </ul>
         </Container>
       </nav>

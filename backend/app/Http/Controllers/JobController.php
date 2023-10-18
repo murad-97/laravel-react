@@ -44,9 +44,12 @@ class JobController extends Controller
      * @param  \App\Models\Job  $job
      * @return \Illuminate\Http\Response
      */
-    public function show(Job $job)
+    public function show($id)
     {
-        //
+        $job = Job::with(['application', 'company', 'qualification', 'skill', 'responsible'])
+    ->find($id);
+        return response()->json($job);
+
     }
 
     /**
@@ -82,4 +85,5 @@ class JobController extends Controller
     {
         //
     }
+
 }
