@@ -18,6 +18,7 @@ class Company extends Model
         'phone_number',
         'location_map',
         'industry_id',
+        'image',
     ];
 
     public function industry()
