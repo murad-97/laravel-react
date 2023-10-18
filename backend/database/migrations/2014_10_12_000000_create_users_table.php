@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('linkedin_link')->nullable();
-            $table->mediumText('image')->default('https://i.stack.imgur.com/l60Hf.png');
+            $table->mediumText('image')->default('C:\xampp\htdocs\project8\laravel-react\backend\storage\app/public/images/default_profile.png');
 
 
             $table->string('academic_specialization')->nullable();

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('employment_type');
             $table->bigInteger('company_id')->unsigned();
 
-            $table->foreign('company_id')->references('id')->on('companies');
+             $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
         });
     }
