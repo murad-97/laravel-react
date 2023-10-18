@@ -20,23 +20,23 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('gender');
-            $table->string('address');
+            $table->string('gender')->nullable();
+            $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('linkedin_link')->nullable();
-            $table->mediumText('image')->default('http://127.0.0.1:8000/assets/images/default_profile.png');
+            $table->mediumText('image')->default('C:\xampp\htdocs\project8\laravel-react\backend\storage\app/public/images/default_profile.png');
 
 
-            $table->string('academic_specialization');
-            $table->string('academic_level');
-            $table->string('professional_level');
+            $table->string('academic_specialization')->nullable();
+            $table->string('academic_level')->nullable();
+            $table->string('professional_level')->nullable();
 
-            $table->string('career_field');
-            $table->string('jop_title');
-            $table->bigInteger('years_of_experience');
+            $table->string('career_field')->nullable();
+            $table->string('jop_title')->nullable();
+            $table->bigInteger('years_of_experience')->nullable();
             $table->string('cv')->nullable();
 
-            $table->string('subscription');
+            $table->string('subscription')->default('Basic');
             $table->rememberToken();
             $table->timestamps();
 

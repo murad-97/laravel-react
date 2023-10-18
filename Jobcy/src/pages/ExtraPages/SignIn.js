@@ -114,7 +114,7 @@ const SignIn = () => {
                                   <Input
                                     type="password"
                                     className="form-control"
-                                    id="passwordInput"
+                                    id="passInput"
                                     placeholder="Enter your password"
                                     value= {password}
                                     onChange={(e) => setpassword(e.target.value)}

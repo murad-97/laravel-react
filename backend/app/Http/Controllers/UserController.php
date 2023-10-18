@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 USE App\Models\User;
 use PhpParser\Node\Stmt\Return_;
 
-class UserControllers extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.

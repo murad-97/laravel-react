@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Col, Row, Modal, ModalBody, Input, Label } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -7,6 +8,8 @@ import jobImage1 from "../../../assets/images/featured-job/img-01.png";
 import jobImage2 from "../../../assets/images/featured-job/img-02.png";
 import jobImage3 from "../../../assets/images/featured-job/img-03.png";
 import jobImage4 from "../../../assets/images/featured-job/img-04.png";
+import companyImg from "../../../assets/images/company.jpg";
+
 
 const RecentJobs = () => {
   //Apply Now Model
@@ -29,11 +32,11 @@ const RecentJobs = () => {
         {
           id: 1,
           badgeclassName: "bg-info-subtle text-info",
-          badgeName: "Private"
-        }
+          badgeName: "Private",
+        },
       ],
       experience: "1 - 2 years",
-      Notes: "languages only differ in their grammar."
+      Notes: "languages only differ in their grammar.",
     },
     {
       id: 2,
@@ -50,16 +53,16 @@ const RecentJobs = () => {
         {
           id: 1,
           badgeclassName: "bg-info-subtle text-info",
-          badgeName: "Private"
+          badgeName: "Private",
         },
         {
           id: 2,
           badgeclassName: "bg-warning-subtle text-warning",
-          badgeName: "Urgent"
-        }
+          badgeName: "Urgent",
+        },
       ],
       experience: "0 - 1 years",
-      Notes: "languages only differ in their grammar."
+      Notes: "languages only differ in their grammar.",
     },
     {
       id: 3,
@@ -76,11 +79,11 @@ const RecentJobs = () => {
         {
           id: 1,
           badgeclassName: "bg-info-subtle text-info",
-          badgeName: "Private"
-        }
+          badgeName: "Private",
+        },
       ],
       experience: "0 - 1 years",
-      Notes: null
+      Notes: null,
     },
     {
       id: 4,
@@ -96,17 +99,33 @@ const RecentJobs = () => {
         {
           id: 1,
           badgeclassName: "bg-warning-subtle text-warning",
-          badgeName: "Urgent"
-        }
+          badgeName: "Urgent",
+        },
       ],
       experience: "0 - 1 years",
-      Notes: null
-    }
+      Notes: null,
+    },
   ];
+
+  const [jobs, setJobs] = useState([]);
+
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    await axios.get(`http://127.0.0.1:8000/api/jops`).then(({ data }) => {
+      const recentObjects = data.slice(-4).reverse();
+      setJobs(recentObjects);
+    });
+  };
+
+ 
 
   return (
     <React.Fragment>
-      {recentJob.map((recentJobDetails, key) => (
+      {jobs.map((recentJobDetails, key) => (
         <div
           key={key}
           className={
@@ -124,13 +143,15 @@ const RecentJobs = () => {
             <Row className="align-items-center">
               <Col md={2}>
                 <div className="text-center mb-4 mb-md-0">
+               
                   <Link to="/company-details">
-                    <img
-                      src={recentJobDetails.companyImg}
-                      alt=""
+                  <img
+                      src={companyImg}
+                      alt="image"
                       className="img-fluid rounded-3"
                     />
                   </Link>
+
                 </div>
               </Col>
 
@@ -138,21 +159,24 @@ const RecentJobs = () => {
                 <div className="mb-2 mb-md-0">
                   <h5 className="fs-18 mb-1">
                     <Link to="/jobdetails" className="text-dark">
-                      {recentJobDetails.jobDescription}
+                      {recentJobDetails.title}
                     </Link>
                   </h5>
                   <p className="text-muted fs-14 mb-0">
-                    {recentJobDetails.companyName}
+                    {recentJobDetails.company.name}
                   </p>
+                 
                 </div>
               </Col>
 
-              <Col md={3}>
+              <Col md={3} key={key}>
                 <div className="d-flex mb-2">
                   <div className="flex-shrink-0">
                     <i className="mdi mdi-map-marker text-primary me-1"></i>
                   </div>
-                  <p className="text-muted mb-0">{recentJobDetails.location}</p>
+                  <p className="text-muted mb-0">
+                    {recentJobDetails.company.location[0].name}
+                  </p>
                 </div>
               </Col>
 
@@ -178,7 +202,7 @@ const RecentJobs = () => {
                         : ""
                     }
                   >
-                    {recentJobDetails.timing}
+                    {recentJobDetails.employment_type}
                   </span>
 
                   {(recentJobDetails.badges || []).map((badgeInner, key) => (
@@ -201,7 +225,7 @@ const RecentJobs = () => {
                 <div>
                   <p className="text-muted mb-0">
                     <span className="text-dark">Experience :</span>{" "}
-                    {recentJobDetails.experience}
+                    {recentJobDetails.professional_level}
                   </p>
                 </div>
               </Col>
