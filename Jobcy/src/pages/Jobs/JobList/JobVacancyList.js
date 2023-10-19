@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Col, Input, Label, Row, Modal, ModalBody } from "reactstrap";
-import GitData from '../../ApiData/GitDataApi';
+import GitData from "../../ApiData/GitDataApi";
+
+import { DataContext } from "../../FilterData/DataContext";
+// import { UpperContext } from "../../FilterData/UpperContext";
+
 
 //Images Import
 // import jobImage1 from "../../../assets/images/featured-job/img-01.png";
@@ -168,14 +172,83 @@ const JobVacancyList = () => {
   // };
 
 
-  const apiEndpoint = 'http://127.0.0.1:8000/api/jobs'; 
+
+  // const { comLocationF, setComLocationF, comIndustryF, setComIndustryF } =
+  //   useContext(UpperContext);
+
+  const apiEndpoint = "http://127.0.0.1:8000/api/jobs";
   const { data, loading, error } = GitData(apiEndpoint);
+
+  const {
+    salaryF,
+    setSalaryF,
+    experienceF,
+    setExperienceF,
+    employmentF,
+    setEmploymentF,
+    locationF,
+    setLocationF,
+    comLocationF, setComLocationF,
+    comIndustryF, setComIndustryF
+  } = useContext(DataContext);
+
+  
+
+  
+  // Filter the data based on context values
+  const filteredData = data.filter((job) => {
+
+ 
+
+    if (job.salary <= salaryF) {
+      if (
+        experienceF.length === 0 ||
+        experienceF.includes(job.professional_level)
+      ) {
+        if (
+          employmentF.length === 0 ||
+          employmentF.includes(job.employment_type)
+        ) {
+          if (locationF.length === 0 || locationF.includes(job.location_type)) {
+            // return true;
+            if (
+              comLocationF === "" ||
+              job.company.location[0].name === comLocationF
+            ) {
+              // return true;
+              if (
+                comIndustryF === "" ||
+                job.company.industry_id === comIndustryF
+              ) {
+                return true;
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+
+    return false;
+  });
+
  
 
   return (
     <React.Fragment>
+      {/* <div>
+        <h2>Context</h2>
+        <p>salary: {salaryF}</p>
+        <p>experience: {experienceF}</p>
+        <p>employment: {employmentF}</p>
+        <p>location: {locationF}</p>
+        <p>comLocation: {comLocationF}</p>
+        <p>comIndustry: {comIndustryF}</p>
+      </div> */}
+
       <div>
-        {data.map((jobVacancyListDetails, key) => (
+        {filteredData.map((jobVacancyListDetails, key) => (
           <div
             key={key}
             className={

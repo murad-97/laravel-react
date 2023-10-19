@@ -1,45 +1,48 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState, useContext } from "react";
 import Select from "react-select";
-import GitData from '../../ApiData/GitDataApi';
+import { DataContext } from "../../FilterData/DataContext";
+// import { UpperContext } from "../../FilterData/UpperContext";
 
 const CountryOptions = () => {
 
+   //Context
+   const {
+    salaryF,
+    setSalaryF,
 
-  // const [locations, setLocations] = useState([]);
-   const [selectedLocation, setSelectedLocation] = useState(null);
+    experienceF,
+    setExperienceF,
 
-  // useEffect(() => {
-  //   fetchLocations();
-  // }, []);
+    employmentF,
+    setEmploymentF,
 
-  // const fetchLocations = async () => {
-  //   try {
-  //     const response = await axios.get("http://127.0.0.1:8000/api/locations");
-  //     setLocations(response.data);
-  //   } catch (error) {
-  //     console.error("Error fetching industries:", error);
-  //   }
-  // };
+    locationF,
+    setLocationF,
+    comLocationF, setComLocationF,
+    comIndustryF, setComIndustryF
+  } = useContext(DataContext);
+
+  // const { comLocationF, setComLocationF, comIndustryF, setComIndustryF } = useContext(UpperContext);
+
+ const [selectedOption, setSelectedOption] = useState("");
 
 
-  const apiEndpoint = 'http://127.0.0.1:8000/api/locations'; 
-  const { data, loading, error } = GitData(apiEndpoint);
+
+  // Event handler to capture the selected value and update the state
+  const handleSelectChange = (selected) => {
+    setSelectedOption(selected);
+    // If you want to update the context state as well, you can do it here.
+    setComLocationF(selected.value);
+  };
+
  
 
-  const options = data.map((location) => ({
-    label: location.name,
-    value: location.id,
-  }));
-
-  // const options = [
-  //   { value: "0", label: "All" },
-  //   { value: "1", label: "Amman" },
-  //   { value: "2", label: "Irbid" },
-  //   { value: "3", label: "Zarqa" },
-
-  // ];
-
+  const options = [
+    { value: "", label: "All" },
+    { value: "Amman", label: "Amman" },
+    { value: "Irbid", label: "Irbid" },
+    { value: "Zarqa", label: "Zarqa" },
+  ];
   const colourStyles = {
     control: (base) => ({
       ...base,
@@ -56,16 +59,14 @@ const CountryOptions = () => {
     <React.Fragment>
       <Select
         options={options}
-        styles={colourStyles}
         className="choices selectForm__inner "
-        // defaultValue={{ label: "All", value: 0 }}
-        value={selectedLocation}
-        onChange={(selectedOption) => setSelectedLocation(selectedOption)}
+        defaultValue={{ label: "All", value: "" }}
+        styles={colourStyles}
+        onChange={handleSelectChange}
+        value={selectedOption}
       />
     </React.Fragment>
   );
 };
 
 export default CountryOptions;
-
-
