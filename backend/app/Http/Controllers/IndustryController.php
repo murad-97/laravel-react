@@ -10,8 +10,10 @@ class IndustryController extends Controller
 
     public function getAllIndustries()
     {
-        $industries = Industry::all();
+        $industries = Industry::with('company.job')->get();
         return response()->json($industries);
+
+      
     }
 
 
@@ -19,7 +21,7 @@ class IndustryController extends Controller
 
 
 
-    
+
     public function index()
     {
         //

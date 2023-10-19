@@ -25,7 +25,7 @@ const SignUp = ({ isAuthenticated, user, loginSuccess,  }) => {
 
   const handleRegister = async (e) => {
     e.preventDefault(); // Use e.preventDefault() to prevent form submission
-  
+    seterrors([])
     try {
       const csrfResponse = await axios.get('/get-csrf-token');
       const csrfToken = csrfResponse.data.csrf_token;

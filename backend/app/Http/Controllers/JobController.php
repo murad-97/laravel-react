@@ -9,7 +9,7 @@ class JobController extends Controller
 {
     public function getAllJobs()
     {
-        // $jobs = Job::all();
+        
         $jobs = Job::with('company.location')->get();
          return response()->json($jobs);
 
@@ -55,7 +55,7 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        $job = Job::with(['application', 'company', 'qualification', 'skill', 'responsible'])
+        $job = Job::with(['application', 'company.location','company.industry' ,'qualification', 'skill', 'responsible'])
     ->find($id);
         return response()->json($job);
 

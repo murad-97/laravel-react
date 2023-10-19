@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\IndustryController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UserController;
 
 
@@ -46,22 +47,25 @@ Route::get('/user', [AuthenticatedSessionController::class, 'user'])
     ->name('logout');
 
 
-//all industries
+//all industries with company and job
 Route::get('/industries', [IndustryController::class, 'getAllIndustries']);
 Route::get('/users', [UserController::class, 'index']);
 
-//all jobs
-Route::get('/jops', [JobController::class, 'getAllJobs']);
+//all jobs with company and location
+Route::get('/jobs', [JobController::class, 'getAllJobs']);
+
+//all locations with company and job
+Route::get('/locations', [LocationController::class, 'getAllLocations']);
+
 
 //all Companies
-Route::get('/companies', [CompanyController::class, 'getAllCompanies']);
+// Route::get('/companies', [CompanyController::class, 'getAllCompanies']);
+
+
 
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 ->middleware('auth')
 ->name('logout');
-
-
-
 
 Route::get('/jobdetails/{id}', [JobController::class, 'show']);

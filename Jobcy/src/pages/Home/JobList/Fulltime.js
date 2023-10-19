@@ -1,84 +1,108 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Col, Row, Modal, ModalBody, Input, Label } from "reactstrap";
 import { Link } from "react-router-dom";
+import GitData from '../../ApiData/GitDataApi';
 
 //jobImages
-import jobImage1 from "../../../assets/images/featured-job/img-01.png";
-import jobImage2 from "../../../assets/images/featured-job/img-02.png";
-import jobImage3 from "../../../assets/images/featured-job/img-03.png";
-import jobImage4 from "../../../assets/images/featured-job/img-04.png";
+// import jobImage1 from "../../../assets/images/featured-job/img-01.png";
+// import jobImage2 from "../../../assets/images/featured-job/img-02.png";
+// import jobImage3 from "../../../assets/images/featured-job/img-03.png";
+// import jobImage4 from "../../../assets/images/featured-job/img-04.png";
 
 const Fulltime = () => {
   //Apply Now Model
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
 
-  const fullTime = [
-    {
-      id: 1,
-      companyImg: jobImage1,
-      jobDescription: "Web Developer",
-      companyName: "Web Technology pvt.Ltd",
-      location: "Oakridge Lane ssRichardson",
-      salary: "1000-1200/m",
-      fullTime: true,
-      timing: "Full Time",
-      catogary: "Full Time",
-      addclassNameBookmark: true,
-      badges: [],
-      experience: "1 - 2 years",
-      Notes: "languages only differ in their grammar."
-    },
-    {
-      id: 2,
-      companyImg: jobImage2,
-      jobDescription: "Business Associate",
-      companyName: "Pixel Technology pvt.Ltd",
-      location: "Dodge City, Louisiana",
-      salary: "800-1800/m",
-      fullTime: true,
-      timing: "Full Time",
-      catogary: "Full Time",
-      addclassNameBookmark: true,
-      badges: [],
-      experience: "0 - 1 years",
-      Notes: "languages only differ in their grammar."
-    },
-    {
-      id: 3,
-      companyImg: jobImage3,
-      jobDescription: "Digital Marketing Manager",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "Phoenix, Arizona",
-      salary: "1500-2400/m",
-      fullTime: true,
-      timing: "Full Time",
-      catogary: "Full Time",
-      addclassNameBookmark: false,
-      badges: [],
-      experience: "4+ years",
-      Notes: null
-    },
-    {
-      id: 4,
-      companyImg: jobImage4,
-      jobDescription: "Product Director",
-      companyName: "Creative Agency",
-      location: "Escondido, California",
-      salary: "1500-2400/m",
-      fullTime: true,
-      timing: "Full Time",
-      catogary: "Full Time",
-      addclassNameBookmark: false,
-      badges: [],
-      experience: "2 - 3 years",
-      Notes: null
-    }
-  ];
+  // const fullTime = [
+  //   {
+  //     id: 1,
+  //     companyImg: jobImage1,
+  //     jobDescription: "Web Developer",
+  //     companyName: "Web Technology pvt.Ltd",
+  //     location: "Oakridge Lane ssRichardson",
+  //     salary: "1000-1200/m",
+  //     fullTime: true,
+  //     timing: "Full Time",
+  //     catogary: "Full Time",
+  //     addclassNameBookmark: true,
+  //     badges: [],
+  //     experience: "1 - 2 years",
+  //     Notes: "languages only differ in their grammar."
+  //   },
+  //   {
+  //     id: 2,
+  //     companyImg: jobImage2,
+  //     jobDescription: "Business Associate",
+  //     companyName: "Pixel Technology pvt.Ltd",
+  //     location: "Dodge City, Louisiana",
+  //     salary: "800-1800/m",
+  //     fullTime: true,
+  //     timing: "Full Time",
+  //     catogary: "Full Time",
+  //     addclassNameBookmark: true,
+  //     badges: [],
+  //     experience: "0 - 1 years",
+  //     Notes: "languages only differ in their grammar."
+  //   },
+  //   {
+  //     id: 3,
+  //     companyImg: jobImage3,
+  //     jobDescription: "Digital Marketing Manager",
+  //     companyName: "Jobcy Technology Pvt.Ltd",
+  //     location: "Phoenix, Arizona",
+  //     salary: "1500-2400/m",
+  //     fullTime: true,
+  //     timing: "Full Time",
+  //     catogary: "Full Time",
+  //     addclassNameBookmark: false,
+  //     badges: [],
+  //     experience: "4+ years",
+  //     Notes: null
+  //   },
+  //   {
+  //     id: 4,
+  //     companyImg: jobImage4,
+  //     jobDescription: "Product Director",
+  //     companyName: "Creative Agency",
+  //     location: "Escondido, California",
+  //     salary: "1500-2400/m",
+  //     fullTime: true,
+  //     timing: "Full Time",
+  //     catogary: "Full Time",
+  //     addclassNameBookmark: false,
+  //     badges: [],
+  //     experience: "2 - 3 years",
+  //     Notes: null
+  //   }
+  // ];
+
+
+
+  
+  // const [jobs, setJobs] = useState([]);
+
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, []);
+
+  // const fetchProducts = async () => {
+  //   await axios.get(`http://127.0.0.1:8000/api/jobs`).then(({ data }) => {
+  //     const fullTimeJobs = data.filter(job => job.employment_type === 'Full-time');
+  //     setJobs(fullTimeJobs);
+  //   });
+  // };
+
+
+  const apiEndpoint = 'http://127.0.0.1:8000/api/jobs'; 
+  const { data, loading, error } = GitData(apiEndpoint);
+  const fullTimeJobs = data.filter(job => job.employment_type === 'Full-time');
+
 
   return (
     <React.Fragment>
-      {fullTime.map((fullTimeJobdetails, key) => (
+      {fullTimeJobs.map((fullTimeJobdetails, key) => (
         <div
           key={key}
           className={
@@ -97,10 +121,11 @@ const Fulltime = () => {
               <Col md={2}>
                 <div className="text-center mb-4 mb-md-0">
                   <Link to="/companydetails">
-                    <img
-                      src={fullTimeJobdetails.companyImg}
-                      alt=""
+                  <img
+                      src="/company.jpg"
+                      alt="CompanyImage"
                       className="img-fluid rounded-3"
+                      style={{ width: "80px" }}
                     />
                   </Link>
                 </div>
@@ -110,11 +135,11 @@ const Fulltime = () => {
                 <div className="mb-2 mb-md-0">
                   <h5 className="fs-18 mb-1">
                     <Link to="/jobdetails" className="text-dark">
-                      {fullTimeJobdetails.jobDescription}
+                      {fullTimeJobdetails.title}
                     </Link>
                   </h5>
                   <p className="text-muted fs-14 mb-0">
-                    {fullTimeJobdetails.companyName}
+                    {fullTimeJobdetails.company.name}
                   </p>
                 </div>
               </Col>
@@ -125,7 +150,7 @@ const Fulltime = () => {
                     <i className="mdi mdi-map-marker text-primary me-1"></i>
                   </div>
                   <p className="text-muted mb-0">
-                    {fullTimeJobdetails.location}
+                    {fullTimeJobdetails.company.location[0].name}
                   </p>
                 </div>
               </Col>
@@ -143,16 +168,16 @@ const Fulltime = () => {
                 <div>
                   <span
                     className={
-                      fullTimeJobdetails.fullTime === true
+                      fullTimeJobdetails.employment_type === 'Full-time'
                         ? "badge bg-success-subtle text-success fs-13 mt-1 mx-1"
-                        : fullTimeJobdetails.partTime === true
+                        : fullTimeJobdetails.employment_type === 'Part-time'
                         ? "badge bg-danger-subtle text-danger fs-13 mt-1 mx-1"
-                        : fullTimeJobdetails.freelancer === true
+                        : fullTimeJobdetails.employment_type === 'Freelancer'
                         ? "badge bg-primary-subtle text-primary fs-13 mt-1 mx-1"
                         : ""
                     }
                   >
-                    {fullTimeJobdetails.timing}
+                    {fullTimeJobdetails.employment_type}
                   </span>
                   {(fullTimeJobdetails.badges || []).map((badgeInner, key) => (
                     <span
@@ -172,7 +197,7 @@ const Fulltime = () => {
                 <div>
                   <p className="text-muted mb-0">
                     <span className="text-dark">Experience :</span>{" "}
-                    {fullTimeJobdetails.experience}
+                    {fullTimeJobdetails.employment_type}
                   </p>
                 </div>
               </Col>
@@ -182,9 +207,9 @@ const Fulltime = () => {
                 <div>
                   <p className="text-muted mb-0">
                     <span className="text-dark">
-                      {fullTimeJobdetails.Notes === null ? "" : "Notes :"}
+                      {fullTimeJobdetails.deadline_date === null ? "" : "Deadline :"}
                     </span>
-                    {fullTimeJobdetails.Notes}{" "}
+                    {fullTimeJobdetails.deadline_date}{" "}
                   </p>
                 </div>
               </Col>

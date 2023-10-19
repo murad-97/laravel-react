@@ -1,14 +1,62 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Modal, ModalBody, Input, Label, Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 
 //Import Images
 import jobImages2 from "../../../assets/images/featured-job/img-02.png";
 
-const RightSideContent = () => {
-  //Apply Now Model
+const RightSideContent = (props) => {
+  const [date, setDate] = useState("");
+  const [deadLine, setDeadLine] = useState(false);
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
+ 
+useEffect((params) => {
+  const timestamp = props.job.created_at;
+const jobDeadline = props.job.deadline_date;
+
+
+  const datePosted = new Date(timestamp);
+  
+
+  const currentDate = new Date();
+  const deadDifference = jobDeadline - currentDate;
+  if (deadDifference<0) {
+    setDeadLine(true)
+  }
+  console.log(currentDate);
+  
+  const timeDifference = currentDate - datePosted;
+  
+ 
+  const millisecondsInSecond = 1000;
+  const millisecondsInMinute = millisecondsInSecond * 60;
+  const millisecondsInHour = millisecondsInMinute * 60;
+  const millisecondsInDay = millisecondsInHour * 24;
+  const millisecondsInMonth = millisecondsInDay * 30; // Approximation
+  
+  let datePostedString;
+  
+  if (timeDifference < millisecondsInMinute) {
+    datePostedString = 'Posted less than a minute ago';
+  } else if (timeDifference < millisecondsInHour) {
+    const minutesDifference = Math.floor(timeDifference / millisecondsInMinute);
+    datePostedString = `Posted ${minutesDifference} min ago`;
+  } else if (timeDifference < millisecondsInDay) {
+    const hoursDifference = Math.floor(timeDifference / millisecondsInHour);
+    datePostedString = `Posted ${hoursDifference} hr ago`;
+  } else if (timeDifference < millisecondsInMonth) {
+    const daysDifference = Math.floor(timeDifference / millisecondsInDay);
+    datePostedString = `Posted ${daysDifference} day ago`;
+  } else {
+    const monthsDifference = Math.floor(timeDifference / millisecondsInMonth);
+    datePostedString = `Posted ${monthsDifference} month ago`;
+  }
+  
+  setDate(datePostedString)
+},[])
+
+ 
 
   return (
     <React.Fragment>
@@ -22,7 +70,7 @@ const RightSideContent = () => {
                   <i className="uil uil-user icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Job Title</h6>
-                    <p className="text-muted mb-0">Product Designer</p>
+                    <p className="text-muted mb-0">{props.job.title}</p>
                   </div>
                 </div>
               </li>
@@ -40,7 +88,7 @@ const RightSideContent = () => {
                   <i className="uil uil-location-point icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Location</h6>
-                    <p className="text-muted mb-0"> New york</p>
+                    <p className="text-muted mb-0">{props.job.company.location[0].name}</p>
                   </div>
                 </div>
               </li>
@@ -49,7 +97,7 @@ const RightSideContent = () => {
                   <i className="uil uil-usd-circle icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Offered Salary</h6>
-                    <p className="text-muted mb-0">$35k - $45k</p>
+                    <p className="text-muted mb-0">${props.job.salary}</p>
                   </div>
                 </div>
               </li>
@@ -58,7 +106,7 @@ const RightSideContent = () => {
                   <i className="uil uil-graduation-cap icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Qualification</h6>
-                    <p className="text-muted mb-0">Bachelor Degree</p>
+                    <p className="text-muted mb-0">{props.job.qualification[1].qualification_name}</p>
                   </div>
                 </div>
               </li>
@@ -67,7 +115,7 @@ const RightSideContent = () => {
                   <i className="uil uil-building icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Industry</h6>
-                    <p className="text-muted mb-0">Private</p>
+                    <p className="text-muted mb-0">{props.job.company.industry.name}</p>
                   </div>
                 </div>
               </li>
@@ -76,25 +124,30 @@ const RightSideContent = () => {
                   <i className="uil uil-history icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Date Posted</h6>
-                    <p className="text-muted mb-0">Posted 2 hrs ago</p>
+                    <p className="text-muted mb-0">{date}</p>
                   </div>
                 </div>
               </li>
             </ul>
             <div className="mt-3">
-              <Link
+             {deadLine?( <Link
                 to="#applyNow"
                 onClick={openModal}
                 className="btn btn-primary btn-hover w-100 mt-2"
               >
                 Apply Now <i className="uil uil-arrow-right"></i>
-              </Link>
-              <Link
-                to="/bookmarkjobs"
-                className="btn btn-soft-warning btn-hover w-100 mt-2"
+              </Link>):(
+                <Link
+               
+                onClick={(e) => {
+                  e.preventDefault()
+                }}
+                className="btn btn-danger btn-hover w-100 mt-2 "
               >
-                <i className="uil uil-bookmark"></i> Add Bookmark
+                applyment stopped 
               </Link>
+              )}
+             
             </div>
           </CardBody>
         </Card>
@@ -105,8 +158,8 @@ const RightSideContent = () => {
               <img src={jobImages2} alt="" className="img-fluid rounded-3" />
 
               <div className="mt-4">
-                <h6 className="fs-17 mb-1">Jobcy Technology Pvt.Ltd</h6>
-                <p className="text-muted">Since July 2017</p>
+                <h6 className="fs-17 mb-1">{props.job.company.name}</h6>
+                
               </div>
             </div>
             <ul className="list-unstyled mt-4">
@@ -115,7 +168,7 @@ const RightSideContent = () => {
                   <i className="uil uil-phone-volume text-primary fs-4"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Phone</h6>
-                    <p className="text-muted fs-14 mb-0">+589 560 56555</p>
+                    <p className="text-muted fs-14 mb-0">{props.job.company.phone_number}</p>
                   </div>
                 </div>
               </li>
@@ -125,7 +178,7 @@ const RightSideContent = () => {
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Email</h6>
                     <p className="text-muted fs-14 mb-0">
-                      pixltechnology@info.com
+                    {props.job.company.email}
                     </p>
                   </div>
                 </div>
@@ -136,7 +189,7 @@ const RightSideContent = () => {
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Website</h6>
                     <p className="text-muted fs-14 text-break mb-0">
-                      www.Jobcytechnology.pvt.ltd.com
+                    {props.job.company.website}
                     </p>
                   </div>
                 </div>
@@ -147,7 +200,7 @@ const RightSideContent = () => {
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Location</h6>
                     <p className="text-muted fs-14 mb-0">
-                      Oakridge Lane Richardson.
+                    {props.job.company.location[0].name}
                     </p>
                   </div>
                 </div>
@@ -168,7 +221,7 @@ const RightSideContent = () => {
           <h6 className="fs-16 mb-3">Job location</h6>
           <iframe
             title="maps"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.119763973046!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1628067715234!5m2!1sen!2sin"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d867750.3173800122!2d36.50808486756517!3d31.83453195876325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151b5fb85d7981af%3A0x631c30c0f8dc65e8!2z2LnZhdmR2KfZhg!5e0!3m2!1sar!2sjo!4v1697672475989!5m2!1sar!2sjo"
             style={{ width: `100%`, height: `250` }}
             allowFullScreen=""
             loading="lazy"

@@ -1,84 +1,108 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Col, Row, Modal, ModalBody, Input, Label } from "reactstrap";
 import { Link } from "react-router-dom";
+import GitData from '../../ApiData/GitDataApi';
 
 //jobImages
-import jobImage1 from "../../../assets/images/featured-job/img-01.png";
-import jobImage2 from "../../../assets/images/featured-job/img-02.png";
-import jobImage3 from "../../../assets/images/featured-job/img-03.png";
-import jobImage4 from "../../../assets/images/featured-job/img-04.png";
+// import jobImage1 from "../../../assets/images/featured-job/img-01.png";
+// import jobImage2 from "../../../assets/images/featured-job/img-02.png";
+// import jobImage3 from "../../../assets/images/featured-job/img-03.png";
+// import jobImage4 from "../../../assets/images/featured-job/img-04.png";
 
 const Freelancer = () => {
   //Apply Now Model
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
 
-  const freelancer = [
-    {
-      id: 1,
-      companyImg: jobImage1,
-      jobDescription: "Web Developer",
-      companyName: "Web Technology pvt.Ltd",
-      location: "Oakridge Lane ssRichardson",
-      salary: "1000-1200/m",
-      freelancer: true,
-      timing: "Freelancer",
-      catogary: "Freelancer",
-      addclassNameBookmark: false,
-      badges: [],
-      experience: "1 - 2 years",
-      Notes: "languages only differ in their grammar."
-    },
-    {
-      id: 2,
-      companyImg: jobImage2,
-      jobDescription: "Business Associate",
-      companyName: "Pixel Technology pvt.Ltd",
-      location: "Dodge City, Louisiana",
-      salary: "800-1800/m",
-      freelancer: true,
-      timing: "Freelancer",
-      catogary: "Freelancer",
-      addclassNameBookmark: false,
-      badges: [],
-      experience: "0 - 1 years",
-      Notes: "languages only differ in their grammar."
-    },
-    {
-      id: 3,
-      companyImg: jobImage3,
-      jobDescription: "Digital Marketing Manager",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "Phoenix, Arizona",
-      salary: "1500-2400/m",
-      freelancer: true,
-      timing: "Freelancer",
-      catogary: "Freelancer",
-      addclassNameBookmark: true,
-      badges: [],
-      experience: "4+ years",
-      Notes: null
-    },
-    {
-      id: 4,
-      companyImg: jobImage4,
-      jobDescription: "Product Director",
-      companyName: "Creative Agency",
-      location: "Escondido, California",
-      salary: "1500-2400/m",
-      freelancer: true,
-      timing: "Freelancer",
-      catogary: "Freelancer",
-      addclassNameBookmark: true,
-      badges: [],
-      experience: "2 - 3 years",
-      Notes: null
-    }
-  ];
+  // const freelancer = [
+  //   {
+  //     id: 1,
+  //     companyImg: jobImage1,
+  //     jobDescription: "Web Developer",
+  //     companyName: "Web Technology pvt.Ltd",
+  //     location: "Oakridge Lane ssRichardson",
+  //     salary: "1000-1200/m",
+  //     freelancer: true,
+  //     timing: "Freelancer",
+  //     catogary: "Freelancer",
+  //     addclassNameBookmark: false,
+  //     badges: [],
+  //     experience: "1 - 2 years",
+  //     Notes: "languages only differ in their grammar."
+  //   },
+  //   {
+  //     id: 2,
+  //     companyImg: jobImage2,
+  //     jobDescription: "Business Associate",
+  //     companyName: "Pixel Technology pvt.Ltd",
+  //     location: "Dodge City, Louisiana",
+  //     salary: "800-1800/m",
+  //     freelancer: true,
+  //     timing: "Freelancer",
+  //     catogary: "Freelancer",
+  //     addclassNameBookmark: false,
+  //     badges: [],
+  //     experience: "0 - 1 years",
+  //     Notes: "languages only differ in their grammar."
+  //   },
+  //   {
+  //     id: 3,
+  //     companyImg: jobImage3,
+  //     jobDescription: "Digital Marketing Manager",
+  //     companyName: "Jobcy Technology Pvt.Ltd",
+  //     location: "Phoenix, Arizona",
+  //     salary: "1500-2400/m",
+  //     freelancer: true,
+  //     timing: "Freelancer",
+  //     catogary: "Freelancer",
+  //     addclassNameBookmark: true,
+  //     badges: [],
+  //     experience: "4+ years",
+  //     Notes: null
+  //   },
+  //   {
+  //     id: 4,
+  //     companyImg: jobImage4,
+  //     jobDescription: "Product Director",
+  //     companyName: "Creative Agency",
+  //     location: "Escondido, California",
+  //     salary: "1500-2400/m",
+  //     freelancer: true,
+  //     timing: "Freelancer",
+  //     catogary: "Freelancer",
+  //     addclassNameBookmark: true,
+  //     badges: [],
+  //     experience: "2 - 3 years",
+  //     Notes: null
+  //   }
+  // ];
+
+
+
+
+  // const [jobs, setJobs] = useState([]);
+
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, []);
+
+  // const fetchProducts = async () => {
+  //   await axios.get(`http://127.0.0.1:8000/api/jobs`).then(({ data }) => {
+  //     const freelancerJobs = data.filter(job => job.employment_type === 'Freelancer');
+  //     setJobs(freelancerJobs);
+  //   });
+  // };
+
+
+  const apiEndpoint = 'http://127.0.0.1:8000/api/jobs'; 
+  const { data, loading, error } = GitData(apiEndpoint);
+  const freelancerJobs = data.filter(job => job.employment_type === 'Freelancer');
+
 
   return (
     <React.Fragment>
-      {freelancer.map((freelancerJobdetails, key) => (
+      {freelancerJobs.map((freelancerJobdetails, key) => (
         <div
           key={key}
           className={
@@ -98,9 +122,10 @@ const Freelancer = () => {
                 <div className="text-center mb-4 mb-md-0">
                   <Link to="/companydetails">
                     <img
-                      src={freelancerJobdetails.companyImg}
-                      alt=""
+                      src="/company.jpg"
+                      alt="CompanyImage"
                       className="img-fluid rounded-3"
+                      style={{ width: "80px" }}
                     />
                   </Link>
                 </div>
@@ -110,11 +135,11 @@ const Freelancer = () => {
                 <div className="mb-2 mb-md-0">
                   <h5 className="fs-18 mb-1">
                     <Link to="/jobdetails" className="text-dark">
-                      {freelancerJobdetails.jobDescription}
+                      {freelancerJobdetails.title}
                     </Link>
                   </h5>
                   <p className="text-muted fs-14 mb-0">
-                    {freelancerJobdetails.companyName}
+                    {freelancerJobdetails.company.name}
                   </p>
                 </div>
               </Col>
@@ -125,7 +150,7 @@ const Freelancer = () => {
                     <i className="mdi mdi-map-marker text-primary me-1"></i>
                   </div>
                   <p className="text-muted mb-0">
-                    {freelancerJobdetails.location}
+                    {freelancerJobdetails.company.location[0].name}
                   </p>
                 </div>
               </Col>
@@ -143,16 +168,16 @@ const Freelancer = () => {
                 <div>
                   <span
                     className={
-                      freelancerJobdetails.fullTime === true
+                      freelancerJobdetails.employment_type === 'Full-time'
                         ? "badge bg-success-subtle text-success fs-13 mt-1 mx-1"
-                        : freelancerJobdetails.partTime === true
+                        : freelancerJobdetails.employment_type === 'Part-time'
                         ? "badge bg-danger-subtle text-danger fs-13 mt-1 mx-1"
-                        : freelancerJobdetails.freelancer === true
+                        : freelancerJobdetails.employment_type === 'Freelancer'
                         ? "badge bg-primary-subtle text-primary fs-13 mt-1 mx-1"
                         : ""
                     }
                   >
-                    {freelancerJobdetails.timing}
+                    {freelancerJobdetails.employment_type}
                   </span>
                   {(freelancerJobdetails.badges || []).map(
                     (badgeInner, key) => (
@@ -174,7 +199,7 @@ const Freelancer = () => {
                 <div>
                   <p className="text-muted mb-0">
                     <span className="text-dark">Experience :</span>{" "}
-                    {freelancerJobdetails.experience}
+                    {freelancerJobdetails.professional_level}
                   </p>
                 </div>
               </Col>
@@ -184,9 +209,9 @@ const Freelancer = () => {
                 <div>
                   <p className="text-muted mb-0">
                     <span className="text-dark">
-                      {freelancerJobdetails.Notes === null ? "" : "Notes :"}
+                      {freelancerJobdetails.deadline_date === null ? "" : "Deadline :"}
                     </span>
-                    {freelancerJobdetails.Notes}{" "}
+                    {freelancerJobdetails.deadline_date}{" "}
                   </p>
                 </div>
               </Col>
