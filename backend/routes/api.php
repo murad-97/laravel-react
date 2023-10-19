@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\IndustryController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\UserController;
 
 
 
@@ -47,6 +48,7 @@ Route::get('/user', [AuthenticatedSessionController::class, 'user'])
 
 //all industries
 Route::get('/industries', [IndustryController::class, 'getAllIndustries']);
+Route::get('/users', [UserController::class, 'index']);
 
 //all jobs
 Route::get('/jops', [JobController::class, 'getAllJobs']);
