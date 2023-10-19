@@ -10,7 +10,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UserController;
 
-use App\Http\Controllers\UserController;
+
 
 
 /*
@@ -70,8 +70,7 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 ->name('logout');
 
 Route::get('/jobdetails/{id}', [JobController::class, 'show']);
-                ->middleware('auth')
-                ->name('logout');
+              
 
 
  Route::get('/user1', [UserController::class, 'get']);
