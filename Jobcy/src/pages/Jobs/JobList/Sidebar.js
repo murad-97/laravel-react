@@ -8,7 +8,7 @@ const Sidebar = () => {
   const [toggleThird, setToggleThird] = useState(true);
   const [toggleFourth, setToggleFourth] = useState(true);
   const [toggleFifth, setToggleFifth] = useState(true);
-  const [value, setValue] = React.useState(50);
+  const [value, setValue] = React.useState(500);
   //CheckBox
   const [isChecked, setIsChecked] = useState(true);
   const handleOnChange = () => {
@@ -25,6 +25,7 @@ const Sidebar = () => {
       <Col lg={3}>
         <div className="side-bar mt-5 mt-lg-0">
           <div className="accordion" id="accordionExample">
+
             <div className="accordion-item">
               <h2 className="accordion-header" id="locationOne">
                 <Button
@@ -36,7 +37,7 @@ const Sidebar = () => {
                   role="button"
                   id="collapseExample"
                 >
-                  Location
+                  Salary
                 </Button>
               </h2>
               <Collapse isOpen={toggleFirst}>
@@ -59,7 +60,7 @@ const Sidebar = () => {
                     </div>
                     <div className="area-range slidecontainer">
                       <div className="form-label mb-4">
-                        Area Range: {value}.00 miles
+                        Salary Range: {value}.00 JD
                         <span
                           className="example-val mt-2"
                           id="slider1-span"
@@ -67,12 +68,12 @@ const Sidebar = () => {
                       </div>
                       <input
                         type="range"
-                        min="1"
-                        max="100"
+                        min="260"
+                        max="2000"
                         value={value}
                         onChange={({ target: { value } }) => setValue(value)}
                         className={`slider ${
-                          value > 50 ? "slider-50" : "slider-0"
+                          value > 500 ? "slider-500" : "slider-260"
                         }`}
                       />
                     </div>
@@ -92,70 +93,72 @@ const Sidebar = () => {
                   role="button"
                   id="collapseExample"
                 >
-                  Work experience
+                  Experience Level
                 </Button>
               </h2>
               <Collapse isOpen={toggleSecond}>
                 <div className="accordion-body">
                   <div className="side-title">
+
                     <div className="form-check mt-2">
                       <input
                         className="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="flexCheckChecked1"
+                        type="radio"
+                        name="flexRadioLevel"
+                        id="flexRadioLevel1"
                       />
                       <label
                         className="form-check-label ms-2 text-muted"
-                        htmlFor="flexCheckChecked1"
+                        htmlFor="flexRadioLevel1"
                       >
-                        No experience
+                        Entry level
                       </label>
                     </div>
                     <div className="form-check mt-2">
                       <input
                         className="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="flexCheckChecked2"
-                        checked={isChecked}
-                        onChange={handleOnChange}
+                        type="radio"
+                        name="flexRadioLevel"
+                        id="flexRadioLevel2"
+                        defaultChecked
                       />
                       <label
                         className="form-check-label ms-2 text-muted"
-                        htmlFor="flexCheckChecked2"
+                        htmlFor="flexRadioLevel2"
                       >
-                        0-3 years
+                        Junior/Associate
                       </label>
                     </div>
                     <div className="form-check mt-2">
                       <input
                         className="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="flexCheckChecked3"
+                        type="radio"
+                        name="flexRadioLevel"
+                        id="flexRadioLevel3"
                       />
                       <label
                         className="form-check-label ms-2 text-muted"
-                        htmlFor="flexCheckChecked3"
+                        htmlFor="flexRadioLevel3"
                       >
-                        3-6 years
+                        Mid-Senior level
                       </label>
                     </div>
                     <div className="form-check mt-2">
                       <input
                         className="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="flexCheckChecked4"
+                        type="radio"
+                        name="flexRadioLevel"
+                        id="flexRadioLevel4"
+
                       />
                       <label
                         className="form-check-label ms-2 text-muted"
-                        htmlFor="flexCheckChecked4"
+                        htmlFor="flexRadioLevel4"
                       >
-                        More than 6 years
+                        Senior
                       </label>
                     </div>
+
                   </div>
                 </div>
               </Collapse>
