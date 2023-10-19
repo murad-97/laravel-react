@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -69,3 +70,17 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 ->name('logout');
 
 Route::get('/jobdetails/{id}', [JobController::class, 'show']);
+              
+
+
+ Route::get('/user1', [UserController::class, 'get']);
+
+Route::get('/userlanguage/{userId}', [UserController::class, 'getLanguagesForUser']);
+
+
+Route::get('/userskills/{userId}', [UserController::class, 'getUserSkills']);
+
+Route::get('/userexperience/{userId}', [UserController::class, 'getUserExperience']);
+Route::get('/userseducation/{userId}', [UserController::class, 'getUserEducations']);
+
+

@@ -19,6 +19,9 @@ class UserSeeder extends Seeder
             'name' => 'John Doe',
             'email' => 'johndoe@example.com',
             'password' => '123456789',
+            'about' => "Lorem Ipsum is simply dummy text of 
+            the printing and typesetting industry. Lorem Ipsum has been the 
+            industry's standard dummy text ever since the 1500s, when an ",
             'gender' => 'Male',
             'address' => 'Amman',
             'phone_number' => '123-456-7890',
@@ -37,6 +40,10 @@ class UserSeeder extends Seeder
             'name' => 'Jane Smith',
             'email' => 'janesmith@example.com',
             'password' => '123456789',
+            'about' => "Lorem Ipsum is simply dummy text of 
+            the printing and typesetting industry. Lorem Ipsum has been the 
+            industry's standard dummy text ever since the 1500s, when an ",
+            
             'gender' => 'Female',
             'address' => '456 Elm St',
             'phone_number' => '987-654-3210',
