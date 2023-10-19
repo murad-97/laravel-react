@@ -154,7 +154,7 @@ const jobDeadline = new Date(props.job.deadline_date) ;
     onClick={(e) => {
       e.preventDefault()
     }}
-    className="btn btn-primary btn-hover w-100 mt-2"
+    className="btn btn-success btn-hover w-100 mt-2"
   >
     You have applied for this job
   </Link>):( <Link
