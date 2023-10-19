@@ -42,6 +42,7 @@ const SignUp = ({ isAuthenticated, user, loginSuccess,  }) => {
       loginSuccess(data.data.user)
       navigate("/");
     } catch (e) {
+      console.log(e);
       if (e.response.status === 422){
         seterrors(e.response.data.errors)
         console.log(errors)}

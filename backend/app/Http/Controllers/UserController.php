@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Language;
 use Illuminate\Http\Request;
-USE App\Models\User;
+// USE App\Models\User;
 use PhpParser\Node\Stmt\Return_;
 
 class UserController extends Controller
@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('user_skill')->get();
+        $users = User::with('user_skills')->get();
         return response()->json($users);
     }
     public function get(){

@@ -6,14 +6,6 @@ import axios from "axios";
 
 
 import userImage1 from "../../../assets/images/profile.jpg";
-import userImage2 from "../../../assets/images/user/img-02.jpg";
-import userImage3 from "../../../assets/images/user/img-03.jpg";
-import userImage4 from "../../../assets/images/user/img-04.jpg";
-import userImage5 from "../../../assets/images/user/img-05.jpg";
-import userImage6 from "../../../assets/images/user/img-06.jpg";
-import userImage7 from "../../../assets/images/user/img-07.jpg";
-import userImage8 from "../../../assets/images/user/img-08.jpg";
-import userImage9 from "../../../assets/images/user/img-09.jpg";
 
 
 const CandidateGridDetails = () => {
@@ -21,120 +13,8 @@ const CandidateGridDetails = () => {
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
 
-  const candidategridDetails = [
-    {
-      id: 1,
-      userImg: userImage1,
-      candidateName: "Charles Dickens",
-      candidateStatusClassName:
-        "profile-active position-absolute badge rounded-circle bg-success",
-      experience: "0-3 Years",
-      jobType: "Freelancers",
-      salary: "$800 / hours",
-      addclassNameBookmark: true,
-      label: true,
-      statuslabel: "FEATURED"
-    },
-    {
-      id: 2,
-      userImg: userImage2,
-      candidateName: "Gabriel Palmer",
-      candidateStatusClassName:
-        "profile-active position-absolute badge rounded-circle bg-success",
-      experience: "3.5 Years",
-      jobType: "Freelancers",
-      salary: "$350 / hours",
-      addclassNameBookmark: true,
-      label: false
-    },
-    {
-      id: 3,
-      userImg: userImage3,
-      candidateName: "James Lemire",
-      candidateStatusClassName:
-        "profile-active position-absolute badge rounded-circle bg-danger",
-      experience: "4 Years",
-      jobType: "Freelancers",
-      salary: "$280 / hours",
-      addclassNameBookmark: false,
-      label: true,
-      statuslabel: "URGENT"
-    },
 
-    {
-      id: 4,
-      userImg: userImage4,
-      candidateName: "Rebecca Swartz",
-      candidateStatusClassName:
-        "profile-active position-absolute badge rounded-circle bg-success",
-      experience: "2 Years",
-      jobType: "Freelancers",
-      salary: "$240 / hours",
-      addclassNameBookmark: false,
-      label: false
-    },
-    {
-      id: 5,
-      userImg: userImage5,
-      candidateName: "Betty Richards",
-      candidateStatusClassName:
-        "profile-active position-absolute badge rounded-circle bg-success",
-      experience: "2 Years",
-      jobType: "Freelancers",
-      salary: "$198 / hours",
-      addclassNameBookmark: false,
-      label: false
-    },
-    {
-      id: 6,
-      userImg: userImage6,
-      candidateName: "Jeffrey Montgomery",
-      candidateStatusClassName:
-        "profile-active position-absolute badge rounded-circle bg-success",
-      experience: "7 Years",
-      jobType: "Freelancers",
-      salary: "$299 / hours",
-      addclassNameBookmark: true,
-      label: false
-    },
-    {
-      id: 7,
-      userImg: userImage7,
-      candidateName: "Brooke Hayes",
-      candidateStatusClassName:
-        "profile-active position-absolute badge rounded-circle bg-success",
-      experience: "4 Years",
-      jobType: "Freelancers",
-      salary: "$310 / hours",
-      addclassNameBookmark: true,
-      label: false
-    },
-    {
-      id: 8,
-      userImg: userImage8,
-      candidateName: "Cerys Woods",
-      candidateStatusClassName:
-        "profile-active position-absolute badge rounded-circle bg-danger",
-      experience: "4.5 Years",
-      jobType: "Freelancers",
-      salary: "$450 / hours",
-      addclassNameBookmark: false,
-      label: false
-    },
-    {
-      id: 9,
-      userImg: userImage9,
-      candidateName: "Olivia Murphy",
-      candidateStatusClassName:
-        "profile-active position-absolute badge rounded-circle bg-success",
-      experience: "7 Years",
-      jobType: "Freelancers",
-      salary: "$300 / hours",
-      addclassNameBookmark: false,
-      label: false
-    }
-  ];
-    const [jobs, setJobs] = useState([]);
+    const [users, setUsers] = useState([]);
 
 
 
@@ -144,10 +24,18 @@ const CandidateGridDetails = () => {
 
     const fetchProducts = async () => {
       await axios.get(`http://127.0.0.1:8000/api/users`).then(({ data }) => {
-        const recentObjects = data;
-        setJobs(recentObjects);
+        const usersdetails = data;
+        setUsers(usersdetails);
       });
     };
+
+    const truncateText = (text, maxWords) => {
+      const words = text.split(" ");
+      if (words.length > maxWords) {
+        return words.slice(0, maxWords).join(" ") + "...";
+      }
+      return text;
+    }
   return (
     <React.Fragment>
       <Row className="align-items-center">
@@ -198,20 +86,20 @@ const CandidateGridDetails = () => {
       </Row>
       <div className="candidate-list">
         <Row>
-          {jobs.map((candidategridDetailsNew, key) => (
+          {users.map((details, key) => (
             <Col lg={4} md={6} key={key}>
               <div
                 className={
-                  candidategridDetailsNew.addclassNameBookmark === true
+                  details.addclassNameBookmark === true
                     ? "candidate-grid-box bookmark-post card mt-4"
                     : "candidate-grid-box card mt-4"
                 }
               >
                 <CardBody className="p-4">
-                  {candidategridDetailsNew.label && (
+                  {details.label && (
                     <div className="featured-label">
                       <span className="featured">
-                        {candidategridDetailsNew.statuslabel}
+                        {details.statuslabel}
                       </span>
                     </div>
                   )}
@@ -223,28 +111,25 @@ const CandidateGridDetails = () => {
                         alt=""
                         className="avatar-md rounded"
                       />
-                      <span className={candidategridDetailsNew.name}>
+                      <span className={details.name}>
                         <span className="visually-hidden">active</span>
                       </span>
                     </div>
                     <div className="ms-3">
                       <Link to="/candidate-details" className="primary-link">
                         <h5 className="fs-17">
-                          {candidategridDetailsNew.name}
+                          {details.name}
                         </h5>
                       </Link>
                       <span className="badge bg-info-subtle text-info fs-13">
-                        {candidategridDetailsNew.salary}
+                        {details.academic_level} at{" "}
+                        {details.academic_specialization}
                       </span>
                     </div>
                   </div>
                   <ul className="list-inline d-flex justify-content-between align-items-center">
                     <li className="list-inline-item text-warning fs-17">
-                      <i className="mdi mdi-star"></i>
-                      <i className="mdi mdi-star"></i>
-                      <i className="mdi mdi-star"></i>
-                      <i className="mdi mdi-star"></i>
-                      <i className="mdi mdi-star-half-full"></i>
+                      Level : {details.professional_level}
                     </li>
                     <li className="list-inline-item">
                       <div className="favorite-icon">
@@ -259,23 +144,22 @@ const CandidateGridDetails = () => {
                       <Col lg={6}>
                         <div className="border-end px-3 py-2">
                           <p className="text-muted mb-0">
-                            Exp. : {candidategridDetailsNew.years_of_experience}{" "}
+                            Exp. : {details.years_of_experience}{" "}
                             Years
                           </p>
                         </div>
                       </Col>
                       <Col lg={6}>
-                        <div className="px-3 py-2">
+                        <div className="px-2 py-2">
                           <p className="text-muted mb-0">
-                            {candidategridDetailsNew.jobType}
+                            {details.career_field}
                           </p>
                         </div>
                       </Col>
                     </div>
                   </div>
                   <p className="text-muted">
-                    Some quick example text to build on the card title and bulk
-                    the card's content Moltin gives you platform.
+                    {truncateText(details.about, 50)}
                   </p>
                   <div className="mt-3">
                     <Link

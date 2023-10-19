@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('about');
+            $table->string('about')->nullable();
 
             $table->string('gender')->nullable();
             $table->string('address')->nullable();
@@ -39,6 +39,7 @@ return new class extends Migration
             $table->string('cv')->nullable();
 
             $table->string('subscription')->default('Basic');
+            $table->boolean('role')->default('0');
             $table->rememberToken();
             $table->timestamps();
 
