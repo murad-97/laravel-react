@@ -26,10 +26,8 @@ import { Link } from "react-router-dom";
 const RightSideContent = () => {
 
 
-
-  ///////////////////////////////
-
-  const [selectedUser, setSelectedUser] = useState(null);
+//-----------------------skills-----------------------------------------------------------
+ const [selectedUser, setSelectedUser] = useState(null);
   const x = 1; // Replace with the ID you want to find
 
 
@@ -47,10 +45,10 @@ const RightSideContent = () => {
 
 
 
-//-----------------------language--------------------
+//-----------------------language-----------------------------------------------------------
   const [UserLanguage,setUserLanguage]=useState(null);
   useEffect(() => {
-    // Fetch data from the API when the component mounts
+    
     axios.get(`http://127.0.0.1:8000/api/userlanguage/${x}`)
       .then((response) => {
         setUserLanguage(response.data);
@@ -60,7 +58,7 @@ const RightSideContent = () => {
       });
   }, []);
 
-//-----------------------education--------------------
+//-----------------------education---------------------------------------------------------
 
 const [UserEducation,setUserEducation]=useState(null);
 useEffect(() => {
@@ -74,7 +72,7 @@ useEffect(() => {
     });
 }, []);
 
-//-----------------------education--------------------
+//-----------------------education-----------------------------------------------------------------
 
 const [userexperience,setUserExperience]=useState(null);
 useEffect(() => {
@@ -89,8 +87,7 @@ useEffect(() => {
 }, []);
 
 
-
-  /// /////////////////////////////////
+// ---------------------------------------------------------------------------------
   const [activeTab, setActiveTab] = useState("1");
 
   const tabChange = (tab) => {
