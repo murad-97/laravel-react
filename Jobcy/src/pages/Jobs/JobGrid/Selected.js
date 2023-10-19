@@ -17,7 +17,7 @@ const Selected = () => {
           <h6 className="fs-16 mb-3">Your Selected</h6>
           <div className="selecte-tag position-relative">
             <Select
-              defaultValue={[options[0], options[1]]}
+              defaultValue={[options[0], options[1], options[2]]}
               isMulti
               color="primary"
               name="colors"

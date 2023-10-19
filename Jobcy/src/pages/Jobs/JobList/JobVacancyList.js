@@ -1,161 +1,181 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { Col, Input, Label, Row, Modal, ModalBody } from "reactstrap";
+import GitData from '../../ApiData/GitDataApi';
 
 //Images Import
-import jobImage1 from "../../../assets/images/featured-job/img-01.png";
-import jobImage2 from "../../../assets/images/featured-job/img-02.png";
-import jobImage3 from "../../../assets/images/featured-job/img-03.png";
-import jobImage4 from "../../../assets/images/featured-job/img-04.png";
-import jobImage5 from "../../../assets/images/featured-job/img-05.png";
-import jobImage6 from "../../../assets/images/featured-job/img-06.png";
-import jobImage7 from "../../../assets/images/featured-job/img-07.png";
+// import jobImage1 from "../../../assets/images/featured-job/img-01.png";
+// import jobImage2 from "../../../assets/images/featured-job/img-02.png";
+// import jobImage3 from "../../../assets/images/featured-job/img-03.png";
+// import jobImage4 from "../../../assets/images/featured-job/img-04.png";
+// import jobImage5 from "../../../assets/images/featured-job/img-05.png";
+// import jobImage6 from "../../../assets/images/featured-job/img-06.png";
+// import jobImage7 from "../../../assets/images/featured-job/img-07.png";
 
 const JobVacancyList = () => {
   //Apply Now Model
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
 
-  const jobVacancyList = [
-    {
-      id: 1,
-      companyImg: jobImage1,
-      jobDescription: "Product Director",
-      companyName: "Creative Agency",
-      location: " Escondido,California",
-      jobPostTime: "3 min ago",
-      fullTime: true,
-      timing: "Full Time",
-      addclassNameBookmark: false,
-      badges: [],
-      experience: "2 - 3 years"
-    },
-    {
-      id: 2,
-      companyImg: jobImage2,
-      jobDescription: "Digital Marketing Manager",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "Phoenix, Arizona",
-      jobPostTime: "15 min ago",
-      fullTime: true,
-      timing: "Full Time",
-      catogary: "Recent Jobs",
-      addclassNameBookmark: true,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-warning-subtle text-warning",
-          badgeName: "Urgent"
-        },
-        {
-          id: 2,
-          badgeclassName: "bg-primary-subtle text-primary",
-          badgeName: "Freelance"
-        }
-      ],
-      experience: "4+ years"
-    },
-    {
-      id: 3,
-      companyImg: jobImage3,
-      jobDescription: "Product Director",
-      companyName: "Creative Agency",
-      location: " Escondido,California",
-      jobPostTime: "37 min ago",
-      fullTime: true,
-      timing: "Full Time",
-      addclassNameBookmark: false,
-      badges: [],
-      experience: "2 - 3 years"
-    },
-    {
-      id: 4,
-      companyImg: jobImage4,
-      jobDescription: "Product Director",
-      companyName: "Creative Agency",
-      location: " Escondido,California",
-      jobPostTime: "50 min ago",
-      freeLance: true,
-      timing: "Freelance",
-      addclassNameBookmark: false,
-      badges: [],
-      experience: "2 - 3 years"
-    },
-    {
-      id: 5,
-      companyImg: jobImage5,
-      jobDescription: "Product Director",
-      companyName: "Creative Agency",
-      location: " Escondido,California",
-      jobPostTime: "1 month ago",
-      partTime: true,
-      timing: "Part Time",
-      addclassNameBookmark: true,
-      badges: [],
-      experience: "2 - 3 years"
-    },
-    {
-      id: 6,
-      companyImg: jobImage6,
-      jobDescription: "Product Director",
-      companyName: "Creative Agency",
-      location: "Escondido, California",
-      jobPostTime: "2 month ago",
-      freeLance: true,
-      timing: "Freelance",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-warning-subtle text-warning",
-          badgeName: "Urgent"
-        }
-      ],
-      experience: "2-3 years"
-    },
-    {
-      id: 7,
-      companyImg: jobImage7,
-      jobDescription: "Product Director",
-      companyName: "Creative Agency",
-      location: "Escondido, California",
-      jobPostTime: "2 month ago",
-      partTime: true,
-      timing: "Part Time",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-warning-subtle text-warning",
-          badgeName: "Urgent"
-        }
-      ],
-      experience: "2-3 years"
-    },
-    {
-      id: 8,
-      companyImg: jobImage3,
-      jobDescription: "Product Director",
-      companyName: "Creative Agency",
-      location: "Escondido, California",
-      jobPostTime: "3 month ago",
-      internship: true,
-      timing: "Internship",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-warning-subtle text-warning",
-          badgeName: "Private"
-        }
-      ],
-      experience: "2-3 years"
-    }
-  ];
+  // const jobVacancyList = [
+  //   {
+  //     id: 1,
+  //     companyImg: jobImage1,
+  //     jobDescription: "Product Director",
+  //     companyName: "Creative Agency",
+  //     location: " Escondido,California",
+  //     jobPostTime: "3 min ago",
+  //     fullTime: true,
+  //     timing: "Full Time",
+  //     addclassNameBookmark: false,
+  //     badges: [],
+  //     experience: "2 - 3 years"
+  //   },
+  //   {
+  //     id: 2,
+  //     companyImg: jobImage2,
+  //     jobDescription: "Digital Marketing Manager",
+  //     companyName: "Jobcy Technology Pvt.Ltd",
+  //     location: "Phoenix, Arizona",
+  //     jobPostTime: "15 min ago",
+  //     fullTime: true,
+  //     timing: "Full Time",
+  //     catogary: "Recent Jobs",
+  //     addclassNameBookmark: true,
+  //     badges: [
+  //       {
+  //         id: 1,
+  //         badgeclassName: "bg-warning-subtle text-warning",
+  //         badgeName: "Urgent"
+  //       },
+  //       {
+  //         id: 2,
+  //         badgeclassName: "bg-primary-subtle text-primary",
+  //         badgeName: "Freelance"
+  //       }
+  //     ],
+  //     experience: "4+ years"
+  //   },
+  //   {
+  //     id: 3,
+  //     companyImg: jobImage3,
+  //     jobDescription: "Product Director",
+  //     companyName: "Creative Agency",
+  //     location: " Escondido,California",
+  //     jobPostTime: "37 min ago",
+  //     fullTime: true,
+  //     timing: "Full Time",
+  //     addclassNameBookmark: false,
+  //     badges: [],
+  //     experience: "2 - 3 years"
+  //   },
+  //   {
+  //     id: 4,
+  //     companyImg: jobImage4,
+  //     jobDescription: "Product Director",
+  //     companyName: "Creative Agency",
+  //     location: " Escondido,California",
+  //     jobPostTime: "50 min ago",
+  //     freeLance: true,
+  //     timing: "Freelance",
+  //     addclassNameBookmark: false,
+  //     badges: [],
+  //     experience: "2 - 3 years"
+  //   },
+  //   {
+  //     id: 5,
+  //     companyImg: jobImage5,
+  //     jobDescription: "Product Director",
+  //     companyName: "Creative Agency",
+  //     location: " Escondido,California",
+  //     jobPostTime: "1 month ago",
+  //     partTime: true,
+  //     timing: "Part Time",
+  //     addclassNameBookmark: true,
+  //     badges: [],
+  //     experience: "2 - 3 years"
+  //   },
+  //   {
+  //     id: 6,
+  //     companyImg: jobImage6,
+  //     jobDescription: "Product Director",
+  //     companyName: "Creative Agency",
+  //     location: "Escondido, California",
+  //     jobPostTime: "2 month ago",
+  //     freeLance: true,
+  //     timing: "Freelance",
+  //     addclassNameBookmark: false,
+  //     badges: [
+  //       {
+  //         id: 1,
+  //         badgeclassName: "bg-warning-subtle text-warning",
+  //         badgeName: "Urgent"
+  //       }
+  //     ],
+  //     experience: "2-3 years"
+  //   },
+  //   {
+  //     id: 7,
+  //     companyImg: jobImage7,
+  //     jobDescription: "Product Director",
+  //     companyName: "Creative Agency",
+  //     location: "Escondido, California",
+  //     jobPostTime: "2 month ago",
+  //     partTime: true,
+  //     timing: "Part Time",
+  //     addclassNameBookmark: false,
+  //     badges: [
+  //       {
+  //         id: 1,
+  //         badgeclassName: "bg-warning-subtle text-warning",
+  //         badgeName: "Urgent"
+  //       }
+  //     ],
+  //     experience: "2-3 years"
+  //   },
+  //   {
+  //     id: 8,
+  //     companyImg: jobImage3,
+  //     jobDescription: "Product Director",
+  //     companyName: "Creative Agency",
+  //     location: "Escondido, California",
+  //     jobPostTime: "3 month ago",
+  //     internship: true,
+  //     timing: "Internship",
+  //     addclassNameBookmark: false,
+  //     badges: [
+  //       {
+  //         id: 1,
+  //         badgeclassName: "bg-warning-subtle text-warning",
+  //         badgeName: "Private"
+  //       }
+  //     ],
+  //     experience: "2-3 years"
+  //   }
+  // ];
+
+  // const [jobs, setJobs] = useState([]);
+
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, []);
+
+  // const fetchProducts = async () => {
+  //   await axios.get(`http://127.0.0.1:8000/api/jobs`).then(({ data }) => {
+  //     setJobs(data);
+  //   });
+  // };
+
+
+  const apiEndpoint = 'http://127.0.0.1:8000/api/jobs'; 
+  const { data, loading, error } = GitData(apiEndpoint);
+ 
+
   return (
     <React.Fragment>
       <div>
-        {jobVacancyList.map((jobVacancyListDetails, key) => (
+        {data.map((jobVacancyListDetails, key) => (
           <div
             key={key}
             className={
@@ -175,9 +195,10 @@ const JobVacancyList = () => {
                   <div className="text-center mb-4 mb-md-0">
                     <Link to="/companydetails">
                       <img
-                        src={jobVacancyListDetails.companyImg}
-                        alt=""
+                        src="/company.jpg"
+                        alt="CompanyImage"
                         className="img-fluid rounded-3"
+                        style={{ width: "80px" }}
                       />
                     </Link>
                   </div>
@@ -187,11 +208,11 @@ const JobVacancyList = () => {
                   <div className="mb-2 mb-md-0">
                     <h5 className="fs-18 mb-0">
                       <Link to="/jobdetails" className="text-dark">
-                        {jobVacancyListDetails.jobDescription}
+                        {jobVacancyListDetails.title}
                       </Link>
                     </h5>
                     <p className="text-muted fs-14 mb-0">
-                      {jobVacancyListDetails.companyName}
+                      {jobVacancyListDetails.company.name}
                     </p>
                   </div>
                 </Col>
@@ -202,7 +223,7 @@ const JobVacancyList = () => {
                       <i className="mdi mdi-map-marker text-primary me-1"></i>
                     </div>
                     <p className="text-muted mb-0">
-                      {jobVacancyListDetails.location}
+                      {jobVacancyListDetails.company.location[0].name}
                     </p>
                   </div>
                 </Col>
@@ -214,7 +235,8 @@ const JobVacancyList = () => {
                     </div>
                     <p className="text-muted mb-0">
                       {" "}
-                      {jobVacancyListDetails.jobPostTime}
+                      {/* {jobVacancyListDetails.created_at} */}
+                      {new Date(jobVacancyListDetails.created_at).toLocaleDateString()}
                     </p>
                   </div>
                 </Col>
@@ -223,18 +245,22 @@ const JobVacancyList = () => {
                   <div>
                     <span
                       className={
-                        jobVacancyListDetails.fullTime === true
+                        jobVacancyListDetails.employment_type === "Full-time"
                           ? "badge bg-success-subtle text-success fs-13 mt-1 mx-1"
-                          : jobVacancyListDetails.partTime === true
+                          : jobVacancyListDetails.employment_type ===
+                            "Part-time"
                           ? "badge bg-danger-subtle text-danger fs-13 mt-1 mx-1"
-                          : jobVacancyListDetails.freeLance === true
+                          : jobVacancyListDetails.employment_type ===
+                            "Freelancer"
                           ? "badge bg-primary-subtle text-primary fs-13 mt-1 mx-1"
-                          : jobVacancyListDetails.internship === true
+                          : jobVacancyListDetails.employment_type ===
+                            "Internship"
                           ? "badge bg-blue-subtle text-blue fs-13 mt-1"
                           : ""
                       }
+                     
                     >
-                      {jobVacancyListDetails.timing}
+                      {jobVacancyListDetails.employment_type}
                     </span>
                     {(jobVacancyListDetails.badges || []).map(
                       (badgeInner, key) => (
@@ -256,7 +282,7 @@ const JobVacancyList = () => {
                   <div>
                     <p className="text-muted mb-0">
                       <span className="text-dark">Experience :</span>
-                      {jobVacancyListDetails.experience}
+                      {jobVacancyListDetails.professional_level}
                     </p>
                   </div>
                 </Col>

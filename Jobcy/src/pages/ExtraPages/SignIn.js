@@ -2,6 +2,8 @@ import React,{useState,} from "react";
 import { Card, CardBody, Col, Container, Input, Row } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "../../components/axios"
+import { connect } from 'react-redux';
+import { loginSuccess } from './Components/redux/authActions';
 
 //Import Image
 import lightLogo from "../../assets/images/logo-light.png";
@@ -11,16 +13,17 @@ import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 
-const SignIn = () => {
+const SignIn = ({ isAuthenticated, user, loginSuccess,  }) => {
   document.title = "Sign In";
   const [email,setemail] = useState("");
   const [password,setpassword] = useState("");
+  const [errors,seterrors] = useState([]);
   const navigate = useNavigate();
 
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    seterrors([])
     try {
     
       const csrfResponse = await axios.get('/get-csrf-token');
@@ -34,10 +37,18 @@ const SignIn = () => {
 
       setemail('');
       setpassword('');
-      navigate("/")
-      console.log(response.data); // Log the user information
-    } catch (error) {
-      console.log(error);
+      const data = await axios.get('/user')
+     
+      loginSuccess(data.data.user)
+      navigate("/");
+      // console.log(response.data); // Log the user information
+    } catch (e) {
+     
+      if (e.response.status === 422){
+        seterrors(e.response.data.errors)
+        console.log(errors);
+
+      }
     }
   }
 
@@ -104,6 +115,10 @@ const SignIn = () => {
                                     required
                                   />
                                 </div>
+                                 {errors.email &&
+                                  <div>
+                                    <span className="text-danger">{errors.email[0]}</span>
+                                  </div>}
                                 <div className="mb-3">
                                   <label
                                     htmlFor="passwordInput"
@@ -114,12 +129,16 @@ const SignIn = () => {
                                   <Input
                                     type="password"
                                     className="form-control"
-                                    id="passwordInput"
+                                    id="passInput"
                                     placeholder="Enter your password"
                                     value= {password}
                                     onChange={(e) => setpassword(e.target.value)}
                                     required
                                   />
+                                  {errors.password &&
+                                  <div>
+                                    <span className="text-danger m-2 p-2">{errors.password[0]}</span>
+                                  </div>}
                                 </div>
                                 <div className="mb-4">
                                   <div className="form-check">
@@ -178,5 +197,8 @@ const SignIn = () => {
     </React.Fragment>
   );
 };
-
-export default SignIn;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.isAuthenticated,
+  user: state.user,
+});
+export default connect(mapStateToProps, { loginSuccess })(SignIn);

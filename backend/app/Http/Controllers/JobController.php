@@ -7,32 +7,41 @@ use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function getAllJobs()
     {
-        //
+        
+        $jobs = Job::with('company.location')->get();
+         return response()->json($jobs);
+
+
+
+
+// // You can also further filter the query if needed, for instance, with a specific location.
+// $jobsInSpecificLocation = Job::with('company.location')
+//     ->whereHas('company.location', function ($query) use ($specificLocationId) {
+//         $query->where('id', $specificLocationId);
+//     })
+//     ->get();
+
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
+    public function index()
+    {
+        $users = Job::all();
+
+        return response()->json($users, 200);
+    }
+
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         //
@@ -44,9 +53,12 @@ class JobController extends Controller
      * @param  \App\Models\Job  $job
      * @return \Illuminate\Http\Response
      */
-    public function show(Job $job)
+    public function show($id)
     {
-        //
+        $job = Job::with(['application', 'company.location','company.industry' ,'qualification', 'skill', 'responsible'])
+    ->find($id);
+        return response()->json($job);
+
     }
 
     /**
@@ -60,26 +72,15 @@ class JobController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Job  $job
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Job $job)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Job  $job
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Job $job)
     {
         //
     }
+
 }

@@ -16,10 +16,12 @@ class IndustrySeeder extends Seeder
     public function run()
     {
         Industry::create([
-            'name' => 'Technology'
+            'name' => 'Technology',
+            'logo' => 'uim-airplay'
         ]);
         Industry::create([
-            'name' => 'Finance'
+            'name' => 'Finance',
+            'logo' => 'uim-user-md'
         ]);
     }
 }

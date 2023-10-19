@@ -1,112 +1,143 @@
 import React, { useState } from "react";
+// import axios from "axios";
 import { Col, Row, Modal, ModalBody, Input, Label } from "reactstrap";
 import { Link } from "react-router-dom";
+import GitData from '../../ApiData/GitDataApi';
 
 //jobImages
-import jobImage1 from "../../../assets/images/featured-job/img-01.png";
-import jobImage2 from "../../../assets/images/featured-job/img-02.png";
-import jobImage3 from "../../../assets/images/featured-job/img-03.png";
-import jobImage4 from "../../../assets/images/featured-job/img-04.png";
+// import jobImage1 from "../../../assets/images/featured-job/img-01.png";
+// import jobImage2 from "../../../assets/images/featured-job/img-02.png";
+// import jobImage3 from "../../../assets/images/featured-job/img-03.png";
+// import jobImage4 from "../../../assets/images/featured-job/img-04.png";
+// import companyImg from "../../../assets/images/company.jpg";
+
 
 const RecentJobs = () => {
   //Apply Now Model
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
 
-  const recentJob = [
-    {
-      id: 1,
-      companyImg: jobImage1,
-      jobDescription: "Web Developer",
-      companyName: "Web Technology pvt.Ltd",
-      location: "Oakridge Lane ssRichardson",
-      salary: "1000-1200/m",
-      fullTime: true,
-      timing: "Full Time",
-      catogary: "Recent Jobs",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-info-subtle text-info",
-          badgeName: "Private"
-        }
-      ],
-      experience: "1 - 2 years",
-      Notes: "languages only differ in their grammar."
-    },
-    {
-      id: 2,
-      companyImg: jobImage2,
-      jobDescription: "Business Associate",
-      companyName: "Pixel Technology pvt.Ltd",
-      location: "Dodge City, Louisiana",
-      salary: "800-1800/m",
-      partTime: true,
-      timing: "Part Time",
-      catogary: "Recent Jobs",
-      addclassNameBookmark: true,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-info-subtle text-info",
-          badgeName: "Private"
-        },
-        {
-          id: 2,
-          badgeclassName: "bg-warning-subtle text-warning",
-          badgeName: "Urgent"
-        }
-      ],
-      experience: "0 - 1 years",
-      Notes: "languages only differ in their grammar."
-    },
-    {
-      id: 3,
-      companyImg: jobImage3,
-      jobDescription: "Digital Marketing Manager",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "Phoenix, Arizona",
-      salary: "1500-2400/m",
-      freelancer: true,
-      timing: "Freelancer",
-      catogary: "Recent Jobs",
-      addclassNameBookmark: true,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-info-subtle text-info",
-          badgeName: "Private"
-        }
-      ],
-      experience: "0 - 1 years",
-      Notes: null
-    },
-    {
-      id: 4,
-      companyImg: jobImage4,
-      jobDescription: "Product Director",
-      companyName: "Creative Agency",
-      location: "Escondido, California",
-      salary: "1500-2400/m",
-      fullTime: true,
-      timing: "Full Time",
-      catogary: "Recent Jobs",
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-warning-subtle text-warning",
-          badgeName: "Urgent"
-        }
-      ],
-      experience: "0 - 1 years",
-      Notes: null
-    }
-  ];
+  // const recentJob = [
+  //   {
+  //     id: 1,
+  //     companyImg: jobImage1,
+  //     jobDescription: "Web Developer",
+  //     companyName: "Web Technology pvt.Ltd",
+  //     location: "Oakridge Lane ssRichardson",
+  //     salary: "1000-1200/m",
+  //     fullTime: true,
+  //     timing: "Full Time",
+  //     catogary: "Recent Jobs",
+  //     addclassNameBookmark: false,
+  //     badges: [
+  //       {
+  //         id: 1,
+  //         badgeclassName: "bg-info-subtle text-info",
+  //         badgeName: "Private",
+  //       },
+  //     ],
+  //     experience: "1 - 2 years",
+  //     Notes: "languages only differ in their grammar.",
+  //   },
+  //   {
+  //     id: 2,
+  //     companyImg: jobImage2,
+  //     jobDescription: "Business Associate",
+  //     companyName: "Pixel Technology pvt.Ltd",
+  //     location: "Dodge City, Louisiana",
+  //     salary: "800-1800/m",
+  //     partTime: true,
+  //     timing: "Part Time",
+  //     catogary: "Recent Jobs",
+  //     addclassNameBookmark: true,
+  //     badges: [
+  //       {
+  //         id: 1,
+  //         badgeclassName: "bg-info-subtle text-info",
+  //         badgeName: "Private",
+  //       },
+  //       {
+  //         id: 2,
+  //         badgeclassName: "bg-warning-subtle text-warning",
+  //         badgeName: "Urgent",
+  //       },
+  //     ],
+  //     experience: "0 - 1 years",
+  //     Notes: "languages only differ in their grammar.",
+  //   },
+  //   {
+  //     id: 3,
+  //     companyImg: jobImage3,
+  //     jobDescription: "Digital Marketing Manager",
+  //     companyName: "Jobcy Technology Pvt.Ltd",
+  //     location: "Phoenix, Arizona",
+  //     salary: "1500-2400/m",
+  //     freelancer: true,
+  //     timing: "Freelancer",
+  //     catogary: "Recent Jobs",
+  //     addclassNameBookmark: true,
+  //     badges: [
+  //       {
+  //         id: 1,
+  //         badgeclassName: "bg-info-subtle text-info",
+  //         badgeName: "Private",
+  //       },
+  //     ],
+  //     experience: "0 - 1 years",
+  //     Notes: null,
+  //   },
+  //   {
+  //     id: 4,
+  //     companyImg: jobImage4,
+  //     jobDescription: "Product Director",
+  //     companyName: "Creative Agency",
+  //     location: "Escondido, California",
+  //     salary: "1500-2400/m",
+  //     fullTime: true,
+  //     timing: "Full Time",
+  //     catogary: "Recent Jobs",
+  //     badges: [
+  //       {
+  //         id: 1,
+  //         badgeclassName: "bg-warning-subtle text-warning",
+  //         badgeName: "Urgent",
+  //       },
+  //     ],
+  //     experience: "0 - 1 years",
+  //     Notes: null,
+  //   },
+  // ];
+
+
+
+  // const [jobs, setJobs] = useState([]);
+
+
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, []);
+
+  // const fetchProducts = async () => {
+  //   await axios.get(`http://127.0.0.1:8000/api/jobs`).then(({ data }) => {
+  //     const recentObjects = data.slice(-4).reverse();
+  //     setJobs(recentObjects);
+  //   });
+  // };
+
+ 
+
+  const apiEndpoint = 'http://127.0.0.1:8000/api/jobs'; 
+  const { data, loading, error } = GitData(apiEndpoint);
+  const recentObjects = data.slice(-4).reverse();
+
+
+
+
+
 
   return (
     <React.Fragment>
-      {recentJob.map((recentJobDetails, key) => (
+      {recentObjects.map((recentJobDetails, key) => (
         <div
           key={key}
           className={
@@ -124,13 +155,16 @@ const RecentJobs = () => {
             <Row className="align-items-center">
               <Col md={2}>
                 <div className="text-center mb-4 mb-md-0">
+               
                   <Link to="/company-details">
-                    <img
-                      src={recentJobDetails.companyImg}
-                      alt=""
+                  <img
+                      src="/company.jpg"
+                      alt="CompanyImage"
                       className="img-fluid rounded-3"
+                      style={{width:"80px"}}
                     />
                   </Link>
+
                 </div>
               </Col>
 
@@ -138,21 +172,24 @@ const RecentJobs = () => {
                 <div className="mb-2 mb-md-0">
                   <h5 className="fs-18 mb-1">
                     <Link to="/jobdetails" className="text-dark">
-                      {recentJobDetails.jobDescription}
+                      {recentJobDetails.title}
                     </Link>
                   </h5>
                   <p className="text-muted fs-14 mb-0">
-                    {recentJobDetails.companyName}
+                    {recentJobDetails.company.name}
                   </p>
+                 
                 </div>
               </Col>
 
-              <Col md={3}>
+              <Col md={3} key={key}>
                 <div className="d-flex mb-2">
                   <div className="flex-shrink-0">
                     <i className="mdi mdi-map-marker text-primary me-1"></i>
                   </div>
-                  <p className="text-muted mb-0">{recentJobDetails.location}</p>
+                  <p className="text-muted mb-0">
+                    {recentJobDetails.company.location[0].name}
+                  </p>
                 </div>
               </Col>
 
@@ -169,16 +206,16 @@ const RecentJobs = () => {
                 <div>
                   <span
                     className={
-                      recentJobDetails.fullTime === true
+                      recentJobDetails.employment_type === 'Full-time'
                         ? "badge bg-success-subtle text-success fs-13 mt-1 mx-1"
-                        : recentJobDetails.partTime === true
+                        : recentJobDetails.employment_type === 'Part-time'
                         ? "badge bg-danger-subtle text-danger fs-13 mt-1 mx-1"
-                        : recentJobDetails.freelancer === true
+                        : recentJobDetails.employment_type === 'Freelancer'
                         ? "badge bg-primary-subtle text-primary fs-13 mt-1 mx-1"
                         : ""
                     }
                   >
-                    {recentJobDetails.timing}
+                    {recentJobDetails.employment_type}
                   </span>
 
                   {(recentJobDetails.badges || []).map((badgeInner, key) => (
@@ -201,7 +238,7 @@ const RecentJobs = () => {
                 <div>
                   <p className="text-muted mb-0">
                     <span className="text-dark">Experience :</span>{" "}
-                    {recentJobDetails.experience}
+                    {recentJobDetails.professional_level}
                   </p>
                 </div>
               </Col>
@@ -211,9 +248,9 @@ const RecentJobs = () => {
                 <div>
                   <p className="text-muted mb-0">
                     <span className="text-dark">
-                      {recentJobDetails.Notes === null ? "" : "Notes :"}
+                      {recentJobDetails.deadline_date === null ? "" : "Deadline :"}
                     </span>
-                    {recentJobDetails.Notes}{" "}
+                    {recentJobDetails.deadline_date}{" "}
                   </p>
                 </div>
               </Col>

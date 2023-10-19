@@ -1,6 +1,7 @@
 import React,{useState,} from "react";
 import { Link ,useNavigate } from "react-router-dom";
-
+import { connect } from 'react-redux';
+import { loginSuccess } from './Components/redux/authActions';
 import { Container, Card, Col, Input, Row, CardBody } from "reactstrap";
 import axios from "../../components/axios"
 
@@ -11,19 +12,20 @@ import darkLogo from "../../assets/images/logo-dark.png";
 import signUpImage from "../../assets/images/auth/sign-up.png";
 import { Form } from "react-bootstrap";
 
-const SignUp = () => {
+const SignUp = ({ isAuthenticated, user, loginSuccess,  }) => {
   document.title = "Sign Up";
 
   const [email,setemail] = useState("");
   const [password,setpassword] = useState("");
   const [name,setname] = useState("");
   const [password_confirmation,setpasswordConfirmation] = useState("");
+  const [errors,seterrors] = useState([]);
   const navigate = useNavigate();
 
 
   const handleRegister = async (e) => {
     e.preventDefault(); // Use e.preventDefault() to prevent form submission
-  
+    seterrors([])
     try {
       const csrfResponse = await axios.get('/get-csrf-token');
       const csrfToken = csrfResponse.data.csrf_token;
@@ -35,10 +37,14 @@ const SignUp = () => {
       setpassword('');
       setname('');
       setpasswordConfirmation('');
-      console.log(response.data);
-      navigate('/');
+      const data = await axios.get('/user')
+     
+      loginSuccess(data.data.user)
+      navigate("/");
     } catch (e) {
-      console.log(e);
+      if (e.response.status === 422){
+        seterrors(e.response.data.errors)
+        console.log(errors)}
     }
   }
 
@@ -104,6 +110,10 @@ const SignUp = () => {
                                     onChange={(e) => setname(e.target.value)}
 
                                   />
+                                  {errors.name &&
+                                  <div>
+                                    <span className="text-danger">{errors.name[0]}</span>
+                                  </div>}
                                 </div>
                                 <div className="mb-3">
                                   <label
@@ -121,6 +131,10 @@ const SignUp = () => {
                                     placeholder="Enter your email"
                                     onChange={(e) => setemail(e.target.value)}
                                   />
+                                  {errors.email &&
+                                  <div>
+                                    <span className="text-danger">{errors.email[0]}</span>
+                                  </div>}
                                 </div>
                                 <div className="mb-3">
                                   <label
@@ -137,6 +151,10 @@ const SignUp = () => {
                                     placeholder="Enter your password"
                                     onChange={(e) => setpassword(e.target.value)}
                                   />
+                                  {errors.password &&
+                                  <div>
+                                    <span className="text-danger">{errors.password[0]}</span>
+                                  </div>}
                                 </div>
                                 <div className="mb-3">
                                   <label
@@ -150,10 +168,14 @@ const SignUp = () => {
                                     type="password"
                                     value={password_confirmation}
                                     className="form-control"
-                                    id="passwordInput"
+                                    id="pasInput"
                                     placeholder="Enter your password"
                                     onChange={(e) => setpasswordConfirmation(e.target.value)}
                                   />
+                                  {errors.password_confirmation &&
+                                  <div>
+                                    <span className="text-danger">{errors.password_confirmation[0]}</span>
+                                  </div>}
                                 </div>
                                
                                 <div className="text-center">
@@ -192,5 +214,9 @@ const SignUp = () => {
     </React.Fragment>
   );
 };
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.isAuthenticated,
+  user: state.user,
+});
 
-export default SignUp;
+export default connect(mapStateToProps, { loginSuccess })(SignUp);

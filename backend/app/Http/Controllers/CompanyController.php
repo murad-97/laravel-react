@@ -7,11 +7,16 @@ use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function getAllCompanies()
+    {
+        // $companies = Company::all();
+        // return response()->json($companies);
+
+        $companies = Company::with('location')->get();
+        return response()->json($companies);
+    }
+
+
     public function index()
     {
         //

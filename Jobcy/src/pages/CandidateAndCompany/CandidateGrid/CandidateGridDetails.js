@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Row, Modal, ModalBody, Input, Label, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
+
 
 import userImage1 from "../../../assets/images/user/img-01.jpg";
 import userImage2 from "../../../assets/images/user/img-02.jpg";
@@ -11,6 +14,7 @@ import userImage6 from "../../../assets/images/user/img-06.jpg";
 import userImage7 from "../../../assets/images/user/img-07.jpg";
 import userImage8 from "../../../assets/images/user/img-08.jpg";
 import userImage9 from "../../../assets/images/user/img-09.jpg";
+
 
 const CandidateGridDetails = () => {
   //Apply Now Model
@@ -130,8 +134,34 @@ const CandidateGridDetails = () => {
       label: false
     }
   ];
+    const [jobs, setJobs] = useState([]);
+
+
+
+    useEffect(() => {
+      fetchProducts();
+    }, []);
+
+    const fetchProducts = async () => {
+      await axios.get(`http://127.0.0.1:8000/api/users`).then(({ data }) => {
+        const recentObjects = data;
+        setJobs(recentObjects);
+      });
+    };
   return (
     <React.Fragment>
+      {jobs.map((recentJobDetails, key) => (
+        <div
+          key={key}
+          className={
+            recentJobDetails.addclassNameBookmark === true
+              ? "job-box bookmark-post card mt-4"
+              : "job-box card mt-4"
+          }
+          
+        >
+
+        
       <Row className="align-items-center">
         <Col lg={8} md={7}>
           <div>
@@ -282,6 +312,8 @@ const CandidateGridDetails = () => {
               </div>
             </Col>
           ))}
+                ))}
+          </div>
         </Row>
 
         <div

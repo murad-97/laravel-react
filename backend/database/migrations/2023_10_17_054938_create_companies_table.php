@@ -22,10 +22,14 @@ return new class extends Migration
             $table->string('website');
             $table->string('phone_number');
             $table->string('location_map')->nullable();
+            $table->string('image')->default('company.jpg');
+
             $table->bigInteger('industry_id')->unsigned();
 
 
+
             $table->foreign('industry_id')->references('id')->on('industries');
+
             $table->timestamps();
         });
     }

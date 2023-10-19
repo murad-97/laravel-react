@@ -7,11 +7,16 @@ use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function getAllLocations()
+    {
+
+        $locations = Location::with('company.job')->get();
+         return response()->json($locations);
+
+    }
+
+
     public function index()
     {
         //
