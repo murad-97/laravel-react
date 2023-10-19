@@ -2574,6 +2574,11 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
+"@yisheng90/react-loading@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@yisheng90/react-loading/-/react-loading-1.5.0.tgz#26fcafd81f98482170ccd9c14d2f7e3ec0e621b8"
+  integrity sha512-ZCG1xdSZjxXFEH3gAtZvDdFj8JE38I3YQd2TcWO5sVjQ5lULJuPkH0fiySYy4V7rklZH2kdAV7GhYObNbMVGEQ==
+
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.6.tgz#41b80f2c871d19686216b82309231cfd3cb3d291"

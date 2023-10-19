@@ -55,7 +55,7 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        $job = Job::with(['application', 'company', 'qualification', 'skill', 'responsible'])
+        $job = Job::with(['application', 'company.location','company.industry' ,'qualification', 'skill', 'responsible'])
     ->find($id);
         return response()->json($job);
 
