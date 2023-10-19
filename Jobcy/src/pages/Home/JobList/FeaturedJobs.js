@@ -122,7 +122,7 @@ const FeaturedJobs = () => {
           }
         >
           <div className="bookmark-label text-center">
-            <Link to="#" className="text-white align-middle">
+            <Link to ={`/jobdetails/${allJobDetails.id}`} className="text-white align-middle">
               <i className="mdi mdi-star"></i>
             </Link>
           </div>
@@ -144,7 +144,7 @@ const FeaturedJobs = () => {
               <Col md={3}>
                 <div className="mb-2 mb-md-0">
                   <h5 className="fs-18 mb-1">
-                    <Link to="/jobdetails" className="text-dark">
+                    <Link to={`/jobdetails/${data.id}`} className="text-dark">
                       {allJobDetails.title}
                     </Link>
                   </h5>
@@ -227,7 +227,7 @@ const FeaturedJobs = () => {
               <Col lg={2} md={3}>
                 <div className="text-start text-md-end">
                   <Link
-                    to="#applyNow"
+                    to={`/jobdetails/${allJobDetails.id}`}
                     onClick={openModal}
                     data-bs-toggle="modal"
                     className="primary-link"

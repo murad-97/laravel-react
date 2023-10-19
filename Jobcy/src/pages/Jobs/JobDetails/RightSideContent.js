@@ -13,7 +13,7 @@ const RightSideContent = (props) => {
  
 useEffect((params) => {
   const timestamp = props.job.created_at;
-const jobDeadline = props.job.deadline_date;
+const jobDeadline = new Date(props.job.deadline_date) ;
 
 
   const datePosted = new Date(timestamp);
@@ -21,10 +21,11 @@ const jobDeadline = props.job.deadline_date;
 
   const currentDate = new Date();
   const deadDifference = jobDeadline - currentDate;
-  if (deadDifference<0) {
+  if (deadDifference>0) {
     setDeadLine(true)
   }
-  console.log(currentDate);
+  console.log(jobDeadline);
+  console.log(deadDifference);
   
   const timeDifference = currentDate - datePosted;
   
@@ -106,7 +107,7 @@ const jobDeadline = props.job.deadline_date;
                   <i className="uil uil-graduation-cap icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Qualification</h6>
-                    <p className="text-muted mb-0">{props.job.qualification[1].qualification_name}</p>
+                    <p className="text-muted mb-0">{props.job.qualification[0].qualification_name}</p>
                   </div>
                 </div>
               </li>
