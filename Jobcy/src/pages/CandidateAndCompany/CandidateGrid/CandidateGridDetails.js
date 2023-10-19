@@ -6,15 +6,6 @@ import axios from "axios";
 
 
 import userImage1 from "../../../assets/images/profile.jpg";
-import userImage1 from "../../../assets/images/profile.jpg";
-import userImage2 from "../../../assets/images/user/img-02.jpg";
-import userImage3 from "../../../assets/images/user/img-03.jpg";
-import userImage4 from "../../../assets/images/user/img-04.jpg";
-import userImage5 from "../../../assets/images/user/img-05.jpg";
-import userImage6 from "../../../assets/images/user/img-06.jpg";
-import userImage7 from "../../../assets/images/user/img-07.jpg";
-import userImage8 from "../../../assets/images/user/img-08.jpg";
-import userImage9 from "../../../assets/images/user/img-09.jpg";
 
 
 const CandidateGridDetails = () => {
@@ -96,7 +87,6 @@ const CandidateGridDetails = () => {
       <div className="candidate-list">
         <Row>
           {users.map((details, key) => (
-          {jobs.map((candidategridDetailsNew, key) => (
             <Col lg={4} md={6} key={key}>
               <div
                 className={
@@ -118,12 +108,10 @@ const CandidateGridDetails = () => {
                     <div className="flex-shrink-0 position-relative">
                       <img
                         src={userImage1}
-                        src={userImage1}
                         alt=""
                         className="avatar-md rounded"
                       />
                       <span className={details.name}>
-                      <span className={candidategridDetailsNew.name}>
                         <span className="visually-hidden">active</span>
                       </span>
                     </div>
@@ -131,7 +119,6 @@ const CandidateGridDetails = () => {
                       <Link to="/candidate-details" className="primary-link">
                         <h5 className="fs-17">
                           {details.name}
-                          {candidategridDetailsNew.name}
                         </h5>
                       </Link>
                       <span className="badge bg-info-subtle text-info fs-13">
@@ -158,8 +145,6 @@ const CandidateGridDetails = () => {
                         <div className="border-end px-3 py-2">
                           <p className="text-muted mb-0">
                             Exp. : {details.years_of_experience}{" "}
-                            Years
-                            Exp. : {candidategridDetailsNew.years_of_experience}{" "}
                             Years
                           </p>
                         </div>
