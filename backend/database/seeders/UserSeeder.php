@@ -29,7 +29,8 @@ class UserSeeder extends Seeder
             'career_field' => 'Web Development',
             'jop_title' => 'Web Developer',
             'years_of_experience' => 5,
-            'subscription' => 'Basic',
+            'subscription' => 'Basic','image' => '../../../Jobcy/public/profile.png'
+
         ]);
 
         User::create([
@@ -47,6 +48,7 @@ class UserSeeder extends Seeder
             'jop_title' => 'Marketing Specialist',
             'years_of_experience' => 3,
             'subscription' => 'Premium',
+            'image' => '../../../Jobcy/public/profile.png'
         ]);
     }
 }

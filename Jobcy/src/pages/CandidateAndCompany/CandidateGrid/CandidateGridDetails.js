@@ -5,7 +5,7 @@ import axios from "axios";
 
 
 
-import userImage1 from "../../../assets/images/user/img-01.jpg";
+import userImage1 from "../../../assets/images/profile.jpg";
 import userImage2 from "../../../assets/images/user/img-02.jpg";
 import userImage3 from "../../../assets/images/user/img-03.jpg";
 import userImage4 from "../../../assets/images/user/img-04.jpg";
@@ -150,18 +150,6 @@ const CandidateGridDetails = () => {
     };
   return (
     <React.Fragment>
-      {jobs.map((recentJobDetails, key) => (
-        <div
-          key={key}
-          className={
-            recentJobDetails.addclassNameBookmark === true
-              ? "job-box bookmark-post card mt-4"
-              : "job-box card mt-4"
-          }
-          
-        >
-
-        
       <Row className="align-items-center">
         <Col lg={8} md={7}>
           <div>
@@ -210,7 +198,7 @@ const CandidateGridDetails = () => {
       </Row>
       <div className="candidate-list">
         <Row>
-          {candidategridDetails.map((candidategridDetailsNew, key) => (
+          {jobs.map((candidategridDetailsNew, key) => (
             <Col lg={4} md={6} key={key}>
               <div
                 className={
@@ -231,22 +219,18 @@ const CandidateGridDetails = () => {
                   <div className="d-flex mb-4">
                     <div className="flex-shrink-0 position-relative">
                       <img
-                        src={candidategridDetailsNew.userImg}
+                        src={userImage1}
                         alt=""
                         className="avatar-md rounded"
                       />
-                      <span
-                        className={
-                          candidategridDetailsNew.candidateStatusClassName
-                        }
-                      >
+                      <span className={candidategridDetailsNew.name}>
                         <span className="visually-hidden">active</span>
                       </span>
                     </div>
                     <div className="ms-3">
                       <Link to="/candidate-details" className="primary-link">
                         <h5 className="fs-17">
-                          {candidategridDetailsNew.candidateName}
+                          {candidategridDetailsNew.name}
                         </h5>
                       </Link>
                       <span className="badge bg-info-subtle text-info fs-13">
@@ -275,7 +259,8 @@ const CandidateGridDetails = () => {
                       <Col lg={6}>
                         <div className="border-end px-3 py-2">
                           <p className="text-muted mb-0">
-                            Exp. : {candidategridDetailsNew.experience}
+                            Exp. : {candidategridDetailsNew.years_of_experience}{" "}
+                            Years
                           </p>
                         </div>
                       </Col>
@@ -312,8 +297,6 @@ const CandidateGridDetails = () => {
               </div>
             </Col>
           ))}
-                ))}
-          </div>
         </Row>
 
         <div
