@@ -23,7 +23,7 @@ const SignIn = ({ isAuthenticated, user, loginSuccess,  }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    seterrors([])
     try {
     
       const csrfResponse = await axios.get('/get-csrf-token');
