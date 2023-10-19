@@ -1,13 +1,53 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Card, CardBody, Col } from "reactstrap";
+import { useState, useEffect } from "react";
+import axios from "axios";
+// import RightSideContent from './RightSideContent';
+
+
 
 //Import images
 import profileImage from "../../../assets/images/profile.jpg";
 
+
 const LeftSideContent = () => {
+
+
+
+  const [users, setUsers] = useState([]);
+
+const [selectedUser, setSelectedUser] = useState(null);
+const x = 1; // Replace with the ID you want to find
+
+
+useEffect(() => {
+  // Fetch data from the API when the component mounts
+  axios.get("http://127.0.0.1:8000/api/user1")
+    .then((response) => {
+     setUsers(response.data);
+     const userWithX = response.data.find((user) => user.id === x);
+     if (userWithX) {
+       setSelectedUser(userWithX);
+     }
+
+     console.log(selectedUser.name)
+
+
+    })
+    .catch((error) => {
+      console.error("Error fetching data: ", error);
+    });
+}, []);
+
+
+
+
+
   return (
+    
     <React.Fragment>
+      {selectedUser ? (
       <Col lg={4}>
         <Card className="profile-sidebar me-lg-4">
           <CardBody className="p-4">
@@ -17,8 +57,8 @@ const LeftSideContent = () => {
                 alt=""
                 className="avatar-lg img-thumbnail rounded-circle mb-4"
               />
-              <h5 className="mb-0">Jennifer Dickens</h5>
-              <p className="text-muted">Developer</p>
+              <h5 className="mb-0">{selectedUser.name}</h5>
+              <p className="text-muted">{selectedUser.jop_title}cc</p>
               <ul className="list-inline d-flex justify-content-center align-items-center ">
                 <li className="list-inline-item text-warning fs-19">
                   <i className="mdi mdi-star"></i>
@@ -31,10 +71,10 @@ const LeftSideContent = () => {
               <ul className="candidate-detail-social-menu list-inline mb-0">
                 <li className="list-inline-item">
                   <Link
-                    to="#"
+                    to={selectedUser.linkedin_link}
                     className="social-link rounded-3 btn-soft-primary"
                   >
-                    <i className="uil uil-facebook-f"></i>
+                   <i className="uil uil-linkedin"></i>
                   </Link>
                 </li>
                 <li className="list-inline-item">
@@ -52,7 +92,7 @@ const LeftSideContent = () => {
                 </li>
                 <li className="list-inline-item">
                   <Link
-                    to="#"
+                    to={selectedUser.phone_number}
                     className="social-link rounded-3 btn-soft-danger"
                   >
                     <i className="uil uil-phone-alt"></i>
@@ -112,7 +152,7 @@ const LeftSideContent = () => {
                       <label>Email</label>
                       <div>
                         <p className="text-muted text-break mb-0">
-                          jennifer@gmail.com
+                        {selectedUser.email}
                         </p>
                       </div>
                     </div>
@@ -121,7 +161,7 @@ const LeftSideContent = () => {
                     <div className="d-flex">
                       <label>Phone Number</label>
                       <div>
-                        <p className="text-muted mb-0">+2 345 678 0000</p>
+                        <p className="text-muted mb-0">{selectedUser.phone_number}</p>
                       </div>
                     </div>
                   </li>
@@ -129,7 +169,7 @@ const LeftSideContent = () => {
                     <div className="d-flex">
                       <label>Location</label>
                       <div>
-                        <p className="text-muted mb-0">New Caledonia</p>
+                        <p className="text-muted mb-0">{selectedUser.address}</p>
                       </div>
                     </div>
                   </li>
@@ -139,6 +179,10 @@ const LeftSideContent = () => {
           </CardBody>
         </Card>
       </Col>
+      ) : (
+        <p>User with ID {x} not found.</p>
+      )}
+    
     </React.Fragment>
   );
 };

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-
+use App\Models\Education;
 use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\LanguageSeeder;
@@ -21,6 +21,8 @@ use Database\Seeders\QualificationSeeder;
 use Database\Seeders\SkillSeeder;
 use Database\Seeders\ResponsibleSeeder;
 use Database\Seeders\AdminSeeder;
+use Database\Seeders\EducationSeeder;
+use Database\Seeders\ExperienceSeeder;
 
 
 class DatabaseSeeder extends Seeder
@@ -48,6 +50,8 @@ class DatabaseSeeder extends Seeder
             SkillSeeder::class,
             ResponsibleSeeder::class,
             AdminSeeder::class,
+            EducationSeeder::class,
+            ExperienceSeeder::class,
 
         ]);
     }
