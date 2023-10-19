@@ -20,11 +20,11 @@ const jobDeadline = props.job.deadline_date;
   
 
   const currentDate = new Date();
-
   const deadDifference = jobDeadline - currentDate;
   if (deadDifference<0) {
     setDeadLine(true)
   }
+  console.log(currentDate);
   
   const timeDifference = currentDate - datePosted;
   
