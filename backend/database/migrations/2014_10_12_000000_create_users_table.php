@@ -20,13 +20,13 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('about');
+            $table->string('about')->nullable();
 
             $table->string('gender')->nullable();
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('linkedin_link')->nullable();
-            $table->mediumText('image')->default('C:\xampp\htdocs\project8\laravel-react\backend\storage\app/public/images/default_profile.png');
+            $table->mediumText('image')->default('../../../Jobcy/public/profile.png');
             // http://127.0.0.1:8000/images/default_profile.png
 
             $table->string('academic_specialization')->nullable();
@@ -39,6 +39,7 @@ return new class extends Migration
             $table->string('cv')->nullable();
 
             $table->string('subscription')->default('Basic');
+            $table->boolean('role')->default('0');
             $table->rememberToken();
             $table->timestamps();
 

@@ -112,7 +112,7 @@ const Freelancer = () => {
           }
         >
           <div className="bookmark-label text-center">
-            <Link to="#" className="text-white align-middle">
+            <Link to={`/jobdetails/${freelancerJobdetails.id}`} className="text-white align-middle">
               <i className="mdi mdi-star"></i>
             </Link>
           </div>
@@ -134,7 +134,7 @@ const Freelancer = () => {
               <Col md={3}>
                 <div className="mb-2 mb-md-0">
                   <h5 className="fs-18 mb-1">
-                    <Link to="/jobdetails" className="text-dark">
+                    <Link to={`/jobdetails/${freelancerJobdetails.id}`} className="text-dark">
                       {freelancerJobdetails.title}
                     </Link>
                   </h5>

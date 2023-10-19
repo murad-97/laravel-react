@@ -134,7 +134,7 @@ const Fulltime = () => {
               <Col md={3}>
                 <div className="mb-2 mb-md-0">
                   <h5 className="fs-18 mb-1">
-                    <Link to="/jobdetails" className="text-dark">
+                    <Link to={`/jobdetails/${fullTimeJobdetails.id}`} className="text-dark">
                       {fullTimeJobdetails.title}
                     </Link>
                   </h5>
@@ -218,7 +218,7 @@ const Fulltime = () => {
                 <div className="text-start text-md-end">
                   <Link
                     onClick={openModal}
-                    to="#applyNow"
+                    to={`/jobdetails/${fullTimeJobdetails.id}`}
                     data-bs-toggle="modal"
                     className="primary-link"
                   >
