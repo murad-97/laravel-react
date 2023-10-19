@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // import axios from "axios";
 import { Col, Row, Modal, ModalBody, Input, Label } from "reactstrap";
 import { Link } from "react-router-dom";
-import GitData from '../../ApiData/GitDataApi';
+import GitData from "../../ApiData/GitDataApi";
 
 //jobImages
 // import jobImage1 from "../../../assets/images/featured-job/img-01.png";
@@ -10,7 +10,6 @@ import GitData from '../../ApiData/GitDataApi';
 // import jobImage3 from "../../../assets/images/featured-job/img-03.png";
 // import jobImage4 from "../../../assets/images/featured-job/img-04.png";
 // import companyImg from "../../../assets/images/company.jpg";
-
 
 const RecentJobs = () => {
   //Apply Now Model
@@ -108,10 +107,7 @@ const RecentJobs = () => {
   //   },
   // ];
 
-
-
   // const [jobs, setJobs] = useState([]);
-
 
   // useEffect(() => {
   //   fetchProducts();
@@ -124,16 +120,9 @@ const RecentJobs = () => {
   //   });
   // };
 
- 
-
-  const apiEndpoint = 'http://127.0.0.1:8000/api/jobs'; 
+  const apiEndpoint = "http://127.0.0.1:8000/api/jobs";
   const { data, loading, error } = GitData(apiEndpoint);
   const recentObjects = data.slice(-4).reverse();
-
-
-
-
-
 
   return (
     <React.Fragment>
@@ -144,8 +133,7 @@ const RecentJobs = () => {
             recentJobDetails.addclassNameBookmark === true
               ? "job-box bookmark-post card mt-4"
               : "job-box card mt-4"
-          }
-        >
+          }>
           <div className="bookmark-label text-center">
             <Link to="#" className="text-white align-middle">
               <i className="mdi mdi-star"></i>
@@ -155,30 +143,27 @@ const RecentJobs = () => {
             <Row className="align-items-center">
               <Col md={2}>
                 <div className="text-center mb-4 mb-md-0">
-               
                   <Link to="/company-details">
-                  <img
+                    <img
                       src="/company.jpg"
                       alt="CompanyImage"
                       className="img-fluid rounded-3"
-                      style={{width:"80px"}}
+                      style={{ width: "80px" }}
                     />
                   </Link>
-
                 </div>
               </Col>
 
               <Col md={3}>
                 <div className="mb-2 mb-md-0">
                   <h5 className="fs-18 mb-1">
-                    <Link to="/jobdetails" className="text-dark">
+                    <Link to={`/jobdetails/${recentJobDetails.id}`} className="text-dark">
                       {recentJobDetails.title}
                     </Link>
                   </h5>
                   <p className="text-muted fs-14 mb-0">
                     {recentJobDetails.company.name}
                   </p>
-                 
                 </div>
               </Col>
 
@@ -206,15 +191,14 @@ const RecentJobs = () => {
                 <div>
                   <span
                     className={
-                      recentJobDetails.employment_type === 'Full-time'
+                      recentJobDetails.employment_type === "Full-time"
                         ? "badge bg-success-subtle text-success fs-13 mt-1 mx-1"
-                        : recentJobDetails.employment_type === 'Part-time'
+                        : recentJobDetails.employment_type === "Part-time"
                         ? "badge bg-danger-subtle text-danger fs-13 mt-1 mx-1"
-                        : recentJobDetails.employment_type === 'Freelancer'
+                        : recentJobDetails.employment_type === "Freelancer"
                         ? "badge bg-primary-subtle text-primary fs-13 mt-1 mx-1"
                         : ""
-                    }
-                  >
+                    }>
                     {recentJobDetails.employment_type}
                   </span>
 
@@ -223,8 +207,7 @@ const RecentJobs = () => {
                       className={
                         "badge " + badgeInner.badgeclassName + " fs-13 mt-1"
                       }
-                      key={key}
-                    >
+                      key={key}>
                       {badgeInner.badgeName}
                     </span>
                   ))}
@@ -248,7 +231,9 @@ const RecentJobs = () => {
                 <div>
                   <p className="text-muted mb-0">
                     <span className="text-dark">
-                      {recentJobDetails.deadline_date === null ? "" : "Deadline :"}
+                      {recentJobDetails.deadline_date === null
+                        ? ""
+                        : "Deadline :"}
                     </span>
                     {recentJobDetails.deadline_date}{" "}
                   </p>
@@ -257,7 +242,10 @@ const RecentJobs = () => {
 
               <Col lg={2} md={3}>
                 <div className="text-start text-md-end">
-                  <Link to="#" onClick={openModal} className="primary-link">
+                  <Link
+                    to={`/jobdetails/${recentJobDetails.id}`}
+                    onClick={openModal}
+                    className="primary-link">
                     Apply Now <i className="mdi mdi-chevron-double-right"></i>
                   </Link>
                 </div>
@@ -276,8 +264,7 @@ const RecentJobs = () => {
         id="applyNow"
         tabIndex="-1"
         aria-labelledby="applyNow"
-        aria-hidden="true"
-      >
+        aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered">
           <Modal isOpen={modal} toggle={openModal} centered>
             <ModalBody className="modal-body p-5">
@@ -292,8 +279,7 @@ const RecentJobs = () => {
                   onClick={openModal}
                   className="btn-close"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                  aria-label="Close"></button>
               </div>
               <div className="mb-3">
                 <Label for="nameControlInput" className="form-label">
@@ -325,8 +311,7 @@ const RecentJobs = () => {
                   className="form-control"
                   id="messageControlTextarea"
                   rows="4"
-                  placeholder="Enter your message"
-                ></textarea>
+                  placeholder="Enter your message"></textarea>
               </div>
               <div className="mb-4">
                 <Label className="form-label" for="inputGroupFile01">

@@ -19,6 +19,9 @@ class UserSeeder extends Seeder
             'name' => 'John Doe',
             'email' => 'johndoe@example.com',
             'password' => '123456789',
+            'about' => "Lorem Ipsum is simply dummy text of 
+            the printing and typesetting industry. Lorem Ipsum has been the 
+            industry's standard dummy text ever since the 1500s, when an ",
             'gender' => 'Male',
             'address' => 'Amman',
             'phone_number' => '123-456-7890',
@@ -29,13 +32,18 @@ class UserSeeder extends Seeder
             'career_field' => 'Web Development',
             'jop_title' => 'Web Developer',
             'years_of_experience' => 5,
-            'subscription' => 'Basic',
+            'subscription' => 'Basic','image' => '../../../Jobcy/public/profile.png'
+
         ]);
 
         User::create([
             'name' => 'Jane Smith',
             'email' => 'janesmith@example.com',
             'password' => '123456789',
+            'about' => "Lorem Ipsum is simply dummy text of 
+            the printing and typesetting industry. Lorem Ipsum has been the 
+            industry's standard dummy text ever since the 1500s, when an ",
+            
             'gender' => 'Female',
             'address' => '456 Elm St',
             'phone_number' => '987-654-3210',
@@ -47,6 +55,7 @@ class UserSeeder extends Seeder
             'jop_title' => 'Marketing Specialist',
             'years_of_experience' => 3,
             'subscription' => 'Premium',
+            'image' => '../../../Jobcy/public/profile.png'
         ]);
     }
 }

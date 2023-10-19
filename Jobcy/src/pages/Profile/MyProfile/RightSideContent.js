@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
+
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   Col,
   Row,
@@ -21,13 +24,82 @@ import userImage2 from "../../../assets/images/user/img-02.jpg";
 import { Link } from "react-router-dom";
 
 const RightSideContent = () => {
+
+
+//-----------------------skills-----------------------------------------------------------
+ const [selectedUser, setSelectedUser] = useState(null);
+  const x = 1; // Replace with the ID you want to find
+
+
+  useEffect(() => {
+    // Fetch data from the API when the component mounts
+    axios.get(`http://127.0.0.1:8000/api/userskills/${x}`)
+      .then((response) => {
+        setSelectedUser(response.data);
+        console.log(selectedUser.name)
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+      });
+  }, []);
+
+
+
+//-----------------------language-----------------------------------------------------------
+  const [UserLanguage,setUserLanguage]=useState(null);
+  useEffect(() => {
+    
+    axios.get(`http://127.0.0.1:8000/api/userlanguage/${x}`)
+      .then((response) => {
+        setUserLanguage(response.data);
+  })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+      });
+  }, []);
+
+//-----------------------education---------------------------------------------------------
+
+const [UserEducation,setUserEducation]=useState(null);
+useEffect(() => {
+  // Fetch data from the API when the component mounts
+  axios.get(`http://127.0.0.1:8000/api/userseducation/${x}`)
+    .then((response) => {
+      setUserEducation(response.data);
+   })
+    .catch((error) => {
+      console.error("Error fetching data: ", error);
+    });
+}, []);
+
+//-----------------------education-----------------------------------------------------------------
+
+const [userexperience,setUserExperience]=useState(null);
+useEffect(() => {
+  // Fetch data from the API when the component mounts
+  axios.get(`http://127.0.0.1:8000/api/userexperience/${x}`)
+    .then((response) => {
+      setUserExperience(response.data);
+   })
+    .catch((error) => {
+      console.error("Error fetching data: ", error);
+    });
+}, []);
+
+
+// ---------------------------------------------------------------------------------
   const [activeTab, setActiveTab] = useState("1");
 
   const tabChange = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
+
+
   };
   return (
     <React.Fragment>
+      <>
+        {/* {selectedUser && ()} */}
+      </>
       <Col lg={8}>
         <Card className="profile-content-page mt-4 mt-lg-0">
           <Nav
@@ -67,13 +139,10 @@ const RightSideContent = () => {
                 <div>
                   <h5 className="fs-18 fw-bold">About</h5>
                   <p className="text-muted mt-4">
-                    Developer with over 5 years' experience working in both the
-                    public and private sectors. Diplomatic, personable, and
-                    adept at managing sensitive situations. Highly organized,
-                    self-motivated, and proficient with computers. Looking to
-                    boost students’ satisfactions scores for{" "}
-                    <b>International University</b>. Bachelor's degree in
-                    communications.
+                    {selectedUser ? selectedUser.about : (
+                      <p>User with ID {x} not found.</p>
+                    )}
+
                   </p>
                   <p className="text-muted">
                     It describes the candidate's relevant experience, skills,
@@ -84,141 +153,90 @@ const RightSideContent = () => {
                 </div>
                 <div className="candidate-education-details mt-4">
                   <h6 className="fs-18 fw-bold mb-0">Education</h6>
-                  <div className="candidate-education-content mt-4 d-flex">
-                    <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
-                      B
+              
+                  
+                  {UserEducation && Array.isArray(UserEducation.educations) && (
+                    UserEducation.educations.map((education) => (
+                      <div className="candidate-education-content mt-4 d-flex">
+                      <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
+                      {education.subject.charAt(0).toUpperCase()}
+                      </div>
+                      <div className="ms-4">
+                        <h6 className="fs-16 mb-1">
+                         { education.subject}
+                        </h6>
+                        <p className="mb-2 text-muted">
+                          {education.schoole} - ( {education.from} -  {education.to})
+                        </p>
+                        <p className="text-muted">
+                        {education.description}
+                        </p>
+                      </div>
                     </div>
-                    <div className="ms-4">
-                      <h6 className="fs-16 mb-1">
-                        BCA - Bachelor of Computer Applications
-                      </h6>
-                      <p className="mb-2 text-muted">
-                        International University - (2004 - 2010)
-                      </p>
-                      <p className="text-muted">
-                        There are many variations of passages of available, but
-                        the majority alteration in some form. As a highly
-                        skilled and successfull product development and design
-                        specialist with more than 4 Years of My experience.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="candidate-education-content mt-3 d-flex">
-                    <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
-                      M
-                    </div>
-                    <div className="ms-4">
-                      <h6 className="fs-16 mb-1">
-                        MCA - Master of Computer Application
-                      </h6>
-                      <p className="mb-2 text-muted">
-                        International University - (2010 - 2012)
-                      </p>
-                      <p className="text-muted">
-                        There are many variations of passages of available, but
-                        the majority alteration in some form. As a highly
-                        skilled and successfull product development and design
-                        specialist with more than 4 Years of My experience.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="candidate-education-content mt-3 d-flex">
-                    <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
-                      D
-                    </div>
-                    <div className="ms-4">
-                      <h6 className="fs-16 mb-1">
-                        Design Communication Visual
-                      </h6>
-                      <p className="text-muted mb-2">
-                        International University - (2012-2015)
-                      </p>
-                      <p className="text-muted">
-                        There are many variations of passages of available, but
-                        the majority alteration in some form. As a highly
-                        skilled and successfull product development and design
-                        specialist with more than 4 Years of My experience.
-                      </p>
-                    </div>
-                  </div>
+                        
+                     
+                    ))
+                  )}
+                  
+                
+                 
                 </div>
                 <div className="candidate-education-details mt-4">
                   <h6 className="fs-18 fw-bold mb-0">Experiences</h6>
+                  {userexperience && Array.isArray(userexperience.experiences) && (
+                    userexperience.experiences.map((experience) => (
+                  
                   <div className="candidate-education-content mt-4 d-flex">
                     <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
                       {" "}
-                      W{" "}
+                      {experience.position.charAt(0).toUpperCase()}{" "}
                     </div>
                     <div className="ms-4">
                       <h6 className="fs-16 mb-1">
-                        Web Design & Development Team Leader
+                        {experience.position}
                       </h6>
                       <p className="mb-2 text-muted">
-                        Creative Agency - (2013 - 2016)
+                      {experience.position} - ({experience.from} - {experience.to})
                       </p>
                       <p className="text-muted">
-                        There are many variations of passages of available, but
-                        the majority alteration in some form. As a highly
-                        skilled and successfull product development and design
-                        specialist with more than 4 Years of My experience.
+                      {experience.description}
                       </p>
                     </div>
                   </div>
-                  <div className="candidate-education-content mt-4 d-flex">
-                    <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
-                      {" "}
-                      P{" "}
-                    </div>
-                    <div className="ms-4">
-                      <h6 className="fs-16 mb-1">Project Manager</h6>
-                      <p className="mb-2 text-muted">
-                        Jobcy Technology Pvt.Ltd - (Pressent)
-                      </p>
-                      <p className="text-muted mb-0">
-                        There are many variations of passages of available, but
-                        the majority alteration in some form. As a highly
-                        skilled and successfull product development and design
-                        specialist with more than 4 Years of My experience.
-                      </p>
-                    </div>
-                  </div>
+
+                    
+                  ))
+                  )}
+                 
                 </div>
                 <div className="mt-4">
                   <h5 className="fs-18 fw-bold">Skills</h5>
                 </div>
                 <div className="mt-0 d-flex flex-wrap align-items-start gap-1">
-                  <span className="badge fs-13 bg-blue-subtle text-blue mt-2">
-                    Cloud Management
-                  </span>
-                  <span className="badge fs-13 bg-blue-subtle text-blue mt-2">
-                    Responsive Design
-                  </span>
-                  <span className="badge fs-13 bg-blue-subtle text-blue mt-2">
-                    Network Architecture
-                  </span>
-                  <span className="badge fs-13 bg-blue-subtle text-blue mt-2">
-                    PHP
-                  </span>
-                  <span className="badge fs-13 bg-blue-subtle text-blue mt-2">
-                    Bootstrap
-                  </span>
-                  <span className="badge fs-13 bg-blue-subtle text-blue mt-2">
-                    UI & UX Designer
-                  </span>
+
+                  {selectedUser && Array.isArray(selectedUser.user_skills) && (
+                    selectedUser.user_skills.map((skill) => (
+                      <span className="badge fs-13 bg-blue-subtle text-blue mt-2" key={skill.id}>
+                        {skill.skill_name}
+                      </span>
+                    ))
+                  )}
+                  
                 </div>
                 <div className="mt-4">
                   <h5 className="fs-18 fw-bold">Spoken languages</h5>
                 </div>
                 <div className="mt-0 d-flex flex-wrap align-items-start gap-1">
-                  <span className="badge fs-13 bg-success-subtle text-success mt-2">
-                    English
-                  </span>
-                  <span className="badge fs-13 bg-success-subtle text-success mt-2">
-                    German
-                  </span>
-                  <span className="badge fs-13 bg-success-subtle text-success mt-2">
-                    French
-                  </span>
+
+                {UserLanguage && Array.isArray(UserLanguage.languages) && (
+                    UserLanguage.languages.map((language) => (
+                      <span className="badge fs-13 bg-success-subtle text-success mt-2">
+                      {language.name}
+                      </span>
+                    ))
+                  )}
+                  
+                 
                 </div>
               </TabPane>
               <TabPane tabId="2">

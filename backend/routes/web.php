@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\UserController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,7 @@ Route::get('/', function () {
 
 require __DIR__.'/auth.php';
 
+
+
+
+// Route::get('/user1', [UserController::class, 'get']);

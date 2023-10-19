@@ -28,8 +28,6 @@ const SignIn = ({ isAuthenticated, user, loginSuccess,  }) => {
     
       const csrfResponse = await axios.get('/get-csrf-token');
       const csrfToken = csrfResponse.data.csrf_token;
-
-      
       axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
 
       // Now, make your login request
@@ -40,7 +38,7 @@ const SignIn = ({ isAuthenticated, user, loginSuccess,  }) => {
       const data = await axios.get('/user')
      
       loginSuccess(data.data.user)
-      navigate("/");
+      navigate(-1);
       // console.log(response.data); // Log the user information
     } catch (e) {
      

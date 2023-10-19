@@ -1,30 +1,47 @@
 import React, { useState,useEffect } from "react";
 import { Modal, ModalBody, Input, Label, Card, CardBody } from "reactstrap";
+import { useSelector } from 'react-redux';
+
 import { Link } from "react-router-dom";
 
 //Import Images
 import jobImages2 from "../../../assets/images/featured-job/img-02.png";
 
 const RightSideContent = (props) => {
+
+  const user = useSelector((state) => state.user)
+  const isAuthenticated = useSelector((state) => state.isAuthenticated)
+
   const [date, setDate] = useState("");
+  const [isApplied, setisApplied] = useState(false);
   const [deadLine, setDeadLine] = useState(false);
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
  
 useEffect((params) => {
+
+if (isAuthenticated) {
+  props.job.application.forEach(element => {
+    if (user.id === element.user_id) {
+      return setisApplied(true)
+    }
+   });
+}
+  
   const timestamp = props.job.created_at;
-const jobDeadline = props.job.deadline_date;
+const jobDeadline = new Date(props.job.deadline_date) ;
 
 
   const datePosted = new Date(timestamp);
   
 
   const currentDate = new Date();
-
   const deadDifference = jobDeadline - currentDate;
-  if (deadDifference<0) {
+  if (deadDifference>0) {
     setDeadLine(true)
   }
+  console.log(jobDeadline);
+  console.log(deadDifference);
   
   const timeDifference = currentDate - datePosted;
   
@@ -106,7 +123,7 @@ const jobDeadline = props.job.deadline_date;
                   <i className="uil uil-graduation-cap icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Qualification</h6>
-                    <p className="text-muted mb-0">{props.job.qualification[1].qualification_name}</p>
+                    <p className="text-muted mb-0">{props.job.qualification[0].qualification_name}</p>
                   </div>
                 </div>
               </li>
@@ -130,23 +147,42 @@ const jobDeadline = props.job.deadline_date;
               </li>
             </ul>
             <div className="mt-3">
-             {deadLine?( <Link
-                to="#applyNow"
-                onClick={openModal}
-                className="btn btn-primary btn-hover w-100 mt-2"
-              >
-                Apply Now <i className="uil uil-arrow-right"></i>
-              </Link>):(
-                <Link
-               
-                onClick={(e) => {
-                  e.preventDefault()
-                }}
-                className="btn btn-danger btn-hover w-100 mt-2 "
-              >
-                applyment stopped 
-              </Link>
-              )}
+            {deadLine ? (
+  isAuthenticated ? (
+   isApplied?( <Link
+    
+    onClick={(e) => {
+      e.preventDefault()
+    }}
+    className="btn btn-success btn-hover w-100 mt-2"
+  >
+    You have applied for this job
+  </Link>):( <Link
+    to="#applyNow"
+    onClick={openModal}
+    className="btn btn-primary btn-hover w-100 mt-2"
+  >
+    Apply Now <i className="uil uil-arrow-right"></i>
+  </Link>)
+  ) : (
+    <Link
+    to="/signin"
+    onClick={openModal}
+    className="btn btn-primary btn-hover w-100 mt-2"
+  >
+    Sign in please to Apply <i className="uil uil-arrow-right"></i>
+  </Link>
+  )
+) : (
+  <Link
+    onClick={(e) => {
+      e.preventDefault();
+    }}
+    className="btn btn-danger btn-hover w-100 mt-2"
+  >
+    Applyment stopped
+  </Link>
+)}
              
             </div>
           </CardBody>

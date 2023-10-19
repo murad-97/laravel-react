@@ -8,6 +8,8 @@ use App\Http\Controllers\IndustryController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\UserController;
+
 
 
 
@@ -48,6 +50,7 @@ Route::get('/user', [AuthenticatedSessionController::class, 'user'])
 
 //all industries with company and job
 Route::get('/industries', [IndustryController::class, 'getAllIndustries']);
+Route::get('/users', [UserController::class, 'index']);
 
 //all jobs with company and location
 Route::get('/jobs', [JobController::class, 'getAllJobs']);
@@ -67,3 +70,17 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 ->name('logout');
 
 Route::get('/jobdetails/{id}', [JobController::class, 'show']);
+              
+
+
+ Route::get('/user1', [UserController::class, 'get']);
+
+Route::get('/userlanguage/{userId}', [UserController::class, 'getLanguagesForUser']);
+
+
+Route::get('/userskills/{userId}', [UserController::class, 'getUserSkills']);
+
+Route::get('/userexperience/{userId}', [UserController::class, 'getUserExperience']);
+Route::get('/userseducation/{userId}', [UserController::class, 'getUserEducations']);
+
+
