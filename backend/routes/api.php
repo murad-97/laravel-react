@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -37,3 +38,16 @@ Route::post('/register', [RegisteredUserController::class, 'store'])
 Route::get('/user', [AuthenticatedSessionController::class, 'user'])
                 ->middleware('auth')
                 ->name('logout');
+
+
+ Route::get('/user1', [UserController::class, 'get']);
+
+Route::get('/userlanguage/{userId}', [UserController::class, 'getLanguagesForUser']);
+
+
+Route::get('/userskills/{userId}', [UserController::class, 'getUserSkills']);
+
+Route::get('/userexperience/{userId}', [UserController::class, 'getUserExperience']);
+Route::get('/userseducation/{userId}', [UserController::class, 'getUserEducations']);
+
+
