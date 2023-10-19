@@ -4,10 +4,12 @@ import axios from 'axios';
 import { Col, Row, Container } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import GitData from '../ApiData/GitDataApi';
 
 
 
 const Jobcatogaries = () => {
+  
   // const categories = [
   //   {
   //     id: 1,
@@ -59,19 +61,27 @@ const Jobcatogaries = () => {
   //   }
   // ];
 
-  const [industries, setIndustries] = useState([])
 
-  useEffect(()=>{
-      fetchProducts() ;
+
+  // const [industries, setIndustries] = useState([])
+
+  // useEffect(()=>{
+  //     fetchIndustries() ;
       
-  },[])
+  // },[])
 
-  const fetchProducts = async () => {
-      await axios.get(`http://127.0.0.1:8000/api/industries`).then(({data})=>{
-        setIndustries(data)
+  // const fetchIndustries = async () => {
+  //     await axios.get(`http://127.0.0.1:8000/api/industries`).then(({data})=>{
+  //       setIndustries(data)
         
-      })
-  }
+  //     })
+  // }
+
+
+
+  const apiEndpoint = 'http://127.0.0.1:8000/api/industries'; 
+  const { data, loading, error } = GitData(apiEndpoint);
+
 
   return (
     <React.Fragment>
@@ -90,7 +100,7 @@ const Jobcatogaries = () => {
           </Row>
 
           <Row>
-            {(industries || []).map((item, key) => (
+            {(data || []).map((item, key) => (
               <Col lg={3} md={6} mt={4} pt={2} key={key}>
                 <div className="popu-category-box rounded text-center">
                   <div className="popu-category-icon icons-md">

@@ -58,7 +58,7 @@ const JobList = () => {
                     All Jobs
                   </NavLink>
                 </NavItem>
-                
+
                 <NavItem role="presentation">
                   <NavLink
                     className={classnames({ active: activeTab === "1" })}
