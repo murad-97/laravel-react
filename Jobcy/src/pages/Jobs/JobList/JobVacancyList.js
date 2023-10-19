@@ -207,7 +207,10 @@ const JobVacancyList = () => {
                 <Col md={3}>
                   <div className="mb-2 mb-md-0">
                     <h5 className="fs-18 mb-0">
-                      <Link to="/jobdetails" className="text-dark">
+                      <Link
+                        to={`/jobdetails/${jobVacancyListDetails.id}`}
+                        className="text-dark"
+                      >
                         {jobVacancyListDetails.title}
                       </Link>
                     </h5>
@@ -236,7 +239,9 @@ const JobVacancyList = () => {
                     <p className="text-muted mb-0">
                       {" "}
                       {/* {jobVacancyListDetails.created_at} */}
-                      {new Date(jobVacancyListDetails.created_at).toLocaleDateString()}
+                      {new Date(
+                        jobVacancyListDetails.created_at
+                      ).toLocaleDateString()}
                     </p>
                   </div>
                 </Col>
@@ -258,7 +263,6 @@ const JobVacancyList = () => {
                           ? "badge bg-blue-subtle text-blue fs-13 mt-1"
                           : ""
                       }
-                     
                     >
                       {jobVacancyListDetails.employment_type}
                     </span>

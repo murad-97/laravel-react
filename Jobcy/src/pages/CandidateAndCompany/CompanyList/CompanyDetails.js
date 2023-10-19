@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import { Card, CardBody, Col, Row } from "reactstrap";
 
 //Import Job Images
@@ -14,89 +15,23 @@ import jobImage9 from "../../../assets/images/featured-job/img-09.png";
 import jobImage10 from "../../../assets/images/featured-job/img-10.png";
 
 const CompanyDetails = () => {
-  const companyDetails = [
-    {
-      id: 1,
-      jobImg: jobImage1,
-      compnayName: "Jobcy Consulting",
-      location: "New York",
-      numberOfVacancy: 52,
-      label: true,
-      labelRating: 4.9
-    },
-    {
-      id: 2,
-      jobImg: jobImage2,
-      compnayName: "Creative Agency",
-      location: "UK",
-      numberOfVacancy: 11,
-      label: false,
-      labelRating: null
-    },
-    {
-      id: 3,
-      jobImg: jobImage3,
-      compnayName: "DootTech Solution",
-      location: "London",
-      numberOfVacancy: "09",
-      label: false,
-      labelRating: null
-    },
-    {
-      id: 4,
-      jobImg: jobImage5,
-      compnayName: "Apple School & College",
-      location: "Canada",
-      numberOfVacancy: 27,
-      label: false,
-      labelRating: null
-    },
-    {
-      id: 5,
-      jobImg: jobImage6,
-      compnayName: "Hunter Hospital",
-      location: "America",
-      numberOfVacancy: "07",
-      label: true,
-      labelRating: 4.8
-    },
-    {
-      id: 6,
-      jobImg: jobImage7,
-      compnayName: "Jshop Agency",
-      location: "California",
-      numberOfVacancy: 20,
-      label: false,
-      labelRating: null
-    },
-    {
-      id: 7,
-      jobImg: jobImage8,
-      compnayName: "Adobe Agency",
-      location: "New York",
-      numberOfVacancy: 27,
-      label: false,
-      labelRating: null
-    },
-    {
-      id: 8,
-      jobImg: jobImage9,
-      compnayName: "Creative Agency",
-      location: "Uk",
-      numberOfVacancy: 35,
-      label: false,
-      labelRating: null
-    },
-    {
-      id: 9,
-      jobImg: jobImage10,
-      compnayName: "Kshop Agency",
-      location: "America",
-      numberOfVacancy: 14,
-      label: true,
-      labelRating: 3.0
-    }
-  ];
+
+
+  const [companies, setCompaines] = useState([]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    await axios.get(`http://127.0.0.1:8000/api/companies`).then(({ data }) => {
+      const companydetails = data;
+      setCompaines(companydetails);
+      console.log(companydetails[0].location[0].name);
+    });
+  };
+
+
   return (
     <React.Fragment>
       <Row className="align-items-center mb-4">
@@ -146,34 +81,26 @@ const CompanyDetails = () => {
       </Row>
 
       <Row>
-        {companyDetails.map((companyDetailsNew, key) => (
+        {companies.map((details, key) => (
           <Col lg={4} md={6} key={key}>
             <Card className="text-center mb-4">
               <CardBody className="px-4 py-5">
-                {companyDetailsNew.label && (
+                {details.label && (
                   <div className="featured-label">
                     <span className="featured">
-                      {companyDetailsNew.labelRating}{" "}
+                      {details.labelRating}{" "}
                       <i className="mdi mdi-star-outline"></i>
                     </span>
                   </div>
                 )}
-                <img
-                  src={companyDetailsNew.jobImg}
-                  alt=""
-                  className="img-fluid rounded-3"
-                />
+                <img src={jobImage1} alt="" className="img-fluid rounded-3" />
                 <div className="mt-4">
                   <Link to="/companydetails" className="primary-link">
-                    <h6 className="fs-18 mb-2">
-                      {companyDetailsNew.compnayName}
-                    </h6>
+                    <h6 className="fs-18 mb-2">{details.name}</h6>
                   </Link>
-                  <p className="text-muted mb-4">
-                    {companyDetailsNew.location}
-                  </p>
+                  <p className="text-muted mb-4">{details.location[0].name}</p>
                   <Link to="/companydetails" className="btn btn-primary">
-                    {companyDetailsNew.numberOfVacancy} Opening Jobs
+                    {details.job.length} Opening Jobs
                   </Link>
                 </div>
               </CardBody>

@@ -31,7 +31,7 @@ useEffect(() => {
        setSelectedUser(userWithX);
      }
 
-     console.log(selectedUser.name)
+     console.log(selectedUser.name) 
 
 
     })

@@ -23,6 +23,7 @@ use Database\Seeders\ResponsibleSeeder;
 use Database\Seeders\AdminSeeder;
 use Database\Seeders\EducationSeeder;
 use Database\Seeders\ExperienceSeeder;
+use Database\Seeders\WorksDaysSeeder;
 
 
 class DatabaseSeeder extends Seeder
@@ -52,6 +53,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             EducationSeeder::class,
             ExperienceSeeder::class,
+            WorksDaysSeeder::class,
 
         ]);
     }

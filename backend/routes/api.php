@@ -29,6 +29,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::get('jobs',[JobController::class,'index']);
+Route::get('companies',[CompanyController::class, 'getAllCompanies']);
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
     ->middleware(['web', 'guest'])
