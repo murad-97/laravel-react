@@ -70,7 +70,7 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 ->name('logout');
 
 Route::get('/jobdetails/{id}', [JobController::class, 'show']);
-              
+
 
 
  Route::get('/user1', [UserController::class, 'get']);
