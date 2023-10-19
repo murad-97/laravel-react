@@ -82,7 +82,8 @@ const userRoutes = [
   //Candidate and Company Section
   { path: "/companydetails", component: <CompanyDetails /> },
   { path: "/companylist", component: <CompanyList /> },
-  { path: "/candidatedetails", component: <CandidateDetails /> },
+  // { path: "/candidatedetails", component: <CandidateDetails /> },
+  { path: "/candidatedetails/:id", component: <CandidateDetails /> },
   { path: "/candidategrid", component: <CandidateGrid /> },
   { path: "/candidatelist", component: <CandidateList /> },
 
@@ -105,7 +106,7 @@ const userRoutes = [
   //Home Section
   { path: "/layout3", component: <Layout3 /> },
   { path: "/layout2", component: <Layout1 /> },
-  { path: "/", component: <Layout2 /> }
+  { path: "/", component: <Layout2 /> },
 ];
 
 const authRoutes = [

@@ -6,24 +6,31 @@ import JobVacancyList from "./JobVacancyList";
 import Popular from "./Popular";
 import Sidebar from "./Sidebar";
 
+// import { DataProvider } from "../../FilterData/DataContext";
+// import { UpperProvider } from "../../FilterData/UpperContext";
+
 const JobList = () => {
   document.title = "Job List | Jobcy - Job Listing Template | Themesdesign";
   return (
     <React.Fragment>
       <Section />
       <section className="section">
-        <Container>
-          <Row>
-            <Col lg={9}>
-              <div className="me-lg-5">
-                <JobSearchOptions />
-                <Popular />
-                <JobVacancyList />
-              </div>
-            </Col>
-            <Sidebar />
-          </Row>
-        </Container>
+        {/* <DataProvider> */}
+          {/* <UpperProvider> */}
+            <Container>
+              <Row>
+                <Col lg={9}>
+                  <div className="me-lg-5">
+                    <JobSearchOptions />
+                    <Popular />
+                    <JobVacancyList />
+                  </div>
+                </Col>
+                <Sidebar />
+              </Row>
+            </Container>
+          {/* </UpperProvider> */}
+        {/* </DataProvider> */}
       </section>
     </React.Fragment>
   );

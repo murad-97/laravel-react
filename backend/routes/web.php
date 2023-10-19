@@ -21,6 +21,6 @@ Route::get('/', function () {
 require __DIR__.'/auth.php';
 
 
-
+// Route::get('/users', [UserController::class, 'index']);
 
 // Route::get('/user1', [UserController::class, 'get']);

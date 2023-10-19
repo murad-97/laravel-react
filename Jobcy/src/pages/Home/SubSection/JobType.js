@@ -1,50 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
 import Select from "react-select";
-import GitData from '../../ApiData/GitDataApi';
+import GitData from "../../ApiData/GitDataApi";
+import { DataContext } from "../../FilterData/DataContext";
+// import { UpperContext } from "../../FilterData/UpperContext";
 const JobType = () => {
 
+  
+   //Context
+   const {
+    salaryF,
+    setSalaryF,
 
-  // const [industries, setIndustries] = useState([])
-  const [selectedIndustry, setSelectedIndustry] = useState(null);
+    experienceF,
+    setExperienceF,
+
+    employmentF,
+    setEmploymentF,
+
+    locationF,
+    setLocationF,
+    comLocationF, setComLocationF,
+    comIndustryF, setComIndustryF
+  } = useContext(DataContext);
+
+  const [selectedIndustry, setSelectedIndustry] = useState("");
+
+  // const { comLocationF, setComLocationF, comIndustryF, setComIndustryF } = useContext(UpperContext);
 
 
 
-  // useEffect(() => {
-  //   fetchIndustries();
-  // }, []);
-
- 
-  // const fetchIndustries = async () => {
-  //   try {
-  //     const response = await axios.get('http://127.0.0.1:8000/api/industries');
-  //     setIndustries(response.data);
-  //   } catch (error) {
-  //     console.error('Error fetching industries:', error);
-  //   }
-  // };
-
-
-  const apiEndpoint = 'http://127.0.0.1:8000/api/industries'; 
+  //git data from API
+  const apiEndpoint = "http://127.0.0.1:8000/api/industries";
   const { data, loading, error } = GitData(apiEndpoint);
 
-
-
-
-  const options = data.map(industry => ({
+  const options = data.map((industry) => ({
     label: industry.name,
     value: industry.id,
   }));
 
+  // Create a default option
+  const newOption = {
+    label: "All",
+    value: "",
+  };
+  options.unshift(newOption);
 
-  // const options = [
-  //    (industries || []).map((item, key) => (
-  //   { label: "Accounting", value: "1" },
-  //   { label: "IT & Software", value: "2" },
-  //   { label: "Marketing", value: "3" },
-  //   { label: "Banking", value: "4" }
-  //   ))
-  // ];
+  //end Api-------------
+
+  // Event handler to capture the selected value and update the state
+  const handleSelectChange = (selected) => {
+    setSelectedIndustry(selected);
+    // If you want to update the context state as well, you can do it here.
+     setComIndustryF(selected.value);
+  };
+
+ 
 
   const colourStyles = {
     control: (styles) => ({
@@ -53,19 +64,21 @@ const JobType = () => {
       boxShadow: "none",
       padding: "12px 0 12px 40px",
       margin: "-16px -6px 0 -52px",
-      borderRadius: "0"
-    })
+      borderRadius: "0",
+    }),
   };
+
+
   return (
     <React.Fragment>
       <Select
         options={options}
         styles={colourStyles}
         className="selectForm__inner"
+        // defaultValue={{ label: "All", value: "" }}
         data-trigger
-        // defaultValue={{ label: "Accounting", value: 0 }}
         value={selectedIndustry}
-        onChange={selectedOption => setSelectedIndustry(selectedOption)}
+        onChange={handleSelectChange}
         name="choices-single-categories"
         id="choices-single-categories"
         aria-label="Default select example"
@@ -75,9 +88,3 @@ const JobType = () => {
 };
 
 export default JobType;
-
-
-
-
-
-

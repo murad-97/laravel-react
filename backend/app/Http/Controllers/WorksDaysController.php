@@ -2,21 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
+use App\Models\WorksDays;
 use Illuminate\Http\Request;
 
-class CompanyController extends Controller
+class WorksDaysController extends Controller
 {
-    public function getAllCompanies()
-    {
-        // $companies = Company::all();
-        // return response()->json($companies);
-
-        $companies = Company::with('location','job')->get();
-        return response()->json($companies);
-    }
-
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         //
@@ -46,10 +41,10 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\WorksDays  $worksDays
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company)
+    public function show(WorksDays $worksDays)
     {
         //
     }
@@ -57,10 +52,10 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\WorksDays  $worksDays
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit(WorksDays $worksDays)
     {
         //
     }
@@ -69,10 +64,10 @@ class CompanyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\WorksDays  $worksDays
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request, WorksDays $worksDays)
     {
         //
     }
@@ -80,10 +75,10 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\WorksDays  $worksDays
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy(WorksDays $worksDays)
     {
         //
     }

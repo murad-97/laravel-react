@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Col, Row, Modal, ModalBody, Input, Label, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
+// import { Params } from "express-serve-static-core";
 
 
 
@@ -86,101 +87,98 @@ const CandidateGridDetails = () => {
       </Row>
       <div className="candidate-list">
         <Row>
-          {users.map((details, key) => (
-            <Col lg={4} md={6} key={key}>
-              <div
-                className={
-                  details.addclassNameBookmark === true
-                    ? "candidate-grid-box bookmark-post card mt-4"
-                    : "candidate-grid-box card mt-4"
-                }
-              >
-                <CardBody className="p-4">
-                  {details.label && (
-                    <div className="featured-label">
-                      <span className="featured">
-                        {details.statuslabel}
-                      </span>
-                    </div>
-                  )}
-
-                  <div className="d-flex mb-4">
-                    <div className="flex-shrink-0 position-relative">
-                      <img
-                        src={userImage1}
-                        alt=""
-                        className="avatar-md rounded"
-                      />
-                      <span className={details.name}>
-                        <span className="visually-hidden">active</span>
-                      </span>
-                    </div>
-                    <div className="ms-3">
-                      <Link to="/candidate-details" className="primary-link">
-                        <h5 className="fs-17">
-                          {details.name}
-                        </h5>
-                      </Link>
-                      <span className="badge bg-info-subtle text-info fs-13">
-                        {details.academic_level} at{" "}
-                        {details.academic_specialization}
-                      </span>
-                    </div>
-                  </div>
-                  <ul className="list-inline d-flex justify-content-between align-items-center">
-                    <li className="list-inline-item text-warning fs-17">
-                      Level : {details.professional_level}
-                    </li>
-                    <li className="list-inline-item">
-                      <div className="favorite-icon">
-                        <Link to="#">
-                          <i className="uil uil-heart-alt fs-18"></i>
-                        </Link>
+          {users
+            .filter((user) => user.role === 1)
+            .map((details, key) => (
+              <Col lg={4} md={6} key={key}>
+                <div
+                  className={
+                    details.addclassNameBookmark === true
+                      ? "candidate-grid-box bookmark-post card mt-4"
+                      : "candidate-grid-box card mt-4"
+                  }
+                >
+                  <CardBody className="p-4">
+                    {details.label && (
+                      <div className="featured-label">
+                        <span className="featured">{details.statuslabel}</span>
                       </div>
-                    </li>
-                  </ul>
-                  <div className="border rounded mb-4">
-                    <div className="row g-0">
-                      <Col lg={6}>
-                        <div className="border-end px-3 py-2">
-                          <p className="text-muted mb-0">
-                            Exp. : {details.years_of_experience}{" "}
-                            Years
-                          </p>
-                        </div>
-                      </Col>
-                      <Col lg={6}>
-                        <div className="px-2 py-2">
-                          <p className="text-muted mb-0">
-                            {details.career_field}
-                          </p>
-                        </div>
-                      </Col>
+                    )}
+
+                    <div className="d-flex mb-4">
+                      <div className="flex-shrink-0 position-relative">
+                        <img
+                          src={userImage1}
+                          alt=""
+                          className="avatar-md rounded"
+                        />
+                        <span className={details.name}>
+                          <span className="visually-hidden">active</span>
+                        </span>
+                      </div>
+                      <div className="ms-3">
+                        <Link to="/candidate-details" className="primary-link">
+                          <h5 className="fs-17">{details.name}</h5>
+                        </Link>
+                        <span className="badge bg-info-subtle text-info fs-13">
+                          {details.academic_level} at{" "}
+                          {details.academic_specialization}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                  <p className="text-muted">
-                    {truncateText(details.about, 50)}
-                  </p>
-                  <div className="mt-3">
-                    <Link
-                      to="#hireNow"
-                      onClick={openModal}
-                      data-bs-toggle="modal"
-                      className="btn btn-primary btn-hover w-100 mt-2"
-                    >
-                      <i className="mdi mdi-account-check"></i> Hire Now
-                    </Link>
-                    <Link
-                      to="/candidatedetails"
-                      className="btn btn-soft-primary btn-hover w-100 mt-2"
-                    >
-                      <i className="mdi mdi-eye"></i> View Profile
-                    </Link>
-                  </div>
-                </CardBody>
-              </div>
-            </Col>
-          ))}
+                    <ul className="list-inline d-flex justify-content-between align-items-center">
+                      <li className="list-inline-item text-warning fs-17">
+                        Level : {details.professional_level}
+                      </li>
+                      <li className="list-inline-item">
+                        <div className="favorite-icon">
+                          <Link to="#">
+                            <i className="uil uil-heart-alt fs-18"></i>
+                          </Link>
+                        </div>
+                      </li>
+                    </ul>
+                    <div className="border rounded mb-4">
+                      <div className="row g-0">
+                        <Col lg={6}>
+                          <div className="border-end px-3 py-2">
+                            <p className="text-muted mb-0">
+                              Exp. : {details.years_of_experience} Years
+                            </p>
+                          </div>
+                        </Col>
+                        <Col lg={6}>
+                          <div className="px-2 py-2">
+                            <p className="text-muted mb-0">
+                              {details.career_field}
+                            </p>
+                          </div>
+                        </Col>
+                      </div>
+                    </div>
+                    <p className="text-muted">
+                      {truncateText(details.about, 50)}
+                    </p>
+                    <div className="mt-3">
+                      <Link
+                        to="#hireNow"
+                        onClick={openModal}
+                        data-bs-toggle="modal"
+                        className="btn btn-primary btn-hover w-100 mt-2"
+                      >
+                        <i className="mdi mdi-account-check"></i> Hire Now
+                      </Link>
+                      <Link
+                        to={`/candidatedetails/${details.id}`}
+                        className="btn btn-soft-primary btn-hover w-100 mt-2"
+                      >
+                        <i className="mdi mdi-eye"></i> View Profile
+                      </Link>
+                    </div>
+                  </CardBody>
+                </div>
+              </Col>
+            ))}
         </Row>
 
         <div
