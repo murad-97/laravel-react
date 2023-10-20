@@ -9,6 +9,7 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ApplicationController;
 
 
 
@@ -77,6 +78,7 @@ Route::get('/jobdetails/{id}', [JobController::class, 'show']);
 
 
  Route::get('/user1', [UserController::class, 'get']);
+ Route::post('/apply', [ApplicationController::class, 'store']);
 
 Route::get('/userlanguage/{userId}', [UserController::class, 'getLanguagesForUser']);
 

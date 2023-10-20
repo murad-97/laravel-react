@@ -1,6 +1,8 @@
 import React, { useState,useEffect } from "react";
-import { Modal, ModalBody, Input, Label, Card, CardBody } from "reactstrap";
-import { useSelector } from 'react-redux';
+import { Modal, ModalBody, Input, Label, Card, CardBody,Form } from "reactstrap";
+import { useSelector ,useDispatch } from 'react-redux';
+
+import axios from "../../../components/axios";
 
 import { Link } from "react-router-dom";
 
@@ -16,16 +18,49 @@ const RightSideContent = (props) => {
   const [isApplied, setisApplied] = useState(false);
   const [deadLine, setDeadLine] = useState(false);
   const [modal, setModal] = useState(false);
+  // const [userId, setuserId] = useState(false);
+  const [message, setMessage] = useState("");
+  // const [errors, seterrors] = useState([]);
+
   const openModal = () => setModal(!modal);
+
+const submitForm = async (e) => {
+  console.log(message);
+  e.preventDefault();
+  try {
+  
+    const csrfResponse = await axios.get('/get-csrf-token');
+    const csrfToken = csrfResponse.data.csrf_token;
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+
+    // Now, make your login request
+ await axios.post('/apply', {
+  userId: user.id,
+  jobId: props.job.id,
+  message: message,
+});
+openModal()
+    setMessage('');
+    await props.fetchData() 
+  } catch (e) {
+    
+    console.log(e);
+    if (e.response.status === 422){
+      // seterrors(e.response.data.errors)
+
+    }
+  }
+
+}
+
  
 useEffect((params) => {
 
 if (isAuthenticated) {
-  props.job.application.forEach(element => {
-    if (user.id === element.user_id) {
-      return setisApplied(true)
-    }
-   });
+  const isUserApplied = props.job.application.some(element => user.id === element.user_id);
+
+    setisApplied(isUserApplied);
+     console.log(isApplied);
 }
   
   const timestamp = props.job.created_at;
@@ -71,7 +106,7 @@ const jobDeadline = new Date(props.job.deadline_date) ;
   }
   
   setDate(datePostedString)
-},[])
+},[props.job.application, user.id])
 
 
 
@@ -270,76 +305,80 @@ const jobDeadline = new Date(props.job.deadline_date) ;
           aria-labelledby="applyNow"
           aria-hidden="true"
         >
-          <div className="modal-dialog modal-dialog-centered">
-            <Modal isOpen={modal} toggle={openModal} centered>
-              <ModalBody className="modal-body p-5">
-                <div className="text-center mb-4">
-                  <h5 className="modal-title" id="staticBackdropLabel">
-                    Apply For This Job
-                  </h5>
-                </div>
-                <div className="position-absolute end-0 top-0 p-3">
-                  <button
-                    type="button"
-                    onClick={openModal}
-                    className="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div className="mb-3">
-                  <Label for="nameControlInput" className="form-label">
-                    Name
-                  </Label>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    id="nameControlInput"
-                    placeholder="Enter your name"
-                  />
-                </div>
-                <div className="mb-3">
-                  <Label for="emailControlInput2" className="form-label">
-                    Email Address
-                  </Label>
-                  <Input
-                    type="email"
-                    className="form-control"
-                    id="emailControlInput2"
-                    placeholder="Enter your email"
-                  />
-                </div>
-                <div className="mb-3">
-                  <Label for="messageControlTextarea" className="form-label">
-                    Message
-                  </Label>
-                  <textarea
-                    className="form-control"
-                    id="messageControlTextarea"
-                    rows="4"
-                    placeholder="Enter your message"
-                  ></textarea>
-                </div>
-                <div className="mb-4">
-                  <Label className="form-label" for="inputGroupFile01">
-                    Resume Upload
-                  </Label>
-                  <Input
-                    type="file"
-                    className="form-control"
-                    id="inputGroupFile01"
-                  />
-                </div>
-                <button type="submit" className="btn btn-primary w-100">
-                  Send Application
-                </button>
-              </ModalBody>
-            </Modal>
-          </div>
+          {isAuthenticated ? (
+  <div className="modal-dialog modal-dialog-centered">
+    <Modal isOpen={modal} toggle={openModal} centered>
+      <ModalBody className="modal-body p-5">
+    
+        <div className="text-center mb-4">
+          <h5 className="modal-title" id="staticBackdropLabel">
+            Apply For This Job
+          </h5>
+        </div>
+        <div className="position-absolute end-0 top-0 p-3">
+          <button
+            type="button"
+            onClick={openModal}
+            className="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <Form onSubmit={submitForm}>
+        <div className="mb-3">
+          <Label for="nameControlInput" className="form-label">
+            Name
+          </Label>
+          <Input
+            defaultValue={user.name}
+            type="text"
+            className="form-control"
+            id="nameControlInput"
+            placeholder="Enter your name"
+          />
+        </div>
+        <div className="mb-3">
+          <Label for="emailControlInput2" className="form-label">
+            Email Address
+          </Label>
+          <Input
+            defaultValue={user.email}
+            type="email"
+            className="form-control"
+            id="emailControlInput2"
+            placeholder="Enter your email"
+          />
+        </div>
+        <div className="mb-3">
+          <Label for="messageControlTextarea" className="form-label">
+            Message
+          </Label>
+          <textarea
+          value={message}
+          onChange={(e) => {
+            setMessage(e.target.value)
+            console.log(message);
+          }}
+            className="form-control"
+            id="messageControlTextarea"
+            rows="4"
+            placeholder="Enter your message"
+          ></textarea>
+        </div>
+        <button type="submit" className="btn btn-primary w-100">
+          Send Application
+        </button>
+    </Form>
+      </ModalBody>
+    </Modal>
+  </div>
+) : null}
+
         </div>
       </div>
     </React.Fragment>
   );
 };
+
 
 export default RightSideContent;

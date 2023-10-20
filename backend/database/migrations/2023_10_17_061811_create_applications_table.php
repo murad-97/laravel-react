@@ -18,8 +18,7 @@ return new class extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('job_id')->unsigned();
             $table->string('status');
-
-
+            $table->string('message')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('job_id')->references('id')->on('jobs');
 
