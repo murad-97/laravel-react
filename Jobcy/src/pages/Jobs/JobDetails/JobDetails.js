@@ -13,17 +13,23 @@ const JobDetails = () => {
   const [job, setJob] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
+
+  const fetchData = async () => {
+    // setIsLoading(true);
+
+    try {
+      const response = await axios.get(`/jobdetails/${id}`);
+      setJob(response.data);
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
   let { id } = useParams();
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`/jobdetails/${id}`);
-        setJob(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+   
 
     fetchData();
   }, [id]); // Include `id` as a dependency
@@ -135,7 +141,7 @@ const JobDetails = () => {
             
                 </div>
               ) : (
-              <RightSideContent job={job}  />)}
+              <RightSideContent job={job} fetchData={fetchData}  />)}
             </Col>
           </Row>
         </Container>

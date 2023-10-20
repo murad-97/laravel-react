@@ -285,7 +285,10 @@ console.log(id);
                 <Col md={3}>
                   <div className="mb-2 mb-md-0">
                     <h5 className="fs-18 mb-0">
-                      <Link to="/jobdetails" className="text-dark">
+                      <Link
+                        to={`/jobdetails/${jobVacancyListDetails.id}`}
+                        className="text-dark"
+                      >
                         {jobVacancyListDetails.title}
                       </Link>
                     </h5>

@@ -307,16 +307,6 @@ const FeaturedJobs = () => {
                   placeholder="Enter your message"
                 ></textarea>
               </div>
-              <div className="mb-4">
-                <Label className="form-label" for="inputGroupFile01">
-                  Resume Upload
-                </Label>
-                <Input
-                  type="file"
-                  className="form-control"
-                  id="inputGroupFile01"
-                />
-              </div>
               <button type="submit" className="btn btn-primary w-100">
                 Send Application
               </button>

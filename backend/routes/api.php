@@ -9,6 +9,7 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ApplicationController;
 
 
 
@@ -29,6 +30,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::get('jobs',[JobController::class,'index']);
+Route::get('companies',[CompanyController::class, 'getAllCompanies']);
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
     ->middleware(['web', 'guest'])
@@ -70,10 +72,12 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 ->name('logout');
 
 Route::get('/jobdetails/{id}', [JobController::class, 'show']);
+Route::get('/samejob/{id}', [JobController::class, 'sameJobs']);
 
 
 
  Route::get('/user1', [UserController::class, 'get']);
+ Route::post('/apply', [ApplicationController::class, 'store']);
 
 Route::get('/userlanguage/{userId}', [UserController::class, 'getLanguagesForUser']);
 
