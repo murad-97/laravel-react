@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card, CardBody, Col } from "reactstrap";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+
 import axios from "axios";
 // import RightSideContent from './RightSideContent';
 
@@ -16,9 +18,16 @@ const LeftSideContent = () => {
 
 
   const [users, setUsers] = useState([]);
+      const userb = useSelector((state) => state.user);
+
 
 const [selectedUser, setSelectedUser] = useState(null);
-const x = 1; // Replace with the ID you want to find
+  // const userId = useSelector((state) =>
+  //   state.auth.user ? state.auth.user.id : null
+  // );
+  // console.log(userId);
+
+ // Replace with the ID you want to find
 
 
 useEffect(() => {
@@ -26,7 +35,7 @@ useEffect(() => {
   axios.get("http://127.0.0.1:8000/api/user1")
     .then((response) => {
      setUsers(response.data);
-     const userWithX = response.data.find((user) => user.id === x);
+     const userWithX = response.data.find((user) => user.id === userb.id);
      if (userWithX) {
        setSelectedUser(userWithX);
      }
@@ -58,7 +67,7 @@ useEffect(() => {
                 className="avatar-lg img-thumbnail rounded-circle mb-4"
               />
               <h5 className="mb-0">{selectedUser.name}</h5>
-              <p className="text-muted">{selectedUser.jop_title}cc</p>
+              <p className="text-muted">{selectedUser.jop_title}</p>
               <ul className="list-inline d-flex justify-content-center align-items-center ">
                 <li className="list-inline-item text-warning fs-19">
                   <i className="mdi mdi-star"></i>
@@ -180,7 +189,7 @@ useEffect(() => {
         </Card>
       </Col>
       ) : (
-        <p>User with ID {x} not found.</p>
+        <p>User with ID {userb.id} not found.</p>
       )}
     
     </React.Fragment>
