@@ -22,7 +22,7 @@ const JobList = () => {
                 <Col lg={9}>
                   <div className="me-lg-5">
                     <JobSearchOptions />
-                    <Popular />
+                    {/* <Popular /> */}
                     <JobVacancyList />
                   </div>
                 </Col>

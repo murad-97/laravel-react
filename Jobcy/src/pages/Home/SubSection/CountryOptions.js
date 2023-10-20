@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import Select from "react-select";
 import { DataContext } from "../../FilterData/DataContext";
-// import { UpperContext } from "../../FilterData/UpperContext";
+
 
 const CountryOptions = () => {
 
@@ -22,9 +22,9 @@ const CountryOptions = () => {
     comIndustryF, setComIndustryF
   } = useContext(DataContext);
 
-  // const { comLocationF, setComLocationF, comIndustryF, setComIndustryF } = useContext(UpperContext);
+ 
 
- const [selectedOption, setSelectedOption] = useState("");
+ const [selectedOption, setSelectedOption] = useState("All");
 
 
 
@@ -38,7 +38,7 @@ const CountryOptions = () => {
  
 
   const options = [
-    { value: "", label: "All" },
+    { value: "All", label: "All" },
     { value: "Amman", label: "Amman" },
     { value: "Irbid", label: "Irbid" },
     { value: "Zarqa", label: "Zarqa" },
@@ -60,7 +60,7 @@ const CountryOptions = () => {
       <Select
         options={options}
         className="choices selectForm__inner "
-        defaultValue={{ label: "All", value: "" }}
+        defaultValue={{ label: "All", value: "All" }}
         styles={colourStyles}
         onChange={handleSelectChange}
         value={selectedOption}

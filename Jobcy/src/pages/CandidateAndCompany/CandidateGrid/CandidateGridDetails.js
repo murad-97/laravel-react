@@ -3,41 +3,60 @@ import { Col, Row, Modal, ModalBody, Input, Label, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-
-
 import userImage1 from "../../../assets/images/profile.jpg";
-
 
 const CandidateGridDetails = () => {
   //Apply Now Model
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
 
+  const [users, setUsers] = useState([]);
 
-    const [users, setUsers] = useState([]);
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
+  const fetchProducts = async () => {
+    await axios.get(`http://127.0.0.1:8000/api/users`).then(({ data }) => {
+      const usersdetails = data;
+      setUsers(usersdetails);
+    });
+  };
 
-
-    useEffect(() => {
-      fetchProducts();
-    }, []);
-
-    const fetchProducts = async () => {
-      await axios.get(`http://127.0.0.1:8000/api/users`).then(({ data }) => {
-        const usersdetails = data;
-        setUsers(usersdetails);
-      });
-    };
-
-    const truncateText = (text, maxWords) => {
-      const words = text.split(" ");
-      if (words.length > maxWords) {
-        return words.slice(0, maxWords).join(" ") + "...";
-      }
-      return text;
+  const truncateText = (text, maxWords) => {
+    const words = text.split(" ");
+    if (words.length > maxWords) {
+      return words.slice(0, maxWords).join(" ") + "...";
     }
+    return text;
+  };
+
+  const [selectedLevelValue, setSelectedLevelValue] = useState("All");
+  const [selectedYearValue, setSelectedYearValue] = useState("");
+
+  // Filter the data based on context values
+  const filteredUsers = users.filter((user) => {
+    if (
+      user.professional_level === selectedLevelValue ||
+      selectedLevelValue === "All"
+    ) {
+      if (selectedYearValue === "") {
+        return true;
+      } else if (selectedYearValue === "2" && user.years_of_experience >= 0 && user.years_of_experience <= 2) {
+        return true;
+      } else if (selectedYearValue === "5" && user.years_of_experience >= 3 && user.years_of_experience <= 5) {
+        return true;
+      } else if (selectedYearValue === "+5" && user.years_of_experience > 5) {
+        return true;
+      }
+    }
+  
+    return false;
+  });
+
   return (
     <React.Fragment>
+      {/* filter ---------------------- */}
       <Row className="align-items-center">
         <Col lg={8} md={7}>
           <div>
@@ -55,12 +74,17 @@ const CandidateGridDetails = () => {
                     data-trigger
                     name="choices-single-filter-orderby"
                     id="choices-single-filter-orderby"
-                    aria-label="Default select example"
+                    aria-label="Experience Level"
+                    value={selectedLevelValue}
+                    onChange={(event) => {
+                      setSelectedLevelValue(event.target.value);
+                    }}
                   >
-                    <option value="df">Default</option>
-                    <option value="ne">Newest</option>
-                    <option value="od">Oldest</option>
-                    <option value="rd">Random</option>
+                    <option value="All">All</option>
+                    <option value="Entry Level">Entry Level</option>
+                    <option value="Junior">Junior</option>
+                    <option value="Mid-Senior Level">Mid-Senior Level</option>
+                    <option value="Senior">Senior</option>
                   </select>
                 </div>
               </Col>
@@ -71,12 +95,16 @@ const CandidateGridDetails = () => {
                     data-trigger
                     name="choices-candidate-page"
                     id="choices-candidate-page"
-                    aria-label="Default select example"
+                    aria-label="Years of experience"
+                    value={selectedYearValue}
+                    onChange={(event) => {
+                      setSelectedYearValue(event.target.value);
+                    }}
                   >
-                    <option value="all">All</option>
-                    <option value="4">4 per Page</option>
-                    <option value="8">8 per Page</option>
-                    <option value="12">12 per Page</option>
+                    <option value="">All</option>
+                    <option value="2">0 - 2</option>
+                    <option value="5">3 - 5</option>
+                    <option value="+5">5 and more</option>
                   </select>
                 </div>
               </Col>
@@ -84,9 +112,10 @@ const CandidateGridDetails = () => {
           </div>
         </Col>
       </Row>
+
       <div className="candidate-list">
         <Row>
-          {users.map((details, key) => (
+          {filteredUsers.map((details, key) => (
             <Col lg={4} md={6} key={key}>
               <div
                 className={
@@ -98,9 +127,7 @@ const CandidateGridDetails = () => {
                 <CardBody className="p-4">
                   {details.label && (
                     <div className="featured-label">
-                      <span className="featured">
-                        {details.statuslabel}
-                      </span>
+                      <span className="featured">{details.statuslabel}</span>
                     </div>
                   )}
 
@@ -117,9 +144,7 @@ const CandidateGridDetails = () => {
                     </div>
                     <div className="ms-3">
                       <Link to="/candidate-details" className="primary-link">
-                        <h5 className="fs-17">
-                          {details.name}
-                        </h5>
+                        <h5 className="fs-17">{details.name}</h5>
                       </Link>
                       <span className="badge bg-info-subtle text-info fs-13">
                         {details.academic_level} at{" "}
@@ -144,8 +169,7 @@ const CandidateGridDetails = () => {
                       <Col lg={6}>
                         <div className="border-end px-3 py-2">
                           <p className="text-muted mb-0">
-                            Exp. : {details.years_of_experience}{" "}
-                            Years
+                            Exp. : {details.years_of_experience} Years
                           </p>
                         </div>
                       </Col>

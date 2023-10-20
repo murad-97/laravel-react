@@ -1,11 +1,34 @@
-import React from "react";
+import React, { useContext } from 'react';
 import { Col, Container, Row, Form } from "reactstrap";
 // import {Link} from "react-router-dom";
 import processImage2 from "../../../assets/images/process-02.png";
 import CountryOptions from "../SubSection/CountryOptions";
 import JobSearch from "../SubSection/JobSearch";
+import { DataContext } from "../../FilterData/DataContext";
 
-const section = () => {
+const Section = () => {
+
+
+   //Context
+   const {
+    salaryF,
+    setSalaryF,
+
+    experienceF,
+    setExperienceF,
+
+    employmentF,
+    setEmploymentF,
+
+    locationF,
+    setLocationF,
+    comLocationF, setComLocationF,
+    comIndustryF, setComIndustryF
+  } = useContext(DataContext);
+
+
+
+
   return (
     <React.Fragment>
       <section className="bg-home2" id="home">
@@ -24,7 +47,7 @@ const section = () => {
                   different industries.
                 </p>
               </div>
-              <Form action="#">
+              <Form action={`/joblist/${comLocationF}`}>
                 <div className="registration-form">
                   <Row className="g-0">
                     <Col md={4}>
@@ -66,4 +89,4 @@ const section = () => {
   );
 };
 
-export default section;
+export default Section;
