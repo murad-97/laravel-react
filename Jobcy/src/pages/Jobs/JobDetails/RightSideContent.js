@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import { Modal, ModalBody, Input, Label, Card, CardBody,Form } from "reactstrap";
 import { useSelector ,useDispatch } from 'react-redux';
-import { loginSuccess } from '../../../pages/ExtraPages/Components/redux/authActions'; // Import your action
+
 import axios from "../../../components/axios";
 
 import { Link } from "react-router-dom";
@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import jobImages2 from "../../../assets/images/featured-job/img-02.png";
 
 const RightSideContent = (props) => {
-  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.user)
   const isAuthenticated = useSelector((state) => state.isAuthenticated)
 
