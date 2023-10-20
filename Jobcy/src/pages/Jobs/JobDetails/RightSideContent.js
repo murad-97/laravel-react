@@ -73,7 +73,7 @@ const jobDeadline = new Date(props.job.deadline_date) ;
   setDate(datePostedString)
 },[])
 
- 
+
 
   return (
     <React.Fragment>
