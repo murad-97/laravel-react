@@ -12,7 +12,8 @@ const JobDetails = () => {
   document.title = "Job Details | Jobcy - Job Listing Template | Themesdesign";
   const [job, setJob] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-
+  
+  let { id } = useParams();
 
   const fetchData = async () => {
     // setIsLoading(true);
@@ -27,7 +28,7 @@ const JobDetails = () => {
   };
 
 
-  let { id } = useParams();
+  
   useEffect(() => {
    
 
