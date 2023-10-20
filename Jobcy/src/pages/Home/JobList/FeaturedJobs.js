@@ -144,7 +144,7 @@ const FeaturedJobs = () => {
               <Col md={3}>
                 <div className="mb-2 mb-md-0">
                   <h5 className="fs-18 mb-1">
-                    <Link to={`/jobdetails/${data.id}`} className="text-dark">
+                    <Link to={`/jobdetails/${allJobDetails.id}`} className="text-dark">
                       {allJobDetails.title}
                     </Link>
                   </h5>
@@ -301,16 +301,6 @@ const FeaturedJobs = () => {
                   rows="4"
                   placeholder="Enter your message"
                 ></textarea>
-              </div>
-              <div className="mb-4">
-                <Label className="form-label" for="inputGroupFile01">
-                  Resume Upload
-                </Label>
-                <Input
-                  type="file"
-                  className="form-control"
-                  id="inputGroupFile01"
-                />
               </div>
               <button type="submit" className="btn btn-primary w-100">
                 Send Application
