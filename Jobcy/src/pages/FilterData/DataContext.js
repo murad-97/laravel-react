@@ -7,7 +7,7 @@ const DataProvider = ({ children }) => {
     const [experienceF, setExperienceF] = useState([]); 
     const [employmentF, setEmploymentF] = useState([]); 
     const [locationF, setLocationF] = useState([]); 
-    const [comLocationF, setComLocationF] = useState("");
+    const [comLocationF, setComLocationF] = useState("All");
     const [comIndustryF, setComIndustryF] = useState("");
   
     return (

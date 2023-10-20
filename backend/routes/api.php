@@ -74,6 +74,7 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 ->name('logout');
 
 Route::get('/jobdetails/{id}', [JobController::class, 'show']);
+Route::get('/samejob/{id}', [JobController::class, 'sameJobs']);
 
 
 

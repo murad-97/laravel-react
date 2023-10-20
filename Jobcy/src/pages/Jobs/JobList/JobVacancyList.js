@@ -3,10 +3,9 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Col, Input, Label, Row, Modal, ModalBody } from "reactstrap";
 import GitData from "../../ApiData/GitDataApi";
-
+import { useParams } from "react-router-dom";
 import { DataContext } from "../../FilterData/DataContext";
 // import { UpperContext } from "../../FilterData/UpperContext";
-
 
 //Images Import
 // import jobImage1 from "../../../assets/images/featured-job/img-01.png";
@@ -21,6 +20,15 @@ const JobVacancyList = () => {
   //Apply Now Model
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
+
+
+
+
+  const { id } = useParams();
+
+
+
+
 
   // const jobVacancyList = [
   //   {
@@ -171,8 +179,6 @@ const JobVacancyList = () => {
   //   });
   // };
 
-
-
   // const { comLocationF, setComLocationF, comIndustryF, setComIndustryF } =
   //   useContext(UpperContext);
 
@@ -188,18 +194,19 @@ const JobVacancyList = () => {
     setEmploymentF,
     locationF,
     setLocationF,
-    comLocationF, setComLocationF,
-    comIndustryF, setComIndustryF
+    comLocationF,
+    setComLocationF,
+    comIndustryF,
+    setComIndustryF,
   } = useContext(DataContext);
 
-  
+  useEffect(() => {
+    
+    setComLocationF(id);
+  }, [id]); 
 
-  
   // Filter the data based on context values
   const filteredData = data.filter((job) => {
-
- 
-
     if (job.salary <= salaryF) {
       if (
         experienceF.length === 0 ||
@@ -210,12 +217,11 @@ const JobVacancyList = () => {
           employmentF.includes(job.employment_type)
         ) {
           if (locationF.length === 0 || locationF.includes(job.location_type)) {
-            // return true;
             if (
-              comLocationF === "" ||
-              job.company.location[0].name === comLocationF
+              comLocationF === "All" ||
+              job.company.location[0].name === comLocationF 
+              
             ) {
-              // return true;
               if (
                 comIndustryF === "" ||
                 job.company.industry_id === comIndustryF
@@ -228,27 +234,26 @@ const JobVacancyList = () => {
       }
     }
 
-
-
     return false;
   });
 
  
+console.log(id);
 
   return (
     <React.Fragment>
-      {/* <div>
-        <h2>Context</h2>
-        <p>salary: {salaryF}</p>
-        <p>experience: {experienceF}</p>
-        <p>employment: {employmentF}</p>
-        <p>location: {locationF}</p>
-        <p>comLocation: {comLocationF}</p>
-        <p>comIndustry: {comIndustryF}</p>
-      </div> */}
-
       <div>
-        {filteredData.map((jobVacancyListDetails, key) => (
+
+      {filteredData.length === 0 ? (
+        
+        <h5 style={{ textAlign: 'center', marginTop: '80px' }}>
+        There are no jobs
+      </h5>
+  ) : (
+
+
+
+        filteredData.map((jobVacancyListDetails, key) => (
           <div
             key={key}
             className={
@@ -377,7 +382,12 @@ const JobVacancyList = () => {
               </Row>
             </div>
           </div>
-        ))}
+        ))
+
+
+  )}
+
+
         <div
           className="modal fade"
           id="applyNow"
