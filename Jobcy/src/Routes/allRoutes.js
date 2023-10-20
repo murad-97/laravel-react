@@ -93,7 +93,7 @@ const userRoutes = [
   { path: "/jobgrid2", component: <JobGrid2 /> },
   { path: "/jobgrid", component: <JobGrid /> },
   { path: "/joblist2", component: <JobList2 /> },
-  { path: "/joblist", component: <JobList /> },
+  { path: "/joblist/:id", component: <JobList /> },
 
   //Company Section
   { path: "/faqs", component: <Faqs /> },

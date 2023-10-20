@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Language;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 // USE App\Models\User;
 use PhpParser\Node\Stmt\Return_;
 
@@ -16,12 +17,48 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $users = User::with('user_skills')->get();
+        $users = User::with('user_skills')->with('educations')->with('experiences')->with('languages')->find($id);
        
         return response()->json($users);
     }
+    public function allUsers()
+    {
+        $users = User::with('user_skills')->with('educations')->with('experiences')->get();
+       
+        return response()->json($users);
+    }
+    public function image(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the max file size and allowed extensions as needed
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()], 400); // Return a validation error response
+        }
+
+        $user = User::find($request->id);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('img');
+            $image->move($destinationPath, $filename);
+
+            // Store the image path or URL in the user's database record
+            $user->image =  $filename; // Modify this path as needed, e.g., if you have a different storage structure
+        }
+$user->update();
+
+        return response()->json(['message' => 'Image uploaded and stored in the database successfully'], 201);
+    }
+
+
 
     public function get(){
     // $user1=User::get()->last();

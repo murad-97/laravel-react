@@ -20,14 +20,11 @@ import { logoutSuccess } from '../../pages/ExtraPages/Components/redux/authActio
 import { useDispatch } from 'react-redux';
 import darkLogo from "../../assets/images/logo-dark.png";
 import lightLogo from "../../assets/images/logo-light.png";
-import userImage2 from "../../assets/images/user/img-02.jpg";
-import jobImage4 from "../../assets/images/featured-job/img-04.png";
-import userImage1 from "../../assets/images/user/img-01.jpg";
-import jobImage from "../../assets/images/featured-job/img-01.png";
+
 import { useNavigate } from "react-router-dom";
 
 
-import profileImage from "../../assets/images/profile.jpg";
+// import profileImage from "../../assets/images/profile.jpg";
 import axios from "../../components/axios";
 
 
@@ -185,7 +182,7 @@ const navigate = useNavigate()
                 </NavLink>
                 <ul
                   className={classname("dropdown-menu dropdown-menu-center", {
-                    show: home
+                    show: home,
                   })}
                   aria-labelledby="homedrop"
                 >
@@ -217,7 +214,7 @@ const navigate = useNavigate()
                 </NavLink>
                 <ul
                   className={classname("dropdown-menu dropdown-menu-center", {
-                    show: company
+                    show: company,
                   })}
                   aria-labelledby="jobsdropdown"
                 >
@@ -356,7 +353,7 @@ const navigate = useNavigate()
                 </NavLink>
                 <ul
                   className={classname("dropdown-menu dropdown-menu-center", {
-                    show: blog
+                    show: blog,
                   })}
                   aria-labelledby="productdropdown"
                 >
@@ -533,80 +530,74 @@ const navigate = useNavigate()
               </DropdownMenu> */}
             </Dropdown>
             {isAuthenticated ? (
-  // If the user is authenticated, show the user dropdown
-  <Dropdown
-    onClick={() => setUserProfile(!userProfile)}
-    isOpen={userProfile}
-    toggle={dropDownuserprofile}
-    className="list-inline-item"
-  >
-    {/* Dropdown toggle button with user image and name */}
-    <DropdownToggle
-      to="#"
-      className="header-item"
-      id="userdropdown"
-      type="button"
-      tag="a"
-      aria-expanded="false"
-    >
-      <img
-        src={user.image}
-        alt="mdo"
-        width="35"
-        height="35"
-        className="rounded-circle me-1"
-      />{" "}
-      <span className="d-none d-md-inline-block fw-medium">
-        Hi, {user.name}
-      </span>
-    </DropdownToggle>
+              // If the user is authenticated, show the user dropdown
+              <Dropdown
+                onClick={() => setUserProfile(!userProfile)}
+                isOpen={userProfile}
+                toggle={dropDownuserprofile}
+                className="list-inline-item"
+              >
+                {/* Dropdown toggle button with user image and name */}
+                <DropdownToggle
+                  to="#"
+                  className="header-item"
+                  id="userdropdown"
+                  type="button"
+                  tag="a"
+                  aria-expanded="false"
+                >
+                  <img
+                    src={`http://localhost:8000/img/${user.image}`}
+                    alt="mdo"
+                    width="35"
+                    height="35"
+                    className="rounded-circle me-1"
+                  />{" "}
+                  <span className="d-none d-md-inline-block fw-medium">
+                    Hi, {user.name}
+                  </span>
+                </DropdownToggle>
 
-    {/* Dropdown menu with user options */}
-    <DropdownMenu
-      className="dropdown-menu-end"
-      aria-labelledby="userdropdown"
-      end
-    >
-      <li>
-        <Link className="dropdown-item" to="/managejobs">
-          Manage Jobs
-        </Link>
-      </li>
-      <li>
-        <Link className="dropdown-item" to="/bookmarkjobs">
-          Bookmarks Jobs
-        </Link>
-      </li>
-      <li>
-        <Link className="dropdown-item" to="/myprofile">
-          My Profile
-        </Link>
-      </li>
-      <li>
-        <button className="dropdown-item" onClick={handleLogout}>
-          Logout
-        </button>
-      </li>
-    </DropdownMenu>
-  </Dropdown>
-) : (
-  // If the user is not authenticated, show "Sign Up" and "Sign In" links
-  <ul className="navbar-nav mx-auto navbar-center">
-  
- 
-    <Link className="nav-link" to="/signup">
-      Sign Up
-    </Link>
-  
-  
-    <Link className="nav-link" to="/signin">
-      Sign In
-    </Link>
-    
-  
-    </ul>
-)}
+                {/* Dropdown menu with user options */}
+                <DropdownMenu
+                  className="dropdown-menu-end"
+                  aria-labelledby="userdropdown"
+                  end
+                >
+                  <li>
+                    <Link className="dropdown-item" to="/managejobs">
+                      Manage Jobs
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/bookmarkjobs">
+                      Bookmarks Jobs
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/myprofile">
+                      My Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <button className="dropdown-item" onClick={handleLogout}>
+                      Logout
+                    </button>
+                  </li>
+                </DropdownMenu>
+              </Dropdown>
+            ) : (
+              // If the user is not authenticated, show "Sign Up" and "Sign In" links
+              <ul className="navbar-nav mx-auto navbar-center">
+                <Link className="nav-link" to="/signup">
+                  Sign Up
+                </Link>
 
+                <Link className="nav-link" to="/signin">
+                  Sign In
+                </Link>
+              </ul>
+            )}
           </ul>
         </Container>
       </nav>

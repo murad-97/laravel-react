@@ -9,6 +9,10 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ApplicationController;
+
+
+
 use App\Models\Company;
 
 /*
@@ -49,7 +53,9 @@ Route::get('/user', [AuthenticatedSessionController::class, 'user'])
 
 //all industries with company and job
 Route::get('/industries', [IndustryController::class, 'getAllIndustries']);
-Route::get('/users', [UserController::class, 'index']);
+Route::get('/users', [UserController::class, 'allUsers']);
+Route::post('/image', [UserController::class, 'image']);
+Route::get('/users/{id}', [UserController::class, 'index']);
 
 //all jobs with company and location
 Route::get('/jobs', [JobController::class, 'getAllJobs']);
@@ -69,10 +75,12 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 ->name('logout');
 
 Route::get('/jobdetails/{id}', [JobController::class, 'show']);
+Route::get('/samejob/{id}', [JobController::class, 'sameJobs']);
 
 
 
  Route::get('/user1', [UserController::class, 'get']);
+ Route::post('/apply', [ApplicationController::class, 'store']);
 
 Route::get('/userlanguage/{userId}', [UserController::class, 'getLanguagesForUser']);
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Col, Row, Modal, ModalBody, Input, Label } from "reactstrap";
 import { Link } from "react-router-dom";
-import GitData from '../../ApiData/GitDataApi';
+import GitData from "../../ApiData/GitDataApi";
 
 //jobImages
 // import jobImage1 from "../../../assets/images/featured-job/img-01.png";
@@ -78,9 +78,6 @@ const Freelancer = () => {
   //   }
   // ];
 
-
-
-
   // const [jobs, setJobs] = useState([]);
 
   // useEffect(() => {
@@ -94,146 +91,162 @@ const Freelancer = () => {
   //   });
   // };
 
-
-  const apiEndpoint = 'http://127.0.0.1:8000/api/jobs'; 
+  const apiEndpoint = "http://127.0.0.1:8000/api/jobs";
   const { data, loading, error } = GitData(apiEndpoint);
-  const freelancerJobs = data.filter(job => job.employment_type === 'Freelancer');
-
+  const freelancerJobs = data.filter(
+    (job) => job.employment_type === "Freelancer"
+  );
 
   return (
     <React.Fragment>
-      {freelancerJobs.map((freelancerJobdetails, key) => (
-        <div
-          key={key}
-          className={
-            freelancerJobdetails.addclassNameBookmark === true
-              ? "job-box bookmark-post card mt-4"
-              : "job-box card mt-4"
-          }
-        >
-          <div className="bookmark-label text-center">
-            <Link to={`/jobdetails/${freelancerJobdetails.id}`} className="text-white align-middle">
-              <i className="mdi mdi-star"></i>
-            </Link>
-          </div>
-          <div className="p-4">
-            <Row className="align-items-center">
-              <Col md={2}>
-                <div className="text-center mb-4 mb-md-0">
-                  <Link to="/companydetails">
-                    <img
-                      src="/company.jpg"
-                      alt="CompanyImage"
-                      className="img-fluid rounded-3"
-                      style={{ width: "80px" }}
-                    />
-                  </Link>
-                </div>
-              </Col>
-
-              <Col md={3}>
-                <div className="mb-2 mb-md-0">
-                  <h5 className="fs-18 mb-1">
-                    <Link to={`/jobdetails/${freelancerJobdetails.id}`} className="text-dark">
-                      {freelancerJobdetails.title}
+      {freelancerJobs.length === 0 ? (
+        <h5 style={{ textAlign: "center", marginTop: "80px" }}>
+          There are no Freelancer Jobs
+        </h5>
+      ) : (
+        freelancerJobs.map((freelancerJobdetails, key) => (
+          <div
+            key={key}
+            className={
+              freelancerJobdetails.addclassNameBookmark === true
+                ? "job-box bookmark-post card mt-4"
+                : "job-box card mt-4"
+            }
+          >
+            <div className="bookmark-label text-center">
+              <Link
+                to={`/jobdetails/${freelancerJobdetails.id}`}
+                className="text-white align-middle"
+              >
+                <i className="mdi mdi-star"></i>
+              </Link>
+            </div>
+            <div className="p-4">
+              <Row className="align-items-center">
+                <Col md={2}>
+                  <div className="text-center mb-4 mb-md-0">
+                    <Link to="/companydetails">
+                      <img
+                        src="/company.jpg"
+                        alt="CompanyImage"
+                        className="img-fluid rounded-3"
+                        style={{ width: "80px" }}
+                      />
                     </Link>
-                  </h5>
-                  <p className="text-muted fs-14 mb-0">
-                    {freelancerJobdetails.company.name}
-                  </p>
-                </div>
-              </Col>
-
-              <Col md={3}>
-                <div className="d-flex mb-2">
-                  <div className="flex-shrink-0">
-                    <i className="mdi mdi-map-marker text-primary me-1"></i>
                   </div>
-                  <p className="text-muted mb-0">
-                    {freelancerJobdetails.company.location[0].name}
-                  </p>
-                </div>
-              </Col>
+                </Col>
 
-              <Col md={2}>
-                <div>
-                  <p className="text-muted mb-2">
-                    <span className="text-primary">$</span>
-                    {freelancerJobdetails.salary}
-                  </p>
-                </div>
-              </Col>
-
-              <Col md={2}>
-                <div>
-                  <span
-                    className={
-                      freelancerJobdetails.employment_type === 'Full-time'
-                        ? "badge bg-success-subtle text-success fs-13 mt-1 mx-1"
-                        : freelancerJobdetails.employment_type === 'Part-time'
-                        ? "badge bg-danger-subtle text-danger fs-13 mt-1 mx-1"
-                        : freelancerJobdetails.employment_type === 'Freelancer'
-                        ? "badge bg-primary-subtle text-primary fs-13 mt-1 mx-1"
-                        : ""
-                    }
-                  >
-                    {freelancerJobdetails.employment_type}
-                  </span>
-                  {(freelancerJobdetails.badges || []).map(
-                    (badgeInner, key) => (
-                      <span
-                        className={`badge ${badgeInner.badgeclassName} fs-13 mt-1`}
-                        key={key}
+                <Col md={3}>
+                  <div className="mb-2 mb-md-0">
+                    <h5 className="fs-18 mb-1">
+                      <Link
+                        to={`/jobdetails/${freelancerJobdetails.id}`}
+                        className="text-dark"
                       >
-                        {badgeInner.badgeName}
-                      </span>
-                    )
-                  )}
-                </div>
-              </Col>
-            </Row>
-          </div>
-          <div className="p-3 bg-light">
-            <Row>
-              <Col md={4}>
-                <div>
-                  <p className="text-muted mb-0">
-                    <span className="text-dark">Experience :</span>{" "}
-                    {freelancerJobdetails.professional_level}
-                  </p>
-                </div>
-              </Col>
+                        {freelancerJobdetails.title}
+                      </Link>
+                    </h5>
+                    <p className="text-muted fs-14 mb-0">
+                      {freelancerJobdetails.company.name}
+                    </p>
+                  </div>
+                </Col>
 
-              <Col lg={6} md={5}>
-                {}
-                <div>
-                  <p className="text-muted mb-0">
-                    <span className="text-dark">
-                      {freelancerJobdetails.deadline_date === null ? "" : "Deadline :"}
+                <Col md={3}>
+                  <div className="d-flex mb-2">
+                    <div className="flex-shrink-0">
+                      <i className="mdi mdi-map-marker text-primary me-1"></i>
+                    </div>
+                    <p className="text-muted mb-0">
+                      {freelancerJobdetails.company.location[0].name}
+                    </p>
+                  </div>
+                </Col>
+
+                <Col md={2}>
+                  <div>
+                    <p className="text-muted mb-2">
+                      <span className="text-primary">$</span>
+                      {freelancerJobdetails.salary}
+                    </p>
+                  </div>
+                </Col>
+
+                <Col md={2}>
+                  <div>
+                    <span
+                      className={
+                        freelancerJobdetails.employment_type === "Full-time"
+                          ? "badge bg-success-subtle text-success fs-13 mt-1 mx-1"
+                          : freelancerJobdetails.employment_type === "Part-time"
+                          ? "badge bg-danger-subtle text-danger fs-13 mt-1 mx-1"
+                          : freelancerJobdetails.employment_type ===
+                            "Freelancer"
+                          ? "badge bg-primary-subtle text-primary fs-13 mt-1 mx-1"
+                          : ""
+                      }
+                    >
+                      {freelancerJobdetails.employment_type}
                     </span>
-                    {freelancerJobdetails.deadline_date}{" "}
-                  </p>
-                </div>
-              </Col>
+                    {(freelancerJobdetails.badges || []).map(
+                      (badgeInner, key) => (
+                        <span
+                          className={`badge ${badgeInner.badgeclassName} fs-13 mt-1`}
+                          key={key}
+                        >
+                          {badgeInner.badgeName}
+                        </span>
+                      )
+                    )}
+                  </div>
+                </Col>
+              </Row>
+            </div>
+            <div className="p-3 bg-light">
+              <Row>
+                <Col md={4}>
+                  <div>
+                    <p className="text-muted mb-0">
+                      <span className="text-dark">Experience :</span>{" "}
+                      {freelancerJobdetails.professional_level}
+                    </p>
+                  </div>
+                </Col>
 
-              <Col lg={2} md={3}>
-                <div className="text-start text-md-end">
-                  <Link
-                    to="#applyNow"
-                    onClick={openModal}
-                    data-bs-toggle="modal"
-                    className="primary-link"
-                  >
-                    Apply Now <i className="mdi mdi-chevron-double-right"></i>
-                  </Link>
-                </div>
-              </Col>
-            </Row>
+                <Col lg={6} md={5}>
+                  {}
+                  <div>
+                    <p className="text-muted mb-0">
+                      <span className="text-dark">
+                        {freelancerJobdetails.deadline_date === null
+                          ? ""
+                          : "Deadline :"}
+                      </span>
+                      {freelancerJobdetails.deadline_date}{" "}
+                    </p>
+                  </div>
+                </Col>
+
+                <Col lg={2} md={3}>
+                  <div className="text-start text-md-end">
+                    <Link
+                      to="#applyNow"
+                      onClick={openModal}
+                      data-bs-toggle="modal"
+                      className="primary-link"
+                    >
+                      Apply Now <i className="mdi mdi-chevron-double-right"></i>
+                    </Link>
+                  </div>
+                </Col>
+              </Row>
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      )}
+
       <div className="text-center mt-4 pt-2">
-        <Link to="/joblist" className="btn btn-primary">
+        <Link to="/joblist/All" className="btn btn-primary">
           View More <i className="uil uil-arrow-right"></i>
         </Link>
       </div>
