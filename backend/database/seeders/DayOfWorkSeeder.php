@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\DayOfWork;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\WorksDays;
 
-class WorksDaysSeeder extends Seeder
+class DayOfWorkSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class WorksDaysSeeder extends Seeder
      */
     public function run()
     {
-        WorksDays::create([
+        DayOfWork::create([
             'Company_id' => 1,
             'Sunday' => 1,
             'Monday' => 1,
@@ -27,7 +27,7 @@ class WorksDaysSeeder extends Seeder
             'From' => "9:00",
             'To' => "6:30",
         ]);
-        WorksDays::create([
+        DayOfWork::create([
             'Company_id' => 2,
             'Sunday' => 1,
             'Monday' => 1,
