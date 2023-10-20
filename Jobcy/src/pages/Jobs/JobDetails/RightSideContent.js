@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import { Modal, ModalBody, Input, Label, Card, CardBody,Form } from "reactstrap";
-import { useSelector ,useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import axios from "../../../components/axios";
 
@@ -33,12 +33,14 @@ const submitForm = async (e) => {
     const csrfToken = csrfResponse.data.csrf_token;
     axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
 
-    // Now, make your login request
- await axios.post('/apply', {
-  userId: user.id,
-  jobId: props.job.id,
-  message: message,
-});
+
+      
+      await axios.post('/apply', {
+       userId: user.id,
+       jobId: props.job.id,
+       message: message,
+     });
+    
 openModal()
     setMessage('');
     await props.fetchData() 
@@ -106,7 +108,7 @@ const jobDeadline = new Date(props.job.deadline_date) ;
   }
   
   setDate(datePostedString)
-},[props.job.application, user.id])
+},[props.job.application])
 
  
 
