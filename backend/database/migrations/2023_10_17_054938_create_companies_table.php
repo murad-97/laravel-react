@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('img1');
             $table->string('img2');
             $table->string('img3');
+            $table->string('address');
+            // $table->string('website');
             $table->dateTime('startDate');
             $table->string('Linkedin')->nullable();
             $table->string('Whatsap')->nullable();
@@ -30,7 +32,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('website');
             $table->string('phone_number');
-            $table->string('location_map')->nullable();
+            $table->text('location_map')->nullable();
             $table->string('image')->default('company.jpg');
 
             $table->bigInteger('industry_id')->unsigned();

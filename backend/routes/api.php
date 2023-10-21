@@ -15,6 +15,7 @@ use App\Http\Controllers\ApplicationController;
 
 
 
+use App\Models\Company;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +91,10 @@ Route::get('/userskills/{userId}', [UserController::class, 'getUserSkills']);
 
 Route::get('/userexperience/{userId}', [UserController::class, 'getUserExperience']);
 Route::get('/userseducation/{userId}', [UserController::class, 'getUserEducations']);
+
+//----------------------
+Route::get('/companyWithWorkingDays/{companyId}', [CompanyController::class, 'getCompanyDetails']);
+Route::get('/companyjobs/{companyId}', [CompanyController::class, 'getCompanyjobs']);
 
 
 

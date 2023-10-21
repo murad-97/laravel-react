@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Job;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -12,9 +13,35 @@ class CompanyController extends Controller
         // $companies = Company::all();
         // return response()->json($companies);
 
-        $companies = Company::with('location','job')->get();
+        $companies = Company::with('location', 'job')->get();
         return response()->json($companies);
     }
+
+
+    public function getCompanyDetails($companyId)
+    {
+        $company = Company::with('dayOfWork')->find($companyId);
+
+        if (!$company) {
+            return response()->json(['message' => 'Company not found'], 404);
+        }
+
+        return response()->json($company);
+    }
+
+
+    public function getCompanyjobs($companyId)
+    {   
+        $jobs = Company::with('job')->find($companyId);
+       
+
+        if (!$jobs) {
+            return response()->json(['message' => 'Company not found'], 404);
+        }
+
+        return response()->json($jobs);
+    }
+
 
 
     public function index()

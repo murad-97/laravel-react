@@ -26,6 +26,18 @@ class JobSeeder extends Seeder
             'employment_type' => 'Full-time',
             'company_id' => 1,
         ]);
+
+        Job::create([
+
+            'title' => 'Software Engineer',
+            'description' => 'Develop software applications',
+            'salary' => 800,
+            'deadline_date' => '2023-12-31',
+            'professional_level' => 'Experienced',
+            'location_type' => 'On-site',
+            'employment_type' => 'Full-time',
+            'company_id' => 1,
+        ]);
         Job::create([
 
             'title' => 'Data Analyst',

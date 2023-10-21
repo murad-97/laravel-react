@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\WorksDays;
+use App\Models\DayOfWork;
 use Illuminate\Http\Request;
 
-class WorksDaysController extends Controller
+class DayOfWorkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class WorksDaysController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\WorksDays  $worksDays
+     * @param  \App\Models\DayOfWork  $dayOfWork
      * @return \Illuminate\Http\Response
      */
-    public function show(WorksDays $worksDays)
+    public function show(DayOfWork $dayOfWork)
     {
         //
     }
@@ -52,10 +52,10 @@ class WorksDaysController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\WorksDays  $worksDays
+     * @param  \App\Models\DayOfWork  $dayOfWork
      * @return \Illuminate\Http\Response
      */
-    public function edit(WorksDays $worksDays)
+    public function edit(DayOfWork $dayOfWork)
     {
         //
     }
@@ -64,10 +64,10 @@ class WorksDaysController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\WorksDays  $worksDays
+     * @param  \App\Models\DayOfWork  $dayOfWork
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, WorksDays $worksDays)
+    public function update(Request $request, DayOfWork $dayOfWork)
     {
         //
     }
@@ -75,10 +75,10 @@ class WorksDaysController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\WorksDays  $worksDays
+     * @param  \App\Models\DayOfWork  $dayOfWork
      * @return \Illuminate\Http\Response
      */
-    public function destroy(WorksDays $worksDays)
+    public function destroy(DayOfWork $dayOfWork)
     {
         //
     }
