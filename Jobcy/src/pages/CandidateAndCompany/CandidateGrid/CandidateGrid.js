@@ -13,7 +13,7 @@ const CandidateGrid = () => {
       <Section />
       <section className="section">
         <Container>
-          <JobFilters />
+          {/* <JobFilters /> */}
           <CandidateGridDetails />
           <Pagination />
         </Container>

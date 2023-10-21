@@ -23,8 +23,8 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                // return response()->json(Auth::user());
-                return redirect("/user");
+
+                return redirect("/");
             }
         }
 

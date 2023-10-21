@@ -4,15 +4,47 @@ namespace App\Http\Controllers;
 use App\Models\Industry;
 
 use App\Models\Company;
+use App\Models\Job;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function getAllCompanies()
+    {
+        // $companies = Company::all();
+        // return response()->json($companies);
+
+        $companies = Company::with('location', 'job')->get();
+        return response()->json($companies);
+    }
+
+
+    public function getCompanyDetails($companyId)
+    {
+        $company = Company::with('dayOfWork')->find($companyId);
+
+        if (!$company) {
+            return response()->json(['message' => 'Company not found'], 404);
+        }
+
+        return response()->json($company);
+    }
+
+
+    public function getCompanyjobs($companyId)
+    {
+        $jobs = Company::with(['job.company.location',"dayOfWork"])->find($companyId);
+
+
+        if (!$jobs) {
+            return response()->json(['message' => 'Company not found'], 404);
+        }
+
+        return response()->json($jobs);
+    }
+
+
+
     public function index()
     {
         $companies = Company::all();

@@ -29,6 +29,7 @@ class ApplicationController extends Controller
     {
         return view('dashboard.createapplication');
 
+
     }
 
     /**
@@ -39,7 +40,19 @@ class ApplicationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'message' => 'required|string|max:255',
+        ]);
+        Application::create([
+            'user_id' => $request->userId, // Replace 'field1' with your actual field name and 'value1' with the value you want to insert.
+            'job_id' => $request->jobId,
+            'status' => "pending",
+            'message' => $request->message,
+
+        ]);
+
+
+
     }
 
     /**

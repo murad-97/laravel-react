@@ -20,11 +20,15 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('about')->nullable();
+
             $table->string('gender')->nullable();
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('linkedin_link')->nullable();
-            $table->mediumText('image')->default('http://127.0.0.1:8000/assets/images/default_profile.png');
+            $table->mediumText('image')->default('profile.png');
+
+
             $table->string('academic_specialization')->nullable();
             $table->string('academic_level')->nullable();
             $table->string('professional_level')->nullable();
@@ -33,6 +37,7 @@ return new class extends Migration
             $table->bigInteger('years_of_experience')->nullable();
             $table->string('cv')->nullable();
             $table->string('subscription')->default('Basic');
+            $table->boolean('role')->default('0');
             $table->rememberToken();
             $table->timestamps();
 

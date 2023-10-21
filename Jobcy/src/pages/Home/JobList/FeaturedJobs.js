@@ -1,222 +1,252 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Col, Row, Modal, ModalBody, Input, Label } from "reactstrap";
 import { Link } from "react-router-dom";
+import GitData from "../../ApiData/GitDataApi";
 
 //jobImages
-import jobImage1 from "../../../assets/images/featured-job/img-01.png";
-import jobImage2 from "../../../assets/images/featured-job/img-02.png";
-import jobImage3 from "../../../assets/images/featured-job/img-03.png";
-import jobImage4 from "../../../assets/images/featured-job/img-04.png";
+// import jobImage1 from "../../../assets/images/featured-job/img-01.png";
+// import jobImage2 from "../../../assets/images/featured-job/img-02.png";
+// import jobImage3 from "../../../assets/images/featured-job/img-03.png";
+// import jobImage4 from "../../../assets/images/featured-job/img-04.png";
 
 const FeaturedJobs = () => {
   //Apply Now Model
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
-  const featuredJobs = [
-    {
-      id: 1,
-      companyImg: jobImage1,
-      jobDescription: "Web Developer",
-      companyName: "Web Technology pvt.Ltd",
-      location: "Oakridge Lane ssRichardson",
-      salary: "1000-1200/m",
-      fullTime: true,
-      timing: "Full Time",
-      catogary: "Featured Jobs",
-      addclassNameBookmark: true,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-info-subtle text-info",
-          badgeName: "Private"
-        },
-        {
-          id: 2,
-          badgeclassName: "bg-warning-subtle text-warning",
-          badgeName: "Urgent"
-        }
-      ],
-      experience: "1 - 2 years",
-      Notes: "languages only differ in their grammar."
-    },
-    {
-      id: 2,
-      companyImg: jobImage2,
-      jobDescription: "Business Associate",
-      companyName: "Pixel Technology pvt.Ltd",
-      location: "Dodge City, Louisiana",
-      salary: "800-1800/m",
-      partTime: true,
-      timing: "Part Time",
-      catogary: "Featured Jobs",
-      addclassNameBookmark: false,
-      badges: [],
-      experience: "0 - 1 years",
-      Notes: "languages only differ in their grammar."
-    },
-    {
-      id: 3,
-      companyImg: jobImage3,
-      jobDescription: "Digital Marketing Manager",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "Phoenix, Arizona",
-      salary: "1500-2400/m",
-      freelancer: true,
-      timing: "Freelancer",
-      catogary: "Featured Jobs",
-      addclassNameBookmark: true,
-      badges: [],
-      experience: "4+ years",
-      Notes: null
-    },
-    {
-      id: 4,
-      companyImg: jobImage4,
-      jobDescription: "Product Director",
-      companyName: "Creative Agency",
-      location: "Escondido, California",
-      salary: "1500-2400/m",
-      fullTime: true,
-      timing: "Full Time",
-      catogary: "Featured Jobs",
-      addclassNameBookmark: false,
-      badges: [],
-      experience: "2 - 4 years",
-      Notes: null
-    }
-  ];
+  // const featuredJobs = [
+  //   {
+  //     id: 1,
+  //     companyImg: jobImage1,
+  //     jobDescription: "Web Developer",
+  //     companyName: "Web Technology pvt.Ltd",
+  //     location: "Oakridge Lane ssRichardson",
+  //     salary: "1000-1200/m",
+  //     fullTime: true,
+  //     timing: "Full Time",
+  //     catogary: "Featured Jobs",
+  //     addclassNameBookmark: true,
+  //     badges: [
+  //       {
+  //         id: 1,
+  //         badgeclassName: "bg-info-subtle text-info",
+  //         badgeName: "Private",
+  //       },
+  //       {
+  //         id: 2,
+  //         badgeclassName: "bg-warning-subtle text-warning",
+  //         badgeName: "Urgent",
+  //       },
+  //     ],
+  //     experience: "1 - 2 years",
+  //     Notes: "languages only differ in their grammar.",
+  //   },
+  //   {
+  //     id: 2,
+  //     companyImg: jobImage2,
+  //     jobDescription: "Business Associate",
+  //     companyName: "Pixel Technology pvt.Ltd",
+  //     location: "Dodge City, Louisiana",
+  //     salary: "800-1800/m",
+  //     partTime: true,
+  //     timing: "Part Time",
+  //     catogary: "Featured Jobs",
+  //     addclassNameBookmark: false,
+  //     badges: [],
+  //     experience: "0 - 1 years",
+  //     Notes: "languages only differ in their grammar.",
+  //   },
+  //   {
+  //     id: 3,
+  //     companyImg: jobImage3,
+  //     jobDescription: "Digital Marketing Manager",
+  //     companyName: "Jobcy Technology Pvt.Ltd",
+  //     location: "Phoenix, Arizona",
+  //     salary: "1500-2400/m",
+  //     freelancer: true,
+  //     timing: "Freelancer",
+  //     catogary: "Featured Jobs",
+  //     addclassNameBookmark: true,
+  //     badges: [],
+  //     experience: "4+ years",
+  //     Notes: null,
+  //   },
+  //   {
+  //     id: 4,
+  //     companyImg: jobImage4,
+  //     jobDescription: "Product Director",
+  //     companyName: "Creative Agency",
+  //     location: "Escondido, California",
+  //     salary: "1500-2400/m",
+  //     fullTime: true,
+  //     timing: "Full Time",
+  //     catogary: "Featured Jobs",
+  //     addclassNameBookmark: false,
+  //     badges: [],
+  //     experience: "2 - 4 years",
+  //     Notes: null,
+  //   },
+  // ];
+
+  // const [jobs, setJobs] = useState([]);
+
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, []);
+
+  // const fetchProducts = async () => {
+  //   await axios.get(`http://127.0.0.1:8000/api/jobs`).then(({ data }) => {
+  //     setJobs(data);
+  //   });
+  // };
+
+  const apiEndpoint = "http://127.0.0.1:8000/api/jobs";
+  const { data, loading, error } = GitData(apiEndpoint);
 
   return (
     <React.Fragment>
-      {(featuredJobs || []).map((featuredJobdetails, key) => (
-        <div
-          key={key}
-          className={
-            featuredJobdetails.addclassNameBookmark === true
-              ? "job-box bookmark-post card mt-4"
-              : "job-box card mt-4"
-          }
-        >
-          <div className="bookmark-label text-center">
-            <Link to="#" className="text-white align-middle">
-              <i className="mdi mdi-star"></i>
-            </Link>
-          </div>
-          <div className="p-4">
-            <Row className="align-items-center">
-              <Col md={2}>
-                <div className="text-center mb-4 mb-md-0">
-                  <Link to="/companydetails">
-                    <img
-                      src={featuredJobdetails.companyImg}
-                      alt=""
-                      className="img-fluid rounded-3"
-                    />
-                  </Link>
-                </div>
-              </Col>
-
-              <Col md={3}>
-                <div className="mb-2 mb-md-0">
-                  <h5 className="fs-18 mb-1">
-                    <Link to="/jobdetails" className="text-dark">
-                      {featuredJobdetails.jobDescription}
+      {data.length === 0 ? (
+        <h5 style={{ textAlign: "center", marginTop: "80px" }}>
+          There are no jobs
+        </h5>
+      ) : (
+        (data || []).map((allJobDetails, key) => (
+          <div
+            key={key}
+            className={
+              allJobDetails.addclassNameBookmark === true
+                ? "job-box bookmark-post card mt-4"
+                : "job-box card mt-4"
+            }
+          >
+            <div className="bookmark-label text-center">
+              <Link
+                to={`/jobdetails/${allJobDetails.id}`}
+                className="text-white align-middle"
+              >
+                <i className="mdi mdi-star"></i>
+              </Link>
+            </div>
+            <div className="p-4">
+              <Row className="align-items-center">
+                <Col md={2}>
+                  <div className="text-center mb-4 mb-md-0">
+                    <Link to="/companydetails">
+                      <img
+                        src={`http://127.0.0.1:8000/company_img/${allJobDetails.company.img1}`}
+                        alt="CompanyImage"
+                        className="img-fluid rounded-3"
+                        style={{ width: "50px" }}
+                      />
                     </Link>
-                  </h5>
-                  <p className="text-muted fs-14 mb-0">
-                    {featuredJobdetails.companyName}
-                  </p>
-                </div>
-              </Col>
-
-              <Col md={3}>
-                <div className="d-flex mb-2">
-                  <div className="flex-shrink-0">
-                    <i className="mdi mdi-map-marker text-primary me-1"></i>
                   </div>
-                  <p className="text-muted mb-0">
-                    {featuredJobdetails.location}
-                  </p>
-                </div>
-              </Col>
+                </Col>
 
-              <Col md={2}>
-                <div>
-                  <p className="text-muted mb-2">
-                    <span className="text-primary">$</span>
-                    {featuredJobdetails.salary}
-                  </p>
-                </div>
-              </Col>
+                <Col md={3}>
+                  <div className="mb-2 mb-md-0">
+                    <h5 className="fs-18 mb-1">
+                      <Link to={`/jobdetails/${data.id}`} className="text-dark">
+                        {allJobDetails.title}
+                      </Link>
+                    </h5>
+                    <p className="text-muted fs-14 mb-0">
+                      {allJobDetails.company.name}
+                    </p>
+                  </div>
+                </Col>
 
-              <Col md={2}>
-                <div>
-                  <span
-                    className={
-                      featuredJobdetails.fullTime === true
-                        ? "badge bg-success-subtle text-success fs-13 mt-1 mx-1"
-                        : featuredJobdetails.partTime === true
-                        ? "badge bg-danger-subtle text-danger fs-13 mt-1 mx-1"
-                        : featuredJobdetails.freelancer === true
-                        ? "badge bg-primary-subtle text-primary fs-13 mt-1 mx-1"
-                        : ""
-                    }
-                  >
-                    {featuredJobdetails.timing}
-                  </span>
-                  {(featuredJobdetails.badges || []).map((badgeInner, key) => (
+                <Col md={3}>
+                  <div className="d-flex mb-2">
+                    <div className="flex-shrink-0">
+                      <i className="mdi mdi-map-marker text-primary me-1"></i>
+                    </div>
+                    <p className="text-muted mb-0">
+                      {allJobDetails.company.location[0].name}
+                    </p>
+                  </div>
+                </Col>
+
+                <Col md={2}>
+                  <div>
+                    <p className="text-muted mb-2">
+                      <span className="text-primary">$</span>
+                      {allJobDetails.salary}
+                    </p>
+                  </div>
+                </Col>
+
+                <Col md={2}>
+                  <div>
                     <span
-                      className={`badge ${badgeInner.badgeclassName} fs-13 mt-1`}
-                      key={key}
+                      className={
+                        allJobDetails.employment_type === "Full-time"
+                          ? "badge bg-success-subtle text-success fs-13 mt-1 mx-1"
+                          : allJobDetails.employment_type === "Part-time"
+                          ? "badge bg-danger-subtle text-danger fs-13 mt-1 mx-1"
+                          : allJobDetails.employment_type === "Freelancer"
+                          ? "badge bg-primary-subtle text-primary fs-13 mt-1 mx-1"
+                          : ""
+                      }
                     >
-                      {badgeInner.badgeName}
+                      {allJobDetails.employment_type}
                     </span>
-                  ))}
-                </div>
-              </Col>
-            </Row>
-          </div>
-          <div className="p-3 bg-light">
-            <Row>
-              <Col md={4}>
-                <div>
-                  <p className="text-muted mb-0">
-                    <span className="text-dark">Experience :</span>{" "}
-                    {featuredJobdetails.experience}
-                  </p>
-                </div>
-              </Col>
+                    {(allJobDetails.badges || []).map((badgeInner, key) => (
+                      <span
+                        className={`badge ${badgeInner.badgeclassName} fs-13 mt-1`}
+                        key={key}
+                      >
+                        {badgeInner.badgeName}
+                      </span>
+                    ))}
+                  </div>
+                </Col>
+              </Row>
+            </div>
+            <div className="p-3 bg-light">
+              <Row>
+                <Col md={4}>
+                  <div>
+                    <p className="text-muted mb-0">
+                      <span className="text-dark">Experience :</span>{" "}
+                      {allJobDetails.professional_level}
+                    </p>
+                  </div>
+                </Col>
 
-              <Col lg={6} md={5}>
-                {}
-                <div>
-                  <p className="text-muted mb-0">
-                    <span className="text-dark">
-                      {featuredJobdetails.Notes === null ? "" : "Notes :"}
-                    </span>
-                    {featuredJobdetails.Notes}{" "}
-                  </p>
-                </div>
-              </Col>
+                <Col lg={6} md={5}>
+                  {}
+                  <div>
+                    <p className="text-muted mb-0">
+                      <span className="text-dark">
+                        {allJobDetails.deadline_date === null
+                          ? ""
+                          : "Deadline :"}
+                      </span>
+                      {allJobDetails.deadline_date}{" "}
+                    </p>
+                  </div>
+                </Col>
 
-              <Col lg={2} md={3}>
-                <div className="text-start text-md-end">
-                  <Link
-                    to="#applyNow"
-                    onClick={openModal}
-                    data-bs-toggle="modal"
-                    className="primary-link"
-                  >
-                    Apply Now <i className="mdi mdi-chevron-double-right"></i>
-                  </Link>
-                </div>
-              </Col>
-            </Row>
+                <Col lg={2} md={3}>
+                  <div className="text-start text-md-end">
+                    <Link
+                      to={`/jobdetails/${allJobDetails.id}`}
+                      onClick={openModal}
+                      data-bs-toggle="modal"
+                      className="primary-link"
+                    >
+                      Apply Now <i className="mdi mdi-chevron-double-right"></i>
+                    </Link>
+                  </div>
+                </Col>
+              </Row>
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      )}
+
       <div className="text-center mt-4 pt-2">
-        <Link to="/joblist" className="btn btn-primary">
+        <Link to="/joblist/All" className="btn btn-primary">
           View More <i className="uil uil-arrow-right"></i>
         </Link>
       </div>
@@ -276,16 +306,6 @@ const FeaturedJobs = () => {
                   rows="4"
                   placeholder="Enter your message"
                 ></textarea>
-              </div>
-              <div className="mb-4">
-                <Label className="form-label" for="inputGroupFile01">
-                  Resume Upload
-                </Label>
-                <Input
-                  type="file"
-                  className="form-control"
-                  id="inputGroupFile01"
-                />
               </div>
               <button type="submit" className="btn btn-primary w-100">
                 Send Application

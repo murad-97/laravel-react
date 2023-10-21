@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\UserController;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -67,3 +68,8 @@ Route::post('/adminlogout', [AdminLoginController::class, 'adminLogout'])->name(
 
 
 require __DIR__.'/auth.php';
+
+
+// Route::get('/users', [UserController::class, 'index']);
+
+// Route::get('/user1', [UserController::class, 'get']);

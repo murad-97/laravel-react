@@ -61,7 +61,7 @@ const Layout3 = React.lazy(() => import('../pages/Home/Layout3/Layout3'));
 const userRoutes = [
   //profile Section(User Profile)
   { path: "/bookmarkjobpost", component: <BookMarkJobPost /> },
-  { path: "/myprofile", component: <MyProfile /> },
+  { path: "/myprofile/:id", component: <MyProfile /> },
   { path: "/bookmarkjobs", component: <BookMarkJobs /> },
   { path: "/managejobs", component: <ManageJobs /> },
 
@@ -73,26 +73,27 @@ const userRoutes = [
 
   // Blog Section
   { path: "/blogauther", component: <BlogAuther /> },
-  { path: "/blogdetails", component: <BlogDetails /> },
+  { path: "/blogdetails/:id", component: <BlogDetails /> },
   { path: "/blogmodern", component: <BlogModern /> },
   { path: "/blogmasonary", component: <BlogMasonary /> },
   { path: "/bloggrid", component: <BlogGrid /> },
   { path: "/blog", component: <Blog /> },
 
   //Candidate and Company Section
-  { path: "/companydetails", component: <CompanyDetails /> },
+  { path: "/companydetails/:id", component: <CompanyDetails /> },
   { path: "/companylist", component: <CompanyList /> },
-  { path: "/candidatedetails", component: <CandidateDetails /> },
+  // { path: "/candidatedetails", component: <CandidateDetails /> },
+  { path: "/candidatedetails/:id", component: <CandidateDetails /> },
   { path: "/candidategrid", component: <CandidateGrid /> },
   { path: "/candidatelist", component: <CandidateList /> },
 
   //Jobs Section
   { path: "/jobscategories", component: <JobsCategories /> },
-  { path: "/jobdetails", component: <JobDetails /> },
+  { path: "/jobdetails/:id", component: <JobDetails /> },
   { path: "/jobgrid2", component: <JobGrid2 /> },
   { path: "/jobgrid", component: <JobGrid /> },
   { path: "/joblist2", component: <JobList2 /> },
-  { path: "/joblist", component: <JobList /> },
+  { path: "/joblist/:id", component: <JobList /> },
 
   //Company Section
   { path: "/faqs", component: <Faqs /> },
@@ -105,7 +106,7 @@ const userRoutes = [
   //Home Section
   { path: "/layout3", component: <Layout3 /> },
   { path: "/layout2", component: <Layout1 /> },
-  { path: "/", component: <Layout2 /> }
+  { path: "/", component: <Layout2 /> },
 ];
 
 const authRoutes = [

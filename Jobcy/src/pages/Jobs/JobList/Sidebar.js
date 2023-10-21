@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Button, Col, Collapse, Input, Label } from "reactstrap";
+
+import { DataContext } from "../../FilterData/DataContext";
 
 const Sidebar = () => {
   const [toggleFirst, setToggleFirst] = useState(true);
@@ -8,12 +10,107 @@ const Sidebar = () => {
   const [toggleThird, setToggleThird] = useState(true);
   const [toggleFourth, setToggleFourth] = useState(true);
   const [toggleFifth, setToggleFifth] = useState(true);
-  const [value, setValue] = React.useState(50);
+
+  //Context
+  const {
+    salaryF,
+    setSalaryF,
+
+    experienceF,
+    setExperienceF,
+
+    employmentF,
+    setEmploymentF,
+
+    locationF,
+    setLocationF,
+    comLocationF, setComLocationF,
+    comIndustryF, setComIndustryF
+  } = useContext(DataContext);
+
+
+
+  // Define the initial state for experienceF as an empty array
+  const [selectedExperience, setSelectedExperience] = useState([]);
+  const [selectedEmployment, setSelectedEmployment] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState([]);
+
+
   //CheckBox
   const [isChecked, setIsChecked] = useState(true);
-  const handleOnChange = () => {
+
+
+  const handleOnChange = (value) => {
+    // Create a copy of the selectedExperience array
+    const updatedSelectedExperience = [...selectedExperience];
+
+    if (updatedSelectedExperience.includes(value)) {
+      // If the value is already in the array, remove it
+      const index = updatedSelectedExperience.indexOf(value);
+      updatedSelectedExperience.splice(index, 1);
+    } else {
+      // If the value is not in the array, add it
+      updatedSelectedExperience.push(value);
+    }
+
+    // Update the state and setExperienceF with the updated array
+    setSelectedExperience(updatedSelectedExperience);
+    setExperienceF(updatedSelectedExperience);
     setIsChecked(!isChecked);
   };
+
+
+
+  const handleOnChangeEmployment = (value) => {
+    // Create a copy of the selectedExperience array
+    const updatedSelectedEmployment = [...selectedEmployment];
+
+    if (updatedSelectedEmployment.includes(value)) {
+      // If the value is already in the array, remove it
+      const index = updatedSelectedEmployment.indexOf(value);
+      updatedSelectedEmployment.splice(index, 1);
+    } else {
+      // If the value is not in the array, add it
+      updatedSelectedEmployment.push(value);
+    }
+
+    // Update the state and setExperienceF with the updated array
+    setSelectedEmployment(updatedSelectedEmployment);
+    setEmploymentF(updatedSelectedEmployment);
+    setIsChecked(!isChecked);
+  };
+
+
+
+  const handleOnChangeLocation = (value) => {
+    // Create a copy of the selectedExperience array
+    const updatedSelectedLocation = [...selectedLocation];
+
+    if (updatedSelectedLocation.includes(value)) {
+      // If the value is already in the array, remove it
+      const index = updatedSelectedLocation.indexOf(value);
+      updatedSelectedLocation.splice(index, 1);
+    } else {
+      // If the value is not in the array, add it
+      updatedSelectedLocation.push(value);
+    }
+
+    // Update the state and setExperienceF with the updated array
+    setSelectedLocation(updatedSelectedLocation);
+    setLocationF(updatedSelectedLocation);
+    setIsChecked(!isChecked);
+  };
+
+
+
+// console.log(experienceF, isChecked)
+// console.log(employmentF, isChecked)
+// console.log(locationF, isChecked)
+
+
+
+
+
 
   const [isDateChecked, setIsDateChecked] = useState(true);
   const handleDateOnChange = () => {
@@ -36,7 +133,7 @@ const Sidebar = () => {
                   role="button"
                   id="collapseExample"
                 >
-                  Location
+                  Salary
                 </Button>
               </h2>
               <Collapse isOpen={toggleFirst}>
@@ -48,6 +145,10 @@ const Sidebar = () => {
                           className="form-control"
                           type="search"
                           placeholder="Search..."
+                          value={salaryF}
+                          onChange={({ target: { value } }) => {
+                            setSalaryF(value);
+                          }}
                         />
                         <button
                           className="bg-transparent border-0 position-absolute top-50 end-0 translate-middle-y me-2"
@@ -59,7 +160,7 @@ const Sidebar = () => {
                     </div>
                     <div className="area-range slidecontainer">
                       <div className="form-label mb-4">
-                        Area Range: {value}.00 miles
+                        Salary Range: {salaryF}.00 JD
                         <span
                           className="example-val mt-2"
                           id="slider1-span"
@@ -67,12 +168,14 @@ const Sidebar = () => {
                       </div>
                       <input
                         type="range"
-                        min="1"
-                        max="100"
-                        value={value}
-                        onChange={({ target: { value } }) => setValue(value)}
+                        min="260"
+                        max="2000"
+                        value={salaryF}
+                        onChange={({ target: { value } }) => {
+                          setSalaryF(value);
+                        }}
                         className={`slider ${
-                          value > 50 ? "slider-50" : "slider-0"
+                          salaryF > 500 ? "slider-500" : "slider-260"
                         }`}
                       />
                     </div>
@@ -92,7 +195,7 @@ const Sidebar = () => {
                   role="button"
                   id="collapseExample"
                 >
-                  Work experience
+                  Experience Level
                 </Button>
               </h2>
               <Collapse isOpen={toggleSecond}>
@@ -102,58 +205,71 @@ const Sidebar = () => {
                       <input
                         className="form-check-input"
                         type="checkbox"
-                        value=""
+                        value="Entry Level"
                         id="flexCheckChecked1"
+                        // checked={isChecked}
+                        onChange={({ target: { value } }) =>
+                          handleOnChange(value)
+                        }
                       />
+
                       <label
                         className="form-check-label ms-2 text-muted"
                         htmlFor="flexCheckChecked1"
                       >
-                        No experience
+                        Entry Level
                       </label>
                     </div>
+
                     <div className="form-check mt-2">
                       <input
                         className="form-check-input"
                         type="checkbox"
-                        value=""
+                        value="Junior"
                         id="flexCheckChecked2"
-                        checked={isChecked}
-                        onChange={handleOnChange}
+                        onChange={({ target: { value } }) =>
+                          handleOnChange(value)
+                        }
                       />
                       <label
                         className="form-check-label ms-2 text-muted"
                         htmlFor="flexCheckChecked2"
                       >
-                        0-3 years
+                        Junior/Associate
                       </label>
                     </div>
                     <div className="form-check mt-2">
                       <input
                         className="form-check-input"
                         type="checkbox"
-                        value=""
+                        value="Mid-Senior Level"
                         id="flexCheckChecked3"
+                        onChange={({ target: { value } }) =>
+                          handleOnChange(value)
+                        }
                       />
                       <label
                         className="form-check-label ms-2 text-muted"
                         htmlFor="flexCheckChecked3"
                       >
-                        3-6 years
+                        Mid-Senior level
                       </label>
                     </div>
                     <div className="form-check mt-2">
                       <input
                         className="form-check-input"
                         type="checkbox"
-                        value=""
+                        value="Senior"
                         id="flexCheckChecked4"
+                        onChange={({ target: { value } }) =>
+                          handleOnChange(value)
+                        }
                       />
                       <label
                         className="form-check-label ms-2 text-muted"
                         htmlFor="flexCheckChecked4"
                       >
-                        More than 6 years
+                        Senior
                       </label>
                     </div>
                   </div>
@@ -181,14 +297,35 @@ const Sidebar = () => {
                     <div className="form-check mt-2">
                       <Input
                         className="form-check-input"
-                        type="radio"
-                        name="flexRadioDefault"
-                        id="flexRadioDefault6"
-                        defaultChecked
+                        type="checkbox"
+                        value="Internship"
+                        id="typeCheckChecked1"
+                        // defaultChecked
+                        onChange={({ target: { value } }) =>
+                        handleOnChangeEmployment(value)
+                        }
                       />
                       <label
                         className="form-check-label ms-2 text-muted"
-                        htmlFor="flexRadioDefault6"
+                        htmlFor="typeCheckChecked1"
+                      >
+                        Internship
+                      </label>
+                    </div>
+
+                    <div className="form-check mt-2">
+                      <Input
+                        className="form-check-input"
+                        type="checkbox"
+                        value="Freelancer"
+                        id="typeCheckChecked2"
+                        onChange={({ target: { value } }) =>
+                        handleOnChangeEmployment(value)
+                        }
+                      />
+                      <label
+                        className="form-check-label ms-2 text-muted"
+                        htmlFor="typeCheckChecked2"
                       >
                         Freelance
                       </label>
@@ -196,51 +333,44 @@ const Sidebar = () => {
                     <div className="form-check mt-2">
                       <Input
                         className="form-check-input"
-                        type="radio"
-                        name="flexRadioDefault"
-                        id="flexRadioDefault2"
+                        type="checkbox"
+                        value="Part-time"
+                        id="typeCheckChecked3"
+                        onChange={({ target: { value } }) =>
+                        handleOnChangeEmployment(value)
+                        }
                       />
                       <label
                         className="form-check-label ms-2 text-muted"
-                        htmlFor="flexRadioDefault2"
-                      >
-                        Full Time
-                      </label>
-                    </div>
-                    <div className="form-check mt-2">
-                      <Input
-                        className="form-check-input"
-                        type="radio"
-                        name="flexRadioDefault"
-                        id="flexRadioDefault3"
-                      />
-                      <label
-                        className="form-check-label ms-2 text-muted"
-                        htmlFor="flexRadioDefault3"
-                      >
-                        Internship
-                      </label>
-                    </div>
-                    <div className="form-check mt-2">
-                      <Input
-                        className="form-check-input"
-                        type="radio"
-                        name="flexRadioDefault"
-                        id="flexRadioDefault4"
-                      />
-                      <label
-                        className="form-check-label ms-2 text-muted"
-                        htmlFor="flexRadioDefault4"
+                        htmlFor="typeCheckChecked3"
                       >
                         Part Time
                       </label>
                     </div>
+                    <div className="form-check mt-2">
+                      <Input
+                        className="form-check-input"
+                        type="checkbox"
+                        value="Full-time"
+                        id="typeCheckChecked4"
+                        onChange={({ target: { value } }) =>
+                        handleOnChangeEmployment(value)
+                        }
+                      />
+                      <label
+                        className="form-check-label ms-2 text-muted"
+                        htmlFor="typeCheckChecked4"
+                      >
+                        Full Time
+                      </label>
+                    </div>
+
                   </div>
                 </div>
               </Collapse>
             </div>
 
-            <div className="accordion-item mt-3">
+            {/* <div className="accordion-item mt-3">
               <h2 className="accordion-header" id="datePosted">
                 <Button
                   className="accordion-button"
@@ -351,7 +481,7 @@ const Sidebar = () => {
                   </div>
                 </div>
               </Collapse>
-            </div>
+            </div> */}
 
             <div className="accordion-item mt-3">
               <h2 className="accordion-header" id="tagCloud">
@@ -364,24 +494,65 @@ const Sidebar = () => {
                   role="button"
                   id="collapseExample"
                 >
-                  Tags Cloud
+                  Type of location
                 </Button>
               </h2>
               <Collapse isOpen={toggleFifth}>
                 <div className="accordion-body">
                   <div className="side-title">
-                    <Link to="#" className="badge tag-cloud fs-13 mt-2">
-                      design
-                    </Link>
-                    <Link to="#" className="badge tag-cloud fs-13 mt-2">
-                      marketing
-                    </Link>
-                    <Link to="#" className="badge tag-cloud fs-13 mt-2">
-                      business
-                    </Link>
-                    <Link to="#" className="badge tag-cloud fs-13 mt-2">
-                      developer
-                    </Link>
+                    <div className="form-check mt-2">
+                      <Input
+                        className="form-check-input"
+                        type="checkbox"
+                        value="On-site"
+                        id="locCheckChecked1"
+                        // defaultChecked
+                        onChange={({ target: { value } }) =>
+                        handleOnChangeLocation(value)
+                        }
+                      />
+                      <label
+                        className="form-check-label ms-2 text-muted"
+                        htmlFor="locCheckChecked1"
+                      >
+                        On-site
+                      </label>
+                    </div>
+
+                    <div className="form-check mt-2">
+                      <Input
+                        className="form-check-input"
+                        type="checkbox"
+                        value="Remote"
+                        id="locCheckChecked2"
+                        onChange={({ target: { value } }) =>
+                        handleOnChangeLocation(value)
+                        }
+                      />
+                      <label
+                        className="form-check-label ms-2 text-muted"
+                        htmlFor="locCheckChecked2"
+                      >
+                        Remote
+                      </label>
+                    </div>
+                    <div className="form-check mt-2">
+                      <Input
+                        className="form-check-input"
+                        type="checkbox"
+                        value="Hybrid"
+                        id="locCheckChecked3"
+                        onChange={({ target: { value } }) =>
+                        handleOnChangeLocation(value)
+                        }
+                      />
+                      <label
+                        className="form-check-label ms-2 text-muted"
+                        htmlFor="locCheckChecked3"
+                      >
+                        Hybrid
+                      </label>
+                    </div>
                   </div>
                 </div>
               </Collapse>

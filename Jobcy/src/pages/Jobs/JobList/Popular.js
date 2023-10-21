@@ -29,6 +29,8 @@ const Popular = () => {
       jobTitle: "Developer"
     }
   ];
+
+  
   return (
     <React.Fragment>
       <div className="wedget-popular-title mt-4">

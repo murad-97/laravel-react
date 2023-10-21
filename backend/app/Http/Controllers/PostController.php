@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function getAllPosts()
+    {
+        $posts = Post::with('user')->get();
+        return response()->json($posts);
+    }
+    
     public function index()
     {
         $posts = Post::all();
@@ -47,9 +50,24 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        //
+        $post = Post::with(['user', 'comment.user'])->find($id);
+return response()->JSON($post);
+
+    }
+    public function comment(Request $request)
+    {
+        $request->validate([
+            'text' => 'required|string|max:255',
+        ]);
+        Comment::create([
+            'user_id' => $request->userId, // Replace 'field1' with your actual field name and 'value1' with the value you want to insert.
+            'post_id' => $request->postId,
+            'text' => $request->text,
+
+        ]);
+
     }
 
     /**

@@ -54,16 +54,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+  
+
+    public function languages()
+{
+    return $this->belongsToMany(Language::class, 'user_languages', 'user_id', 'language_id')->withPivot('level');
+}
+public function user_skills()
+{
+    return $this->hasMany(UserSkill::class, 'user_id');
+}
 
 
-    public function user_language()
-    {
-        return $this->hasMany(UserLanguage::class);
-    }
-    public function user_skill()
-    {
-        return $this->hasMany(UserSkill::class);
-    }
+public function educations()
+{
+    return $this->hasMany(Education::class, 'user_id');
+}
+
+public function experiences()
+{
+    return $this->hasMany(Experience::class, 'user_id');
+}
+    
+
     public function post()
     {
         return $this->hasMany(Post::class);

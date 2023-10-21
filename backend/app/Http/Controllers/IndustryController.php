@@ -7,11 +7,21 @@ use Illuminate\Http\Request;
 
 class IndustryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function getAllIndustries()
+    {
+        $industries = Industry::with('company.job')->get();
+        return response()->json($industries);
+
+      
+    }
+
+
+
+
+
+
+
     public function index()
     {
         $industries = Industry::all();

@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Card, CardBody, Row, Input } from "reactstrap";
 import { Link } from "react-router-dom";
+
+
+
+import axios from "axios";
+
 
 //Lightbox
 import Lightbox from "react-image-lightbox";
@@ -20,6 +25,41 @@ const images = [blogImage1, blogImage1, blogImage3];
 const RightSideContent = () => {
   const [photoIndex, setphotoIndex] = useState(0);
   const [isGallery, setisGallery] = useState(false);
+
+
+
+//-----------------------skills-----------------------------------------------------------
+const [selectedUser, setSelectedUser] = useState(null);
+
+useEffect(() => {
+  // Fetch data from the API when the component mounts
+  // ${userb.id}
+  axios
+    .get(`http://127.0.0.1:8000/api/userskills/1`)
+    .then((response) => {
+      setSelectedUser(response.data);
+      console.log(selectedUser.name);
+    })
+    .catch((error) => {
+      console.error("Error fetching data: ", error);
+    });
+}, []);
+
+
+const [user, setUser] = useState([]);
+useEffect(() => {
+  axios
+    .get(`http://127.0.0.1:8000/api/users/1}`)
+    .then((response) => {
+      setUser(response.data);
+    })
+    .catch((error) => {
+      console.error("Error fetching data: ", error);
+    });
+}, []);
+
+
+
   return (
     <React.Fragment>
       {isGallery ? (
@@ -46,122 +86,52 @@ const RightSideContent = () => {
             <div>
               <h6 className="fs-17 fw-semibold mb-3">About Me</h6>
               <p className="text-muted mb-2">
-                Very well thought out and articulate communication. Clear
-                milestones, deadlines and fast work. Patience. Infinite
-                patience. No shortcuts. Even if the client is being careless.
-                Some quick example text to build on the card title and bulk the
-                card's content Moltin gives you platform.
+              {user.about}
               </p>
-              <p className="text-muted mb-0">
-                As a highly skilled and successfull product development and
-                design specialist with more than 4 Years of My experience lies
-                in successfully conceptualizing, designing, and modifying
-                consumer products specific to interior design and home
-                furnishings.
-              </p>
+             
             </div>
-            <div className="candidate-education-details mt-4 pt-3">
-              <h6 className="fs-17 fw-bold mb-0">Education</h6>
-              <div className="candidate-education-content mt-4 d-flex">
-                <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
-                  {" "}
-                  B{" "}
+            <div className="candidate-education-details mt-4">
+                  <h6 className="fs-18 fw-bold mb-0">Education</h6>
+
+                  {user &&
+                    Array.isArray(user.educations) &&
+                    user.educations.map((education) => (
+                      <div className="candidate-education-content mt-4 d-flex">
+                        <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
+                          {education.subject.charAt(0).toUpperCase()}
+                        </div>
+                        <div className="ms-4">
+                          <h6 className="fs-16 mb-1">{education.subject}</h6>
+                          <p className="mb-2 text-muted">
+                            {education.schoole} - ( {education.from} -{" "}
+                            {education.to})
+                          </p>
+                          <p className="text-muted">{education.description}</p>
+                        </div>
+                      </div>
+                    ))}
                 </div>
-                <div className="ms-4">
-                  <h6 className="fs-16 mb-1">
-                    BCA - Bachelor of Computer Applications
-                  </h6>
-                  <p className="mb-2 text-muted">
-                    International University - (2004 - 2010)
-                  </p>
-                  <p className="text-muted">
-                    There are many variations of passages of available, but the
-                    majority alteration in some form. As a highly skilled and
-                    successfull product development and design specialist with
-                    more than 4 Years of My experience.
-                  </p>
+                <div className="candidate-education-details mt-4">
+                  <h6 className="fs-18 fw-bold mb-0">Experiences</h6>
+                  {user &&
+                    Array.isArray(user.experiences) &&
+                    user.experiences.map((experience) => (
+                      <div className="candidate-education-content mt-4 d-flex">
+                        <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
+                          {" "}
+                          {experience.position.charAt(0).toUpperCase()}{" "}
+                        </div>
+                        <div className="ms-4">
+                          <h6 className="fs-16 mb-1">{experience.position}</h6>
+                          <p className="mb-2 text-muted">
+                            {experience.position} - ({experience.from} -{" "}
+                            {experience.to})
+                          </p>
+                          <p className="text-muted">{experience.description}</p>
+                        </div>
+                      </div>
+                    ))}
                 </div>
-              </div>
-              <div className="candidate-education-content mt-4 d-flex">
-                <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
-                  {" "}
-                  M{" "}
-                </div>
-                <div className="ms-4">
-                  <h6 className="fs-16 mb-1">
-                    MCA - Master of Computer Application
-                  </h6>
-                  <p className="mb-2 text-muted">
-                    International University - (2010 - 2012)
-                  </p>
-                  <p className="text-muted">
-                    There are many variations of passages of available, but the
-                    majority alteration in some form. As a highly skilled and
-                    successfull product development and design specialist with
-                    more than 4 Years of My experience.
-                  </p>
-                </div>
-              </div>
-              <div className="candidate-education-content mt-4 d-flex">
-                <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
-                  {" "}
-                  D{" "}
-                </div>
-                <div className="ms-4">
-                  <h6 className="fs-16 mb-1">Design Communication Visual</h6>
-                  <p className="text-muted mb-2">
-                    International University - (2012-2015)
-                  </p>
-                  <p className="text-muted">
-                    There are many variations of passages of available, but the
-                    majority alteration in some form. As a highly skilled and
-                    successfull product development and design specialist with
-                    more than 4 Years of My experience.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="candidate-education-details mt-4 pt-3">
-              <h6 className="fs-17 fw-bold mb-0">Experience</h6>
-              <div className="candidate-education-content mt-4 d-flex">
-                <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
-                  {" "}
-                  W{" "}
-                </div>
-                <div className="ms-4">
-                  <h6 className="fs-16 mb-1">
-                    Web Design & Development Team Leader
-                  </h6>
-                  <p className="mb-2 text-muted">
-                    Creative Agency - (2013 - 2016)
-                  </p>
-                  <p className="text-muted">
-                    There are many variations of passages of available, but the
-                    majority alteration in some form. As a highly skilled and
-                    successfull product development and design specialist with
-                    more than 4 Years of My experience.
-                  </p>
-                </div>
-              </div>
-              <div className="candidate-education-content mt-4 d-flex">
-                <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
-                  {" "}
-                  P{" "}
-                </div>
-                <div className="ms-4">
-                  <h6 className="fs-16 mb-1">Project Manager</h6>
-                  <p className="mb-2 text-muted">
-                    Jobcy Technology Pvt.Ltd - (Pressent)
-                  </p>
-                  <p className="text-muted mb-0">
-                    There are many variations of passages of available, but the
-                    majority alteration in some form. As a highly skilled and
-                    successfull product development and design specialist with
-                    more than 4 Years of My experience.
-                  </p>
-                </div>
-              </div>
-            </div>
             <div className="candidate-portfolio mt-4 pt-3">
               <h6 className="fs-17 fw-bold mb-0">Projects</h6>
               <Row>
