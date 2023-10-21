@@ -14,7 +14,10 @@ class ResponsibleController extends Controller
      */
     public function index()
     {
-        //
+        $responsibilities = Responsible::all();
+
+        // Pass the users data to the view
+        return view('dashboard.responsible' ,  compact('responsibilities'));
     }
 
     /**
@@ -24,7 +27,8 @@ class ResponsibleController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.createresponsible');
+
     }
 
     /**
@@ -35,8 +39,21 @@ class ResponsibleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'responsibilitie_name' => 'required|string|max:255',
+            'job_id' => 'required|integer', // Add validation for job_id if applicable
+            // other validation rules
+        ]);
+    
+        Responsible::create([
+            'responsibilitie_name' => $request->responsibilitie_name,
+            'job_id' => $request->job_id, // Assuming job_id is part of your form data
+            // other fields
+        ]);
+    
+        return redirect('responsibledash')->with('success', 'Responsibility added successfully');
     }
+    
 
     /**
      * Display the specified resource.
@@ -55,10 +72,17 @@ class ResponsibleController extends Controller
      * @param  \App\Models\Responsible  $responsible
      * @return \Illuminate\Http\Response
      */
-    public function edit(Responsible $responsible)
+    public function edit( $id)
     {
-        //
+        $responsible = Responsible::find($id);
+    
+        if (!$responsible) {
+            return redirect('responsibledash')->with('error', 'responsible not found');
+        }
+    
+        return view('dashboard.editresponsible')->with('responsible', $responsible);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -67,19 +91,39 @@ class ResponsibleController extends Controller
      * @param  \App\Models\Responsible  $responsible
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Responsible $responsible)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'job_id' => 'required|string|max:255',
+            'responsibilitie_name' => 'required|string|max:255',
+            // Add more validation rules for other fields if necessary
+        ]);
+    
+        $responsible = Responsible::find($id);
+    
+        if (!$responsible) {
+            return redirect('responsibledash')->with('error', 'Responsible not found');
+        }
+    
+        $responsible->job_id = $request->job_id;
+        $responsible->responsibilitie_name = $request->responsibilitie_name;
+        // Update other fields similarly if needed
+    
+        $responsible->save();
+    
+        return redirect('responsibledash')->with('success', 'Responsible updated successfully');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Responsible  $responsible
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Responsible $responsible)
+    public function destroy( $id)
     {
-        //
+        Responsible::find($id)->delete();
+        Responsible::destroy($id);
+        return redirect('responsibledash')->with('flash_message', 'Responsible deleted successfully');
     }
 }

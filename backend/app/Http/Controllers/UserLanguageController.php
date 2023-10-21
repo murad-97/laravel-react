@@ -14,7 +14,10 @@ class UserLanguageController extends Controller
      */
     public function index()
     {
-        //
+        $userlanguages = UserLanguage::all();
+
+        // Pass the users data to the view
+        return view('dashboard.userlanguage' ,  compact('userlanguages'));
     }
 
     /**
@@ -78,8 +81,10 @@ class UserLanguageController extends Controller
      * @param  \App\Models\UserLanguage  $userLanguage
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserLanguage $userLanguage)
+    public function destroy($id)
     {
-        //
+        UserLanguage::find($id)->delete();
+        UserLanguage::destroy($id);
+        return redirect('userlanguagedash')->with('flash_message', 'UserLanguage deleted successfully');
     }
 }

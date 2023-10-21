@@ -9,7 +9,7 @@ class Qualification extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['qualification_name'];
+    protected $fillable = ['job_id' , 'qualification_name'];
 
     public function job()
     {
