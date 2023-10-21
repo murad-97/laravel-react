@@ -53,7 +53,8 @@ Route::get('/user', [AuthenticatedSessionController::class, 'user'])
 //all industries with company and job
 Route::get('/industries', [IndustryController::class, 'getAllIndustries']);
 Route::get('/users', [UserController::class, 'allUsers']);
-Route::post('/image', [UserController::class, 'image']);
+Route::post('/image', [UserController::class, 'updateInformation']);
+Route::post('/language', [UserController::class, 'addLanguage']);
 Route::get('/users/{id}', [UserController::class, 'index']);
 
 //all jobs with company and location
