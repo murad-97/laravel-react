@@ -18,6 +18,7 @@ class Company extends Model
         'phone_number',
         'location_map',
         'industry_id',
+        'works_day_id',
         'image',
     ];
 
@@ -34,8 +35,8 @@ class Company extends Model
     {
         return $this->hasMany(Job::class);
     }
-    public function days()
+    public function dayOfWork()
     {
-        return $this->hasOne(WorksDays::class);
+        return $this->hasOne(DayOfWork::class);
     }
 }

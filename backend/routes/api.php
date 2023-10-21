@@ -9,9 +9,9 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ApplicationController;
-
-
 
 
 /*
@@ -63,6 +63,9 @@ Route::get('/jobs', [JobController::class, 'getAllJobs']);
 //all locations with company and job
 Route::get('/locations', [LocationController::class, 'getAllLocations']);
 
+//all posts with users
+Route::get('/posts', [PostController::class, 'getAllPosts']);
+
 
 //all Companies
 // Route::get('/companies', [CompanyController::class, 'getAllCompanies']);
@@ -90,4 +93,12 @@ Route::get('/userskills/{userId}', [UserController::class, 'getUserSkills']);
 Route::get('/userexperience/{userId}', [UserController::class, 'getUserExperience']);
 Route::get('/userseducation/{userId}', [UserController::class, 'getUserEducations']);
 
+//----------------------
+Route::get('/companyWithWorkingDays/{companyId}', [CompanyController::class, 'getCompanyDetails']);
+Route::get('/companyjobs/{companyId}', [CompanyController::class, 'getCompanyjobs']);
 
+
+
+Route::get('/post/{Id}', [PostController::class, 'show']);
+Route::post('/comment', [PostController::class, 'comment']);
+Route::delete('/deletecomment/{id}', [CommentController::class, 'destroy']);

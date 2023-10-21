@@ -3,14 +3,13 @@ import { Col, Container, Row } from "react-bootstrap";
 import Section from "../../Jobs/JobList/Section";
 import JobSearchOptions from "./JobSearchOptions";
 import JobVacancyList from "./JobVacancyList";
-import Popular from "./Popular";
 import Sidebar from "./Sidebar";
 
 // import { DataProvider } from "../../FilterData/DataContext";
 // import { UpperProvider } from "../../FilterData/UpperContext";
 
 const JobList = () => {
-  document.title = "Job List | Jobcy - Job Listing Template | Themesdesign";
+  document.title = "Job List";
   return (
     <React.Fragment>
       <Section />

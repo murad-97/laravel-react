@@ -31,7 +31,7 @@ const SignIn = ({ isAuthenticated, user, loginSuccess,  }) => {
       axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
 
       // Now, make your login request
-      const response = await axios.post("/login", { email, password });
+      await axios.post("/login", { email, password });
 
       setemail('');
       setpassword('');

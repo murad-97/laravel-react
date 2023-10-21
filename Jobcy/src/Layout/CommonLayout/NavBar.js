@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import {
   Col,
   Row,
@@ -10,50 +10,47 @@ import {
   NavLink,
   Dropdown,
   DropdownToggle,
-  DropdownMenu
+  DropdownMenu,
 } from "reactstrap";
 
 import { Link } from "react-router-dom";
 import classname from "classnames";
-import withRouter from "../../components/withRouter"
-import { logoutSuccess } from '../../pages/ExtraPages/Components/redux/authActions';
-import { useDispatch } from 'react-redux';
+import withRouter from "../../components/withRouter";
+import { logoutSuccess } from "../../pages/ExtraPages/Components/redux/authActions";
+import { useDispatch } from "react-redux";
 import darkLogo from "../../assets/images/logo-dark.png";
 import lightLogo from "../../assets/images/logo-light.png";
 
 import { useNavigate } from "react-router-dom";
 
-
 // import profileImage from "../../assets/images/profile.jpg";
 import axios from "../../components/axios";
 
-
 const NavBar = (props) => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user)
+  const user = useSelector((state) => state.user);
   console.log(user);
-  const isAuthenticated = useSelector((state) => state.isAuthenticated)
+  const isAuthenticated = useSelector((state) => state.isAuthenticated);
   console.log(user);
   console.log(isAuthenticated);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleLogout = async (e) => {
     e.preventDefault();
 
     try {
-      const csrfResponse = await axios.get('/get-csrf-token');
+      const csrfResponse = await axios.get("/get-csrf-token");
       const csrfToken = csrfResponse.data.csrf_token;
-      axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
-     await axios.post("/logout");
-     dispatch(logoutSuccess());
+      axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
+      await axios.post("/logout");
+      dispatch(logoutSuccess());
 
       navigate("/");
-      
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const [home, setHome] = useState(false);
   const [company, setCompany] = useState(false);
@@ -100,8 +97,8 @@ const navigate = useNavigate()
     if (matchingMenuItem) {
       activateParentDropdown(matchingMenuItem);
     }
-  },[props.router.location.pathname]);
-  
+  }, [props.router.location.pathname]);
+
   const removeActivation = (items) => {
     for (var i = 0; i < items.length; ++i) {
       var item = items[i];
@@ -149,8 +146,7 @@ const navigate = useNavigate()
     <React.Fragment>
       <nav
         className={"navbar navbar-expand-lg fixed-top sticky p-0 " + navClass}
-        id="navigation"
-      >
+        id="navigation">
         <Container fluid className="custom-container">
           <Link className="navbar-brand text-dark fw-bold me-auto" to="/">
             <img src={darkLogo} height="22" alt="" className="logo-dark" />
@@ -160,64 +156,33 @@ const navigate = useNavigate()
             <NavbarToggler
               className="me-3"
               type="button"
-              onClick={() => toggle()}
-            >
+              onClick={() => toggle()}>
               <i className="mdi mdi-menu"></i>
             </NavbarToggler>
           </div>
           <Collapse
             isOpen={isOpen}
             className="navbar-collapse"
-            id="navbarCollapse"
-          >
+            id="navbarCollapse">
             <ul className="navbar-nav mx-auto navbar-center">
               <NavItem className="dropdown dropdown-hover">
-                <NavLink
-                  to="/#"
-                  id="homedrop"
-                  className="arrow-none"
-                  onClick={() => setHome(!home)}
-                >
-                  Home <div className="arrow-down"></div>
+                <NavLink to="/" id="homedrop" className="arrow-none">
+                  <Link to="/">Home</Link>
                 </NavLink>
-                <ul
-                  className={classname("dropdown-menu dropdown-menu-center", {
-                    show: home,
-                  })}
-                  aria-labelledby="homedrop"
-                >
-                  <li>
-                    <Link className="dropdown-item" to="/">
-                      Home 1
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" to="/layout2">
-                      Home 2
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" to="/layout3">
-                      Home 3
-                    </Link>
-                  </li>
-                </ul>
               </NavItem>
               <NavItem className="dropdown dropdown-hover">
                 <NavLink
                   to="/#"
                   id="jobsdropdown"
                   role="button"
-                  onClick={() => setCompany(!company)}
-                >
+                  onClick={() => setCompany(!company)}>
                   Company <div className="arrow-down"></div>
                 </NavLink>
                 <ul
                   className={classname("dropdown-menu dropdown-menu-center", {
                     show: company,
                   })}
-                  aria-labelledby="jobsdropdown"
-                >
+                  aria-labelledby="jobsdropdown">
                   <li>
                     <Link className="dropdown-item" to="/aboutus">
                       About Us
@@ -253,8 +218,7 @@ const navigate = useNavigate()
                   to="/#"
                   id="pagesdoropdown"
                   className="nav-link dropdown-toggle arrow-none"
-                  onClick={() => setPages(!pages)}
-                >
+                  onClick={() => setPages(!pages)}>
                   Pages
                   <div className="arrow-down"></div>
                 </Link>
@@ -263,8 +227,7 @@ const navigate = useNavigate()
                     "dropdown-menu dropdown-menu-lg dropdown-menu-center",
                     { show: pages }
                   )}
-                  aria-labelledby="pagesdoropdown"
-                >
+                  aria-labelledby="pagesdoropdown">
                   <Row>
                     <Col lg={4}>
                       <span className="dropdown-header">Jobs</span>
@@ -340,18 +303,13 @@ const navigate = useNavigate()
                   </Row>
                 </div>
               </li>
-              <NavItem className="dropdown dropdown-hover">
-                <NavLink
-                  to="/#"
-                  id="productdropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  onClick={() => setBlog(!blog)}
-                >
-                  Blog
-                  <div className="arrow-down"></div>
-                </NavLink>
-                <ul
+
+              <NavItem>
+                <Link className="nav-link" to="/blogmasonary">
+                  Posts
+                </Link>
+              </NavItem>
+              {/* <ul
                   className={classname("dropdown-menu dropdown-menu-center", {
                     show: blog,
                   })}
@@ -373,9 +331,7 @@ const navigate = useNavigate()
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/blogmasonary">
-                      Blog Masonry
-                    </Link>
+                 
                   </li>
                   <li>
                     <Link className="dropdown-item" to="/blogdetails">
@@ -387,11 +343,16 @@ const navigate = useNavigate()
                       Blog Author
                     </Link>
                   </li>
-                </ul>
-              </NavItem>
+                </ul> */}
+
               <NavItem>
                 <Link className="nav-link" to="/contact">
                   Contact
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link className="nav-link" to="/aboutus">
+                  About Us
                 </Link>
               </NavItem>
             </ul>
@@ -401,8 +362,7 @@ const navigate = useNavigate()
             <Dropdown
               isOpen={notification}
               toggle={dropDownnotification}
-              className="list-inline-item  me-4"
-            >
+              className="list-inline-item  me-4">
               {/* <DropdownToggle
                 href="#"
                 className="header-item noti-icon position-relative"
@@ -535,8 +495,7 @@ const navigate = useNavigate()
                 onClick={() => setUserProfile(!userProfile)}
                 isOpen={userProfile}
                 toggle={dropDownuserprofile}
-                className="list-inline-item"
-              >
+                className="list-inline-item">
                 {/* Dropdown toggle button with user image and name */}
                 <DropdownToggle
                   to="#"
@@ -544,8 +503,7 @@ const navigate = useNavigate()
                   id="userdropdown"
                   type="button"
                   tag="a"
-                  aria-expanded="false"
-                >
+                  aria-expanded="false">
                   <img
                     src={`http://localhost:8000/img/${user.image}`}
                     alt="mdo"
@@ -562,8 +520,7 @@ const navigate = useNavigate()
                 <DropdownMenu
                   className="dropdown-menu-end"
                   aria-labelledby="userdropdown"
-                  end
-                >
+                  end>
                   <li>
                     <Link className="dropdown-item" to="/managejobs">
                       Manage Jobs
