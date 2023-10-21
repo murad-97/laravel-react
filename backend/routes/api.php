@@ -101,4 +101,4 @@ Route::get('/companyjobs/{companyId}', [CompanyController::class, 'getCompanyjob
 
 Route::get('/post/{Id}', [PostController::class, 'show']);
 Route::post('/comment', [PostController::class, 'comment']);
-Route::delete('/deletecomment/{id}', [CommentController::class, 'destroy']);
+Route::delete('/deletecomment/{id}', [CommentController::class, 'delete']);

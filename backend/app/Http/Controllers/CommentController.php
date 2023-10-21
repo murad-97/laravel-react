@@ -87,4 +87,10 @@ class CommentController extends Controller
         Comment::destroy($id);
         return redirect('commentdash')->with('flash_message', 'Admin deleted successfully');
     }
+    public function delete( $id)
+    {
+        Comment::find($id)->delete();
+        Comment::destroy($id);
+        return response()->noContent();}
+
 }
