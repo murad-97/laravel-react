@@ -1,1 +1,8 @@
 "Welcome to our job site, where opportunities await! Whether you're a job seeker looking to take the next step in your career or an employer searching for top talent, we're here to connect you. Explore a wide range of job listings and find your perfect match today."
+
+group members for jobcy project
+-Swasan Dagamseh
+-Hasan Al-Refaie
+-Murad Al-Shurman
+-Razan Al-Khateeb
+-Yousef Jaradat
