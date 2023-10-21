@@ -124,10 +124,10 @@ const Fulltime = () => {
                   <div className="text-center mb-4 mb-md-0">
                     <Link to="/companydetails">
                       <img
-                        src="/company.jpg"
+                        src={`http://127.0.0.1:8000/storage/company_img/${fullTimeJobdetails.company.img1}`}
                         alt="CompanyImage"
                         className="img-fluid rounded-3"
-                        style={{ width: "80px" }}
+                        style={{ width: "50px" }}
                       />
                     </Link>
                   </div>

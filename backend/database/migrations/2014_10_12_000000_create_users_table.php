@@ -26,8 +26,8 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('linkedin_link')->nullable();
-            $table->mediumText('image')->default('../../../Jobcy/public/profile.png');
-            // http://127.0.0.1:8000/images/default_profile.png
+            $table->mediumText('image')->default('default_profile.png');
+
 
             $table->string('academic_specialization')->nullable();
             $table->string('academic_level')->nullable();

@@ -34,7 +34,7 @@ const MasonaryContent = () => {
   const apiEndpoint = "http://127.0.0.1:8000/api/posts";
   const { data, loading, error } = GitData(apiEndpoint);
 
-  
+
   const formattedData = data.map((item) => ({
     ...item,
     date: format(new Date(item.created_at), "yyyy-MM-dd HH:mm:ss"),
@@ -68,8 +68,8 @@ const MasonaryContent = () => {
                         {""}
                         {postsDetails.date}
                       </p>
-                      <Link to="/blogdetails" className="primary-link">
-                        <h5>{postsDetails.text}</h5>
+                      <Link to={`/blogdetails/${postsDetails.id}`} className="primary-link">
+                        <h5>{postsDetails.title}</h5>
                       </Link>
                       <div className="d-flex align-items-center mt-4">
                         <div className="flex-shrink-0">
