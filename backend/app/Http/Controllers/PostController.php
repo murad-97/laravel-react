@@ -7,14 +7,16 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function getAllPosts()
+    {
+        $posts = Post::with('user')->get();
+        return response()->json($posts);
+    }
+    
     public function index()
     {
-        //
+
     }
 
     /**

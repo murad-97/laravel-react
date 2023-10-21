@@ -115,7 +115,15 @@ const CandidateGridDetails = () => {
 
       <div className="candidate-list">
         <Row>
-          {filteredUsers.map((details, key) => (
+
+        {filteredUsers.length === 0 ? (
+        
+        <h5 style={{ textAlign: 'center', marginTop: '80px' }}>
+        There are no candidate
+      </h5>
+  ) : (
+
+          filteredUsers.map((details, key) => (
             <Col lg={4} md={6} key={key}>
               <div
                 className={
@@ -204,7 +212,11 @@ const CandidateGridDetails = () => {
                 </CardBody>
               </div>
             </Col>
-          ))}
+          ))
+
+)}
+
+          
         </Row>
 
         <div

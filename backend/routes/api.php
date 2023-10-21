@@ -10,9 +10,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ApplicationController;
-
-
-
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +57,9 @@ Route::get('/jobs', [JobController::class, 'getAllJobs']);
 
 //all locations with company and job
 Route::get('/locations', [LocationController::class, 'getAllLocations']);
+
+//all posts with users
+Route::get('/posts', [PostController::class, 'getAllPosts']);
 
 
 //all Companies
