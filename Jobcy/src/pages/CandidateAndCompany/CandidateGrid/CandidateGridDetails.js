@@ -190,20 +190,21 @@ const CandidateGridDetails = () => {
                       </Col>
                     </div>
                   </div>
+                  {details.about?(
                   <p className="text-muted">
                     {truncateText(details.about, 50)}
                   </p>
+
+                  ):(
+                    <p className="text-muted">
+                    Nothing to show!!
+                  </p>
+                  )
+                  }
                   <div className="mt-3">
+                   
                     <Link
-                      to="#hireNow"
-                      onClick={openModal}
-                      data-bs-toggle="modal"
-                      className="btn btn-primary btn-hover w-100 mt-2"
-                    >
-                      <i className="mdi mdi-account-check"></i> Hire Now
-                    </Link>
-                    <Link
-                      to="/candidatedetails"
+                      to={`/candidatedetails/${details.id}`}
                       className="btn btn-soft-primary btn-hover w-100 mt-2"
                     >
                       <i className="mdi mdi-eye"></i> View Profile

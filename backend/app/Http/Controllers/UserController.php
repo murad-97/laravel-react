@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Language;
+use App\Models\UserLanguage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 // USE App\Models\User;
@@ -20,16 +21,16 @@ class UserController extends Controller
     public function index($id)
     {
         $users = User::with('user_skills')->with('educations')->with('experiences')->with('languages')->find($id);
-       
+
         return response()->json($users);
     }
     public function allUsers()
     {
         $users = User::with('user_skills')->with('educations')->with('experiences')->get();
-       
+
         return response()->json($users);
     }
-    public function image(Request $request)
+    public function updateInformation(Request $request)
     {
         $validator = Validator::make(
             $request->all(),
@@ -49,39 +50,70 @@ class UserController extends Controller
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('img');
             $image->move($destinationPath, $filename);
-
+}
             // Store the image path or URL in the user's database record
-            $user->image =  $filename; // Modify this path as needed, e.g., if you have a different storage structure
-        }
-$user->update();
+            $user->image =  $filename;
+            $user->email = $request->email;
+            $user->academic_specialization = $request->academic_specialization;
+            $user->name = $request->name;
+            // $user->experiences->position = "ggggg";   
+        
+        $user->update();
 
         return response()->json(['message' => 'Image uploaded and stored in the database successfully'], 201);
     }
 
+    
 
 
-    public function get(){
-    // $user1=User::get()->last();
-    // return response()->json($user1);
-    $user1 = User::all(); // Retrieve all users
-    return response()->json($user1);
+
+    public function addLanguage(Request $request)
+    {
 
 
+        $languages = Language::where('name',$request->Lang1)->first();
+        if($languages){
+            $userLang = UserLanguage::create([
+                'user_id' => $request->id,
+                'language_id' => $languages->id,
+                'level' => $request->level
+            ]);
+        }else{
+        $language = Language::create([
+            'name' => $request->Lang1,
+        ]);
+            $userLang = UserLanguage::create([
+                'user_id' => $request->id,
+                'language_id' => $language->id,
+                'level' => $request->level
+            ]);
+    }
+ 
+        
+
+        return response()->json();
+    }
+    public function get()
+    {
+        // $user1=User::get()->last();
+        // return response()->json($user1);
+        $user1 = User::all(); // Retrieve all users
+        return response()->json($user1);
     }
 
 
-    public function getLanguagesForUser($userId=1)
+    public function getLanguagesForUser($userId = 1)
     {
 
 
 
-    $user = User::with('languages')->find($userId);
+        $user = User::with('languages')->find($userId);
 
-    if (!$user) {
-        return response()->json(['message' => 'User not found'], 404);
-    }
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
 
-    return response()->json($user);
+        return response()->json($user);
     }
 
 

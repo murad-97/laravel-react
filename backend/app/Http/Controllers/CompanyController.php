@@ -31,9 +31,9 @@ class CompanyController extends Controller
 
 
     public function getCompanyjobs($companyId)
-    {   
-        $jobs = Company::with('job')->find($companyId);
-       
+    {
+        $jobs = Company::with(['job.company.location',"dayOfWork"])->find($companyId);
+
 
         if (!$jobs) {
             return response()->json(['message' => 'Company not found'], 404);
