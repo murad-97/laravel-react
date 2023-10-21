@@ -14,7 +14,10 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comments = Comment::all();
+
+        // Pass the users data to the view
+        return view('dashboard.comment' ,  compact('comments'));
     }
 
     /**
@@ -78,8 +81,10 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy( $id)
     {
-        //
+        Comment::find($id)->delete();
+        Comment::destroy($id);
+        return redirect('commentdash')->with('flash_message', 'Admin deleted successfully');
     }
 }

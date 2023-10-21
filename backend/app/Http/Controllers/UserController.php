@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User; 
 
-class UserControllers extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,10 @@ class UserControllers extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+
+        // Pass the users data to the view
+        return view('dashboard.user')->with('users', $users);
     }
 
     /**
@@ -23,7 +27,8 @@ class UserControllers extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.createuser');
+
     }
 
     /**
@@ -32,10 +37,44 @@ class UserControllers extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    
+        public function store(Request $request)
+        {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|min:8',
+                'gender' => 'sometimes|string',
+                'address' => 'sometimes|string',
+                'phone_number' => 'sometimes|string',
+                'academic_specialization' => 'sometimes|string',
+                'academic_level' => 'sometimes|string',
+                'professional_level' => 'sometimes|string',
+                'career_field' => 'sometimes|string',
+                'job_title' => 'sometimes|string',
+                'years_of_experience' => 'sometimes|integer',
+
+            ]);
+        
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'gender' => $request->gender,
+                'address' => $request->address,
+                'phone_number' => $request->phone_number,
+                'academic_specialization' => $request->academic_specialization,
+                'academic_level' => $request->academic_level,
+                'professional_level' => $request->professional_level,
+                'career_field' => $request->career_field,
+                'job_title' => $request->job_title,
+                'years_of_experience' => $request->years_of_experience,
+            ]);
+        
+            return redirect('userdash')->with('success', 'User created successfully');
+        }
+        
+  
 
     /**
      * Display the specified resource.
@@ -77,8 +116,11 @@ class UserControllers extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy( $id)
     {
-        //
+        User::find($id)->delete();
+        User::destroy($id);
+        return redirect('userdash')->with('flash_message', 'user deleted successfully');
     }
 }
+

@@ -14,7 +14,10 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        //
+        $applications = application::all();
+
+        // Pass the users data to the view
+        return view('dashboard.application' ,  compact('applications'));
     }
 
     /**
@@ -24,7 +27,8 @@ class ApplicationController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.createapplication');
+
     }
 
     /**
@@ -55,10 +59,19 @@ class ApplicationController extends Controller
      * @param  \App\Models\Application  $application
      * @return \Illuminate\Http\Response
      */
-    public function edit(Application $application)
-    {
-        //
+  
+        public function edit($id)
+{
+    $application = Application::find($id);
+
+    if (!$application) {
+        return redirect('application')->with('error', 'Application not found');
     }
+
+    return view('dashboard.editapplication')->with('application', $application);
+}
+
+    
 
     /**
      * Update the specified resource in storage.
@@ -67,19 +80,41 @@ class ApplicationController extends Controller
      * @param  \App\Models\Application  $application
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Application $application)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'user_id' => 'required',
+            'job_id' => 'required',
+            'status' => 'required',
+        ]);
+    
+        $application = Application::find($id);
+    
+        if (!$application) {
+            return redirect('application')->with('error', 'Application not found');
+        }
+    
+        // Update the application data
+        $application->user_id = $request->user_id;
+        $application->job_id = $request->job_id;
+        $application->status = $request->status;
+    
+        // Save the updated application data
+        $application->save();
+    
+        return redirect('applicationdash')->with('success', 'Application updated successfully');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Application  $application
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Application $application)
+    public function destroy($id)
     {
-        //
+        Application::find($id)->delete();
+        Application::destroy($id);
+        return redirect('applicationdash')->with('flash_message', 'Admin deleted successfully');
     }
 }

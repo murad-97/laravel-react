@@ -9,7 +9,7 @@ class Responsible extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['job_id', 'responsibility_name'];
+    protected $fillable = ['job_id', 'responsibilitie_name'];
 
     public function job()
     {

@@ -14,7 +14,10 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        $locations = Location::all();
+
+        // Pass the users data to the view
+        return view('dashboard.location' ,  compact('locations'));
     }
 
     /**
@@ -24,7 +27,8 @@ class LocationController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.createlocation');
+
     }
 
     /**
@@ -35,7 +39,21 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'company_id' => 'required|integer',
+            // Add more validation rules for other fields if necessary
+        ]);
+    
+        // Create a new Language instance and set its attributes
+        $location = new Location();
+        $location->name = $request->input('name');
+        $location->company_id = $request->input('company_id');
+    
+        // Save the language to the database
+        $location->save();
+    
+        return redirect('locationdash')->with('success', 'location added successfully');
     }
 
     /**
@@ -55,10 +73,18 @@ class LocationController extends Controller
      * @param  \App\Models\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function edit(Location $location)
+    public function edit($id)
     {
-        //
+        $location = Location::find($id);
+    
+        if (!$location) {
+            return redirect('locationdash')->with('error', 'location not found');
+        }
+    
+        return view('dashboard.editlocation')->with('location', $location);
     }
+    
+        
 
     /**
      * Update the specified resource in storage.
@@ -67,9 +93,27 @@ class LocationController extends Controller
      * @param  \App\Models\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Location $location)
+    public function update(Request $request, $id)
     {
-        //
+    $request->validate([
+        'name' => 'required',
+        'company_id' => 'required|integer',
+   
+    ]);
+
+    $location = Location::find($id);
+
+    if (!$location) {
+        return redirect('languagedash')->with('error', 'industry not found');
+    }
+
+    $location->name = $request->name;
+    $location->company_id = $request->company_id;
+
+   
+    $location->save();
+
+    return redirect('locationdash')->with('success', 'location updated successfully');
     }
 
     /**
@@ -78,8 +122,11 @@ class LocationController extends Controller
      * @param  \App\Models\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Location $location)
+    public function destroy( $id)
     {
-        //
+        
+        Location::find($id)->delete();
+        Location::destroy($id);
+        return redirect('industrydash')->with('flash_message', 'location deleted successfully');
     }
 }

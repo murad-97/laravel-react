@@ -14,7 +14,10 @@ class LanguageController extends Controller
      */
     public function index()
     {
-        //
+        $languages = Language::all();
+
+        // Pass the users data to the view
+        return view('dashboard.language' ,  compact('languages'));
     }
 
     /**
@@ -24,7 +27,8 @@ class LanguageController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.createlanguage');
+
     }
 
     /**
@@ -35,15 +39,22 @@ class LanguageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            // Add more validation rules for other fields if necessary
+        ]);
+    
+        // Create a new Language instance and set its attributes
+        $language = new Language();
+        $language->name = $request->input('name');
+        // Set other attributes if necessary
+    
+        // Save the language to the database
+        $language->save();
+    
+        return redirect('languagedash')->with('success', 'language added successfully');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Language  $language
-     * @return \Illuminate\Http\Response
-     */
+  
     public function show(Language $language)
     {
         //
@@ -55,11 +66,16 @@ class LanguageController extends Controller
      * @param  \App\Models\Language  $language
      * @return \Illuminate\Http\Response
      */
-    public function edit(Language $language)
+    public function edit($id)
     {
-        //
+        $language = Language::find($id);
+    
+        if (!$language) {
+            return redirect('languagedash')->with('error', 'language not found');
+        }
+    
+        return view('dashboard.editlanguage')->with('language', $language);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -67,19 +83,36 @@ class LanguageController extends Controller
      * @param  \App\Models\Language  $language
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Language $language)
+    public function update(Request $request, $id)
     {
-        //
+    $request->validate([
+        'name' => 'required',
+   
+    ]);
+
+    $language = Language::find($id);
+
+    if (!$language) {
+        return redirect('languagedash')->with('error', 'industry not found');
     }
 
+    $language->name = $request->name;
+   
+    $language->save();
+
+    return redirect('languagedash')->with('success', 'Language updated successfully');
+    }
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Language  $language
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Language $language)
+    public function destroy( $id)
     {
-        //
+        
+        Language::find($id)->delete();
+        Language::destroy($id);
+        return redirect('languagedash')->with('flash_message', 'language deleted successfully');
     }
 }

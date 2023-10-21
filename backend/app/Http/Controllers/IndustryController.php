@@ -14,7 +14,11 @@ class IndustryController extends Controller
      */
     public function index()
     {
-        //
+        $industries = Industry::all();
+
+        // Pass the users data to the view
+        return view('dashboard.industries' ,  compact('industries'));
+
     }
 
     /**
@@ -24,7 +28,8 @@ class IndustryController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.createindustry');
+
     }
 
     /**
@@ -35,8 +40,22 @@ class IndustryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+          
+        ]);
+       
+    
+        $industry = [
+        'name' => $request->name,
+    
+    ];
+        Industry::create($industry);
+
+        return redirect('industrydash')->with('success', 'Industry added successfully');
     }
+ 
+    
 
     /**
      * Display the specified resource.
@@ -55,11 +74,18 @@ class IndustryController extends Controller
      * @param  \App\Models\Industry  $industry
      * @return \Illuminate\Http\Response
      */
-    public function edit(Industry $industry)
+    public function edit($id)
     {
-        //
+        $industry = Industry::find($id);
+    
+        if (!$industry) {
+            return redirect('industrydash')->with('error', 'industry not found');
+        }
+    
+        return view('dashboard.editindustry')->with('industry', $industry);
     }
-
+    
+        
     /**
      * Update the specified resource in storage.
      *
@@ -67,9 +93,24 @@ class IndustryController extends Controller
      * @param  \App\Models\Industry  $industry
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Industry $industry)
+        public function update(Request $request, $id)
     {
-        //
+    $request->validate([
+        'name' => 'required',
+   
+    ]);
+
+    $industry = Industry::find($id);
+
+    if (!$industry) {
+        return redirect('industrydash')->with('error', 'industry not found');
+    }
+
+    $industry->name = $request->name;
+   
+    $industry->save();
+
+    return redirect('industrydash')->with('success', 'industry updated successfully');
     }
 
     /**
@@ -78,8 +119,10 @@ class IndustryController extends Controller
      * @param  \App\Models\Industry  $industry
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Industry $industry)
+    public function destroy( $id)
     {
-        //
+        Industry::find($id)->delete();
+        Industry::destroy($id);
+        return redirect('industrydash')->with('flash_message', 'Industry deleted successfully');
     }
 }
