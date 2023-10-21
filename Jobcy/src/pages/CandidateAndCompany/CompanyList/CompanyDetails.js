@@ -23,13 +23,18 @@ const CompanyDetails = () => {
     fetchProducts();
   }, []);
 
+
   const fetchProducts = async () => {
     await axios.get(`http://127.0.0.1:8000/api/companies`).then(({ data }) => {
       const companydetails = data;
       setCompaines(companydetails);
       console.log(companydetails[0].location[0].name);
+      console.log(companies[0].location[0].name);
     });
   };
+
+
+ 
 
 
   return (
@@ -98,7 +103,7 @@ const CompanyDetails = () => {
                   <Link to={`/companydetails/${details.id}`} className="primary-link">
                     <h6 className="fs-18 mb-2">{details.name}</h6>
                   </Link>
-                  <p className="text-muted mb-4">{details.location[0].name}</p>
+                  {/* <p className="text-muted mb-4">{details.location[0].name}</p> */}
                   <Link to={`/companydetails/${details.id}`} className="btn btn-primary">
                     {details.job.length} Opening Jobs
                   </Link>
