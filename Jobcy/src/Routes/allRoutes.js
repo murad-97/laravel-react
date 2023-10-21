@@ -80,7 +80,7 @@ const userRoutes = [
   { path: "/blog", component: <Blog /> },
 
   //Candidate and Company Section
-  { path: "/companydetails", component: <CompanyDetails /> },
+  { path: "/companydetails/:id", component: <CompanyDetails /> },
   { path: "/companylist", component: <CompanyList /> },
   // { path: "/candidatedetails", component: <CandidateDetails /> },
   { path: "/candidatedetails/:id", component: <CandidateDetails /> },

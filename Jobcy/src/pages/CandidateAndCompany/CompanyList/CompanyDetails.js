@@ -36,12 +36,12 @@ const CompanyDetails = () => {
     <React.Fragment>
       <Row className="align-items-center mb-4">
         <Col lg={8}>
-          <div className="mb-3 mb-lg-0">
+          {/* <div className="mb-3 mb-lg-0">
             <h6 className="fs-16 mb-0"> Showing 1 – 8 of 11 results </h6>
-          </div>
+          </div> */}
         </Col>
 
-        <Col lg={4}>
+        <Col lg={8}>
           <div className="candidate-list-widgets">
             <Row>
               <Col lg={6}>
@@ -95,11 +95,11 @@ const CompanyDetails = () => {
                 )}
                 <img src={jobImage1} alt="" className="img-fluid rounded-3" />
                 <div className="mt-4">
-                  <Link to="/companydetails" className="primary-link">
+                  <Link to={`/companydetails/${details.id}`} className="primary-link">
                     <h6 className="fs-18 mb-2">{details.name}</h6>
                   </Link>
                   <p className="text-muted mb-4">{details.location[0].name}</p>
-                  <Link to="/companydetails" className="btn btn-primary">
+                  <Link to={`/companydetails/${details.id}`} className="btn btn-primary">
                     {details.job.length} Opening Jobs
                   </Link>
                 </div>
