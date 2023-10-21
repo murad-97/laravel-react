@@ -547,7 +547,7 @@ const NavBar = (props) => {
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/myprofile">
+                    <Link className="dropdown-item" to={`/myprofile/${user.id}`}>
                       My Profile
                     </Link>
                   </li>
