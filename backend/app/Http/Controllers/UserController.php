@@ -19,7 +19,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
+    {
+      
+    }
+    public function best($id)
     {
         $users = User::with('user_skills')->with('educations')->with('experiences')->with('languages')->find($id);
 
@@ -57,14 +61,14 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->academic_specialization = $request->academic_specialization;
             $user->name = $request->name;
-            // $user->experiences->position = "ggggg";   
-        
+            // $user->experiences->position = "ggggg";
+
         $user->update();
 
         return response()->json(['message' => 'Image uploaded and stored in the database successfully'], 201);
     }
 
-    
+
 
 
 
@@ -89,8 +93,8 @@ class UserController extends Controller
                 'level' => $request->level
             ]);
     }
- 
-        
+
+
 
         return response()->json();
     }
@@ -175,7 +179,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    
+
         public function store(Request $request)
         {
             $request->validate([
@@ -193,7 +197,7 @@ class UserController extends Controller
                 'years_of_experience' => 'sometimes|integer',
 
             ]);
-        
+
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -208,11 +212,11 @@ class UserController extends Controller
                 'job_title' => $request->job_title,
                 'years_of_experience' => $request->years_of_experience,
             ]);
-        
+
             return redirect('userdash')->with('success', 'User created successfully');
         }
-        
-  
+
+
 
     /**
      * Display the specified resource.

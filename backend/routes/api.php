@@ -55,7 +55,7 @@ Route::get('/industries', [IndustryController::class, 'getAllIndustries']);
 Route::get('/users', [UserController::class, 'allUsers']);
 Route::post('/image', [UserController::class, 'updateInformation']);
 Route::post('/language', [UserController::class, 'addLanguage']);
-Route::get('/users/{id}', [UserController::class, 'index']);
+Route::get('/users/{id}', [UserController::class, 'best']);
 
 //all jobs with company and location
 Route::get('/jobs', [JobController::class, 'getAllJobs']);
