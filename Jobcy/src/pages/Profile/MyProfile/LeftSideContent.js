@@ -22,12 +22,7 @@ const LeftSideContent = () => {
 
 
 const [selectedUser, setSelectedUser] = useState(null);
-  // const userId = useSelector((state) =>
-  //   state.auth.user ? state.auth.user.id : null
-  // );
-  // console.log(userId);
-
- // Replace with the ID you want to find
+ 
 
 
 useEffect(() => {
