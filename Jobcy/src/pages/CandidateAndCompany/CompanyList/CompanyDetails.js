@@ -92,12 +92,12 @@ const CompanyDetails = () => {
                     </span>
                   </div>
                 )}
-                <img src={jobImage1} alt="" className="img-fluid rounded-3" />
+                <img  src={`http://127.0.0.1:8000/company_img/${details.img1}`} alt="" className="img-fluid rounded-3" />
                 <div className="mt-4">
                   <Link to={`/companydetails/${details.id}`} className="primary-link">
                     <h6 className="fs-18 mb-2">{details.name}</h6>
                   </Link>
-                  {/* <p className="text-muted mb-4">{details.location[0].name}</p> */}
+                  <p className="text-muted mb-4">{details.location[0].name}</p>
                   <Link to={`/companydetails/${details.id}`} className="btn btn-primary">
                     {details.job.length} Opening Jobs
                   </Link>

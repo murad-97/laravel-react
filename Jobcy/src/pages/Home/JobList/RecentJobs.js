@@ -151,7 +151,7 @@ const RecentJobs = () => {
                   <div className="text-center mb-4 mb-md-0">
                     <Link to="/company-details">
                       <img
-                        src={`http://127.0.0.1:8000/storage/company_img/${recentJobDetails.company.img1}`}
+                        src={`http://127.0.0.1:8000/company_img/${recentJobDetails.company.img1}`}
                         alt="CompanyImage"
                         className="img-fluid rounded-3"
                         style={{ width: "50px" }}

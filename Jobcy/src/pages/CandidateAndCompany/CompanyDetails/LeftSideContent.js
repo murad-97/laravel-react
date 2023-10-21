@@ -31,7 +31,7 @@ const LeftSideContent = (props) => {
             <CardBody className="p-4">
               <div className="candidate-profile text-center">
                 <img
-                  src={featureImage}
+                   src={`http://127.0.0.1:8000/company_img/${props.company.img1}`}
                   alt=""
                   className="avatar-lg rounded-circle"
                 />
