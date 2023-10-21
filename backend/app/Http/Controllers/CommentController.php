@@ -78,8 +78,15 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy($id)
     {
-        //
+        $comment = Comment::find($id);
+
+        if ($comment) {
+            $comment->delete();
+            return response()->json(['message' => 'Comment deleted successfully']);
+        }
+
+        return response()->json(['message' => 'Comment not found'], 404);
     }
 }

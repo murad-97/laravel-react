@@ -115,7 +115,15 @@ const CandidateGridDetails = () => {
 
       <div className="candidate-list">
         <Row>
-          {filteredUsers.map((details, key) => (
+
+        {filteredUsers.length === 0 ? (
+        
+        <h5 style={{ textAlign: 'center', marginTop: '80px' }}>
+        There are no candidate
+      </h5>
+  ) : (
+
+          filteredUsers.map((details, key) => (
             <Col lg={4} md={6} key={key}>
               <div
                 className={
@@ -182,20 +190,21 @@ const CandidateGridDetails = () => {
                       </Col>
                     </div>
                   </div>
+                  {details.about?(
                   <p className="text-muted">
                     {truncateText(details.about, 50)}
                   </p>
+
+                  ):(
+                    <p className="text-muted">
+                    Nothing to show!!
+                  </p>
+                  )
+                  }
                   <div className="mt-3">
+                   
                     <Link
-                      to="#hireNow"
-                      onClick={openModal}
-                      data-bs-toggle="modal"
-                      className="btn btn-primary btn-hover w-100 mt-2"
-                    >
-                      <i className="mdi mdi-account-check"></i> Hire Now
-                    </Link>
-                    <Link
-                      to="/candidatedetails"
+                      to={`/candidatedetails/${details.id}`}
                       className="btn btn-soft-primary btn-hover w-100 mt-2"
                     >
                       <i className="mdi mdi-eye"></i> View Profile
@@ -204,7 +213,11 @@ const CandidateGridDetails = () => {
                 </CardBody>
               </div>
             </Col>
-          ))}
+          ))
+
+)}
+
+          
         </Row>
 
         <div

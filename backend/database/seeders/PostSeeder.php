@@ -17,10 +17,12 @@ class PostSeeder extends Seeder
     {
         Post::create([
             'user_id' => 1,
+            'title' => 'This is the first post.',
             'text' => 'This is the first post.',
         ]);
         Post::create([
             'user_id' => 2,
+            'title' => 'Another po  st with text and media.',
             'text' => 'Another post with text and media.',
         ]);
     }
