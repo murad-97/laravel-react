@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('linkedin_link')->nullable();
-            $table->mediumText('image')->default('default_profile.png');
+            $table->mediumText('image')->default('profile.png');
 
 
             $table->string('academic_specialization')->nullable();
