@@ -18,9 +18,9 @@ return new class extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->mediumText('image')->nullable();
             $table->mediumText('video')->nullable();
+            $table->string('title')->nullable();
             $table->string('text');
-
-             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();
         });

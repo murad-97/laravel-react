@@ -9,6 +9,8 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ApplicationController;
 
 
@@ -90,3 +92,7 @@ Route::get('/userexperience/{userId}', [UserController::class, 'getUserExperienc
 Route::get('/userseducation/{userId}', [UserController::class, 'getUserEducations']);
 
 
+
+Route::get('/post/{Id}', [PostController::class, 'show']);
+Route::post('/comment', [PostController::class, 'comment']);
+Route::delete('/deletecomment/{id}', [CommentController::class, 'destroy']);

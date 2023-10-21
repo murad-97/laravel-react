@@ -17,10 +17,10 @@ const RightSideContent = (props) => {
   const [date, setDate] = useState("");
   const [isApplied, setisApplied] = useState(false);
   const [deadLine, setDeadLine] = useState(false);
-  const [modal, setModal] = useState(false);
   // const [userId, setuserId] = useState(false);
   const [message, setMessage] = useState("");
   // const [errors, seterrors] = useState([]);
+  const [modal, setModal] = useState(false);
 
   const openModal = () => setModal(!modal);
 
