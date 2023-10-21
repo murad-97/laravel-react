@@ -13,6 +13,7 @@ use PhpParser\Node\Stmt\Return_;
 
 class UserController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
