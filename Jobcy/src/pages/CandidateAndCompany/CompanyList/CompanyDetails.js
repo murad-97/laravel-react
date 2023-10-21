@@ -5,19 +5,12 @@ import { Card, CardBody, Col, Row } from "reactstrap";
 
 //Import Job Images
 import jobImage1 from "../../../assets/images/featured-job/img-01.png";
-import jobImage2 from "../../../assets/images/featured-job/img-02.png";
-import jobImage3 from "../../../assets/images/featured-job/img-03.png";
-import jobImage5 from "../../../assets/images/featured-job/img-05.png";
-import jobImage6 from "../../../assets/images/featured-job/img-06.png";
-import jobImage7 from "../../../assets/images/featured-job/img-07.png";
-import jobImage8 from "../../../assets/images/featured-job/img-08.png";
-import jobImage9 from "../../../assets/images/featured-job/img-09.png";
-import jobImage10 from "../../../assets/images/featured-job/img-10.png";
 
 const CompanyDetails = () => {
 
 
   const [companies, setCompaines] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchProducts();
@@ -26,8 +19,10 @@ const CompanyDetails = () => {
   const fetchProducts = async () => {
     await axios.get(`http://127.0.0.1:8000/api/companies`).then(({ data }) => {
       const companydetails = data;
+      console.log(data[0].location[0].name);
       setCompaines(companydetails);
-      console.log(companydetails[0].location[0].name);
+      setLoading(false)
+    
     });
   };
 
@@ -80,7 +75,7 @@ const CompanyDetails = () => {
         </Col>
       </Row>
 
-      <Row>
+    {loading?(<div></div>):(  <Row>
         {companies.map((details, key) => (
           <Col lg={4} md={6} key={key}>
             <Card className="text-center mb-4">
@@ -107,7 +102,7 @@ const CompanyDetails = () => {
             </Card>
           </Col>
         ))}
-      </Row>
+      </Row>)}
     </React.Fragment>
   );
 };
