@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class WorksDays extends Model
+class DayOfWork extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'Company_id',
+        'company_id',
         'Sunday',
         'Monday',
         'Tuesday',
@@ -24,6 +24,9 @@ class WorksDays extends Model
 
     public function company()
     {
-        return $this->belongsTo(Company::class, 'Company_id');
+        return $this->belongsTo(Company::class ,'works_day_id');
     }
+
+
+
 }

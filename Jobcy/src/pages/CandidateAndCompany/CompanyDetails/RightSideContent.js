@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   Col,
   Card,
@@ -120,6 +122,35 @@ const RightSideContent = () => {
       ]
     }
   ];
+//---------------------------------------------------------------------------
+
+
+
+
+const [company, setCompany] = useState([]);
+
+
+
+// const [selectedUser, setSelectedUser] = useState(null);
+const x = 1; // Replace with the ID you want to find
+
+
+useEffect(() => {
+  // Fetch data from the API when the component mounts
+  axios.get("http://127.0.0.1:8000/api/companyjobs/1")
+    .then((response) => {
+     setCompany(response.data);
+   
+      })
+    .catch((error) => {
+      console.error("Error fetching data: ", error);
+    });
+}, []);
+
+
+
+//--------------------------------------------------------------------------
+
   return (
     <React.Fragment>
       {isGallery ? (
@@ -147,26 +178,9 @@ const RightSideContent = () => {
               <h6 className="fs-17 fw-semibold mb-4">About Company</h6>
               <p className="text-muted">
                 {" "}
-                Objectively pursue diverse catalysts for change for
-                interoperable meta-services. Distinctively re-engineer
-                revolutionary meta-services and premium architectures.
-                Intrinsically incubate intuitive opportunities and real-time
-                potentialities. Appropriately communicate one-to-one technology.
-              </p>
+                {company.about}    </p>
 
-              <p className="text-muted">
-                Intrinsically incubate intuitive opportunities and real-time
-                potentialities Appropriately communicate one-to-one technology.
-              </p>
-
-              <p className="text-muted">
-                {" "}
-                Exercitation photo booth stumptown tote bag Banksy, elit small
-                batch freegan sed. Craft beer elit seitan exercitation, photo
-                booth et 8-bit kale chips proident chillwave deep v laborum.
-                Aliquip veniam delectus, Marfa eiusmod Pinterest in do umami
-                readymade swag.
-              </p>
+              
             </div>
             <div className="candidate-portfolio mb-5">
               <h6 className="fs-17 fw-semibold mb-4">Gallery</h6>
@@ -215,7 +229,13 @@ const RightSideContent = () => {
 
             <div>
               <h6 className="fs-17 fw-semibold mb-4">Current Opening</h6>
-
+              {/* {company && Array.isArray(company.job) && (
+                    company.job.map((job) => (
+                      <span className="badge fs-13 bg-blue-subtle text-blue mt-2" key={job.id}>
+                        {job.skill_name}
+                      </span>
+                    ))
+                  )} */}
               {jobVacancyPost.map((jobVacancyPostDetails, key) => (
                 <div
                   key={key}

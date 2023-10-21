@@ -9,6 +9,8 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\PostController;
 
@@ -50,7 +52,9 @@ Route::get('/user', [AuthenticatedSessionController::class, 'user'])
 
 //all industries with company and job
 Route::get('/industries', [IndustryController::class, 'getAllIndustries']);
-Route::get('/users', [UserController::class, 'index']);
+Route::get('/users', [UserController::class, 'allUsers']);
+Route::post('/image', [UserController::class, 'image']);
+Route::get('/users/{id}', [UserController::class, 'index']);
 
 //all jobs with company and location
 Route::get('/jobs', [JobController::class, 'getAllJobs']);
@@ -88,4 +92,12 @@ Route::get('/userskills/{userId}', [UserController::class, 'getUserSkills']);
 Route::get('/userexperience/{userId}', [UserController::class, 'getUserExperience']);
 Route::get('/userseducation/{userId}', [UserController::class, 'getUserEducations']);
 
+//----------------------
+Route::get('/companyWithWorkingDays/{companyId}', [CompanyController::class, 'getCompanyDetails']);
+Route::get('/companyjobs/{companyId}', [CompanyController::class, 'getCompanyjobs']);
 
+
+
+Route::get('/post/{Id}', [PostController::class, 'show']);
+Route::post('/comment', [PostController::class, 'comment']);
+Route::delete('/deletecomment/{id}', [CommentController::class, 'destroy']);

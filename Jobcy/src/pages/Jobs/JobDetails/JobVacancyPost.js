@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, Row, Modal, ModalBody, Input, Label } from "reactstrap";
+import { Col, Row} from "reactstrap";
 import axios from "../../../components/axios";
 import { Link } from "react-router-dom";
 
@@ -163,7 +163,7 @@ const JobVacancyPost = (props) => {
       ))}
 
       <div className="text-center mt-4">
-        <Link to="/joblist" className="primary-link form-text">
+        <Link to="/joblist/All" className="primary-link form-text">
           View More <i className="mdi mdi-arrow-right"></i>
         </Link>
       </div>

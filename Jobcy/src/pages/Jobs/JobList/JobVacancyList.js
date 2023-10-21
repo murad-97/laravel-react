@@ -371,8 +371,8 @@ console.log(id);
                 <Col lg={2} md={3}>
                   <div>
                     <Link
-                      to="#applyNow"
-                      onClick={openModal}
+                      to={`/jobdetails/${jobVacancyListDetails.id}`}
+                    
                       className="primary-link"
                     >
                       Apply Now <i className="mdi mdi-chevron-double-right"></i>
