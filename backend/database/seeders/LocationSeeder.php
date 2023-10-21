@@ -28,11 +28,11 @@ class LocationSeeder extends Seeder
             'company_id' => 3,
         ]);
         Location::create([
-            'name' => 'Irbid',
+            'name' => 'Zarqa',
             'company_id' => 4,
         ]);
         Location::create([
-            'name' => 'Irbid',
+            'name' => 'Zarqa',
             'company_id' => 5,
         ]);
     }
