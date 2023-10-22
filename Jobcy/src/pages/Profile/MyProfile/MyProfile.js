@@ -3,6 +3,7 @@ import { Container, Row } from "reactstrap";
 import LeftSideContent from "./LeftSideContent";
 import RightSideContent from "./RightSideContent";
 import Section from "./Section";
+import MyPosts from "./MyPosts";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -19,11 +20,14 @@ const MyProfile = () => {
       <section className="section">
         <Container>
           <Row>
+
             <LeftSideContent />
             <RightSideContent/>
+           
           </Row>
         </Container>
       </section>
+       <MyPosts/>
     </React.Fragment>
   );
 };

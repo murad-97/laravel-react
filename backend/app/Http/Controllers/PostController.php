@@ -14,7 +14,14 @@ class PostController extends Controller
         $posts = Post::with('user')->get();
         return response()->json($posts);
     }
-    
+
+
+    public function getUserPosts($id)
+    {
+        $userPosts = Post::where('user_id', $id)->with('comment')->with('user')->get();
+        return response()->json($userPosts);
+    }
+
     public function index()
     {
 
