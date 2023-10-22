@@ -142,7 +142,7 @@ const CandidateGridDetails = () => {
                   <div className="d-flex mb-4">
                     <div className="flex-shrink-0 position-relative">
                       <img
-                        src={userImage1}
+                        src={`http://localhost:8000/img/${details.image}`}
                         alt=""
                         className="avatar-md rounded"
                       />

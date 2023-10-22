@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Language;
 use App\Models\UserLanguage;
+use App\Models\UserSkill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 // USE App\Models\User;
@@ -13,14 +14,19 @@ use PhpParser\Node\Stmt\Return_;
 
 class UserController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $users = User::with('user_skills')->with('educations')->with('experiences')->with('languages')->find($id);
+      
+    }
+    public function best($id)
+    {
+        $users = User::with('user_skills')->with('educations')->with('experiences')->with('languages')->with('post')->find($id);
 
         return response()->json($users);
     }
@@ -56,14 +62,34 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->academic_specialization = $request->academic_specialization;
             $user->name = $request->name;
-            // $user->experiences->position = "ggggg";   
+            // $user->experiences->position = "ggggg";
+
         
+        // Store the image path or URL in the user's database record
+        $user->image =  $filename;
+        $user->email = $request->email;
+        $user->academic_specialization = $request->academic_specialization;
+        $user->name = $request->name;
+        // $user->experiences->position = "ggggg";   
+
         $user->update();
 
         return response()->json(['message' => 'Image uploaded and stored in the database successfully'], 201);
     }
 
-    
+
+    public function addSkills(Request $request){
+
+        $skills = UserSkill::create([
+            'user_id' => $request->id,
+            'skill_name' => $request->skill
+        ]);
+        $skills->save();
+
+        return response()->json();
+
+    }
+
 
 
 
@@ -71,25 +97,52 @@ class UserController extends Controller
     {
 
 
-        $languages = Language::where('name',$request->Lang1)->first();
-        if($languages){
+        $languages = Language::where('name', $request->Lang1)->first();
+        if ($languages) {
             $userLang = UserLanguage::create([
                 'user_id' => $request->id,
                 'language_id' => $languages->id,
                 'level' => $request->level
             ]);
-        }else{
-        $language = Language::create([
-            'name' => $request->Lang1,
-        ]);
+        } else {
+            $language = Language::create([
+                'name' => $request->Lang1,
+            ]);
             $userLang = UserLanguage::create([
                 'user_id' => $request->id,
                 'language_id' => $language->id,
                 'level' => $request->level
             ]);
     }
- 
+
+
         
+        return response()->json();
+    }
+
+    public function updateAbout(Request $request){
+
+        $user = User::find($request->id);
+
+        $user->about = $request->about;
+
+        $user->update();
+
+        return response()->json();
+
+    }
+
+
+
+    public function deleteLanguage(Request $request, $id1, $id2)
+    {
+        $userLanguage = UserLanguage::where('user_id', $id1)->where('language_id', $id2)->delete();
+
+        return response()->json();
+    }
+    public function deleteSkills(Request $request, $id)
+    {
+        $userSkills = UserSkill::where('id', $id)->delete();
 
         return response()->json();
     }
@@ -97,7 +150,7 @@ class UserController extends Controller
     {
         // $user1=User::get()->last();
         // return response()->json($user1);
-        $user1 = User::all(); // Retrieve all users
+        $user1 = User::with('user_skills')->with('educations')->with('experiences')->with('languages')->with('post')->get();
         return response()->json($user1);
     }
 
@@ -164,7 +217,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.createuser');
+
     }
 
     /**
@@ -173,10 +227,44 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+
+        public function store(Request $request)
+        {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|min:8',
+                'gender' => 'sometimes|string',
+                'address' => 'sometimes|string',
+                'phone_number' => 'sometimes|string',
+                'academic_specialization' => 'sometimes|string',
+                'academic_level' => 'sometimes|string',
+                'professional_level' => 'sometimes|string',
+                'career_field' => 'sometimes|string',
+                'job_title' => 'sometimes|string',
+                'years_of_experience' => 'sometimes|integer',
+
+            ]);
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'gender' => $request->gender,
+                'address' => $request->address,
+                'phone_number' => $request->phone_number,
+                'academic_specialization' => $request->academic_specialization,
+                'academic_level' => $request->academic_level,
+                'professional_level' => $request->professional_level,
+                'career_field' => $request->career_field,
+                'job_title' => $request->job_title,
+                'years_of_experience' => $request->years_of_experience,
+            ]);
+
+            return redirect('userdash')->with('success', 'User created successfully');
+        }
+
+
 
     /**
      * Display the specified resource.
@@ -218,8 +306,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy( $id)
     {
-        //
+        User::find($id)->delete();
+        User::destroy($id);
+        return redirect('userdash')->with('flash_message', 'user deleted successfully');
     }
 }
+

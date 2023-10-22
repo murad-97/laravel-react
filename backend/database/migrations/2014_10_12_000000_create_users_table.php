@@ -26,18 +26,16 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('linkedin_link')->nullable();
-            $table->mediumText('image')->default('default_profile.png');
+            $table->mediumText('image')->default('profile.png');
 
 
             $table->string('academic_specialization')->nullable();
             $table->string('academic_level')->nullable();
             $table->string('professional_level')->nullable();
-
             $table->string('career_field')->nullable();
             $table->string('jop_title')->nullable();
             $table->bigInteger('years_of_experience')->nullable();
             $table->string('cv')->nullable();
-
             $table->string('subscription')->default('Basic');
             $table->boolean('role')->default('0');
             $table->rememberToken();
