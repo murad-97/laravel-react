@@ -56,7 +56,7 @@ const LeftSideContent = () => {
           <CardBody className="p-4">
             <div className="candidate-profile text-center">
               <img
-                src={userImage1}
+                src={`http://localhost:8000/img/${user.image}`}
                 alt=""
                 className="avatar-lg rounded-circle"
               />
@@ -145,30 +145,8 @@ const LeftSideContent = () => {
                 </div>
               </li>
             </ul>
-            <div className="mt-3">
-              <Link to={user.phone_number} className="btn btn-danger btn-hover w-100">
-                <i className="uil uil-phone"></i> Contact Me
-              </Link>
-              <Link to="#" className="btn btn-primary btn-hover w-100 mt-2">
-                <i className="uil uil-import"></i> Download CV
-              </Link>
-            </div>
-            <ul className="list-inline d-flex justify-content-between align-items-center mb-0 mt-2">
-              <li className="list-inline-item text-warning review-rating">
-                <i className="mdi mdi-star"></i>
-                <i className="mdi mdi-star"></i>
-                <i className="mdi mdi-star"></i>
-                <i className="mdi mdi-star"></i>
-                <i className="mdi mdi-star-half-full"></i>
-              </li>
-              <li className="list-inline-item">
-                <div className="favorite-icon">
-                  <Link to="#">
-                    <i className="uil uil-heart-alt fs-18"></i>
-                  </Link>
-                </div>
-              </li>
-            </ul>
+          
+          
           </CardBody>
           <CardBody className="p-4 border-top">
             <h6 className="fs-17 fw-semibold mb-3">Professional Skills</h6>
