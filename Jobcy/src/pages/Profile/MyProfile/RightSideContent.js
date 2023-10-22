@@ -150,8 +150,10 @@ const RightSideContent = (props) => {
     Murad.post("/posts", postData)
       .then((response) => {
         console.log(response.data);
-        setUserc({
-          about: "",
+        setPost({
+          title: "",
+          text: "",
+          image: null,
         })
         props.fetchData();
       })
@@ -769,7 +771,7 @@ const RightSideContent = (props) => {
                             name="level"
                             className="form-control mb-2"
                             id="firstName"
-                            value={language.Lang1}
+                            value={language.level}
                             onChange={(e) =>
                               setLanguage((prev) => ({
                                 ...prev,

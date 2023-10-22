@@ -14,21 +14,22 @@ import axios from "axios";
 import profileImage from "../../../assets/images/profile.jpg";
 
 
-const LeftSideContent = () => {
+const LeftSideContent = (props) => {
 
 
   const handleDeletePost = async (posts_id) => {
-    const csrfResponse = await Murad.get("/get-csrf-token");
-    const csrfToken = csrfResponse.data.csrf_token;
-    axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
-
-    Murad.delete(`/posts/${posts_id}`)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("Error uploading image: ", error);
-      });
+    try {
+      const csrfResponse = await Murad.get("/get-csrf-token");
+      const csrfToken = csrfResponse.data.csrf_token;
+      axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
+  
+      await Murad.delete(`/posts/${posts_id}`);
+  
+      // If the delete request is successful, then you can fetch new data.
+      await props.fetchData();
+    } catch (error) {
+      console.error("Error deleting post: ", error);
+    }
   };
   //---------------------------------------------
     const [post, setPost] = useState({
@@ -51,7 +52,7 @@ const LeftSideContent = () => {
 
       const postData = new FormData();
       postData.append("image", post.image);
-      postData.append("id", userb.id);
+      postData.append("id", props.user.id);
       postData.append("email", post.title);
       postData.append("name", post.text);
 
@@ -65,31 +66,11 @@ const LeftSideContent = () => {
     };
   //---------------------------------------------
 
-  const [users, setUsers] = useState([]);
-      const userb = useSelector((state) => state.user);
-
-
-const [selectedUser, setSelectedUser] = useState(null);
+ 
  
 
 
-useEffect(() => {
-  axios.get("http://127.0.0.1:8000/api/user1")
-    .then((response) => {
-     setUsers(response.data);
-     const userWithX = response.data.find((user) => user.id === userb.id);
-     if (userWithX) {
-       setSelectedUser(userWithX);
-     }
 
-     console.log(selectedUser.name) 
-
-
-    })
-    .catch((error) => {
-      console.error("Error fetching data: ", error);
-    });
-}, []);
 
 
 
@@ -97,18 +78,18 @@ useEffect(() => {
 
   return (
     <React.Fragment>
-      {selectedUser ? (
+      {props.user ? (
         <Col lg={4}>
           <Card className="profile-sidebar me-lg-4">
             <CardBody className="p-4">
               <div className="text-center pb-4 border-bottom">
                 <img
-                  src={`http://localhost:8000/img/${selectedUser.image}`}
+                  src={`http://localhost:8000/img/${props.user.image}`}
                   alt=""
                   className="avatar-lg img-thumbnail rounded-circle mb-4"
                 />
-                <h5 className="mb-0">{selectedUser.name}</h5>
-                <p className="text-muted">{selectedUser.jop_title}</p>
+                <h5 className="mb-0">{props.user.name}</h5>
+                <p className="text-muted">{props.user.jop_title}</p>
                 <ul className="list-inline d-flex justify-content-center align-items-center ">
                   <li className="list-inline-item text-warning fs-19">
                     <i className="mdi mdi-star"></i>
@@ -121,7 +102,7 @@ useEffect(() => {
                 <ul className="candidate-detail-social-menu list-inline mb-0">
                   <li className="list-inline-item">
                     <Link
-                      to={selectedUser.linkedin_link}
+                      to={props.user.linkedin_link}
                       className="social-link rounded-3 btn-soft-primary"
                     >
                       <i className="uil uil-linkedin"></i>
@@ -145,7 +126,7 @@ useEffect(() => {
                   </li>
                   <li className="list-inline-item">
                     <Link
-                      to={selectedUser.phone_number}
+                      to={props.user.phone_number}
                       className="social-link rounded-3 btn-soft-danger"
                     >
                       <i className="uil uil-phone-alt"></i>
@@ -205,7 +186,7 @@ useEffect(() => {
                         <label>Email</label>
                         <div>
                           <p className="text-muted text-break mb-0">
-                            {selectedUser.email}
+                            {props.user.email}
                           </p>
                         </div>
                       </div>
@@ -215,7 +196,7 @@ useEffect(() => {
                         <label>Phone Number</label>
                         <div>
                           <p className="text-muted mb-0">
-                            {selectedUser.phone_number}
+                            {props.user.phone_number}
                           </p>
                         </div>
                       </div>
@@ -225,7 +206,7 @@ useEffect(() => {
                         <label>Location</label>
                         <div>
                           <p className="text-muted mb-0">
-                            {selectedUser.address}
+                            {props.user.address}
                           </p>
                         </div>
                       </div>
@@ -237,7 +218,7 @@ useEffect(() => {
           </Card>
           <Card className="profile-sidebar me-lg-4">
             <CardBody className="p-4">
-              {selectedUser.post.map((post, index) => (
+              {props.user.post.map((post, index) => (
                 <div key={index}>
                   <p
                     style={{
@@ -298,7 +279,7 @@ useEffect(() => {
                       <button onClick={() => handleUpdatePost(post.id)}>
                         Edit
                       </button>
-                      <button onClick={() => handleDeletePost(post.id)}>
+                      <button  onClick={() => handleDeletePost(post.id)}>
                         Delete
                       </button>
                     </div>
@@ -309,7 +290,7 @@ useEffect(() => {
           </Card>
         </Col>
       ) : (
-        <p>User with ID {userb.id} not found.</p>
+        <p>User with ID {props.user.id} not found.</p>
       )}
     </React.Fragment>
   );

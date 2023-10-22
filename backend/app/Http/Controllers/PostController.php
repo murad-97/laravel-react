@@ -110,7 +110,7 @@ class PostController extends Controller
         $post->text = $request->text;
         $post->image = $filename;
 
-        $post->update(); 
+        $post->update();
 
         return response()->json();
     }
@@ -136,11 +136,16 @@ class PostController extends Controller
     // public function destroy( $id)
     public function delete(Post $post ,$id)
     {
-        Post::find($id)->delete();
-        Post::destroy($id);
-        return redirect('postdash')->with('flash_message', 'Post deleted successfully');
+
         $post = Post::where('id', $id)->delete();
 
         return response()->json();
+    }
+    public function destroy(Post $post ,$id)
+    {
+        Post::find($id)->delete();
+        Post::destroy($id);
+        return redirect('postdash')->with('flash_message', 'Post deleted successfully');
+
     }
 }
