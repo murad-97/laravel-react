@@ -39,5 +39,41 @@ class DayOfWorkSeeder extends Seeder
             'From' => "9:00",
             'To' => "8:30",
         ]);
+        DayOfWork::create([
+            'Company_id' => 3,
+            'Sunday' => 1,
+            'Monday' => 1,
+            'Tuesday' => 1,
+            'Wednesday' => 1,
+            'Thursday' => 1,
+            'Friday' => 0,
+            'Saturday' => 0,
+            'From' => "9:00",
+            'To' => "8:30",
+        ]);
+        DayOfWork::create([
+            'Company_id' => 4,
+            'Sunday' => 1,
+            'Monday' => 1,
+            'Tuesday' => 1,
+            'Wednesday' => 1,
+            'Thursday' => 1,
+            'Friday' => 0,
+            'Saturday' => 0,
+            'From' => "9:00",
+            'To' => "8:30",
+        ]);
+        DayOfWork::create([
+            'Company_id' => 5,
+            'Sunday' => 1,
+            'Monday' => 1,
+            'Tuesday' => 1,
+            'Wednesday' => 1,
+            'Thursday' => 1,
+            'Friday' => 0,
+            'Saturday' => 0,
+            'From' => "9:00",
+            'To' => "8:30",
+        ]);
     }
 }

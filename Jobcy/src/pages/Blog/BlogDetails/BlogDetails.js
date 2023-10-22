@@ -13,9 +13,13 @@ import BlogColumn from "../BlogDetails/BlogColumn";
 import BlogComments from "../BlogDetails/BlogComments";
 import BlogForm from "../BlogDetails/BlogForm";
 import BlogPost from "../BlogDetails/BlogPost";
+import { useParams } from "react-router-dom";
 
 const BlogDetails = () => {
-const id = 1
+
+
+const { id } = useParams();
+
 const [post,setpost]=useState()
 const [isLoading,setIsLoading]=useState(true)
 

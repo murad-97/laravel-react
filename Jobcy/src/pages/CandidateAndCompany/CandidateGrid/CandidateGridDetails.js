@@ -142,7 +142,7 @@ const CandidateGridDetails = () => {
                   <div className="d-flex mb-4">
                     <div className="flex-shrink-0 position-relative">
                       <img
-                        src={userImage1}
+                        src={`http://localhost:8000/img/${details.image}`}
                         alt=""
                         className="avatar-md rounded"
                       />
@@ -190,20 +190,21 @@ const CandidateGridDetails = () => {
                       </Col>
                     </div>
                   </div>
+                  {details.about?(
                   <p className="text-muted">
                     {truncateText(details.about, 50)}
                   </p>
+
+                  ):(
+                    <p className="text-muted">
+                    Nothing to show!!
+                  </p>
+                  )
+                  }
                   <div className="mt-3">
+                   
                     <Link
-                      to="#hireNow"
-                      onClick={openModal}
-                      data-bs-toggle="modal"
-                      className="btn btn-primary btn-hover w-100 mt-2"
-                    >
-                      <i className="mdi mdi-account-check"></i> Hire Now
-                    </Link>
-                    <Link
-                      to="/candidatedetails"
+                      to={`/candidatedetails/${details.id}`}
                       className="btn btn-soft-primary btn-hover w-100 mt-2"
                     >
                       <i className="mdi mdi-eye"></i> View Profile

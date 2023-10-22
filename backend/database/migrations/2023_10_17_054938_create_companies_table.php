@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('about')->nullable();
-            $table->string('img1');
-            $table->string('img2');
-            $table->string('img3');
+            $table->string('img1')->default('company.jpg');
+            $table->string('img2')->default('company.jpg');
+            $table->string('img3')->default('company.jpg');
             $table->string('address');
             // $table->string('website');
             $table->dateTime('startDate');

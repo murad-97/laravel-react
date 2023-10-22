@@ -20,8 +20,33 @@ class QualificationSeeder extends Seeder
             'qualification_name' => 'Bachelor of Science in Computer Science',
         ]);
         Qualification::create([
-            'job_id' => 1,
+            'job_id' => 2,
             'qualification_name' => 'Master of Business Administration',
         ]);
+        Qualification::create([
+            'job_id' => 3,
+            'qualification_name' => 'Master of Business Administration',
+        ]);
+        Qualification::create([
+            'job_id' => 4,
+            'qualification_name' => 'Master of Business Administration',
+        ]);
+        Qualification::create([
+            'job_id' => 5,
+            'qualification_name' => 'Master of Business Administration',
+        ]);
+        Qualification::create([
+            'job_id' => 6,
+            'qualification_name' => 'Master of Business Administration',
+        ]);
+        Qualification::create([
+            'job_id' => 7,
+            'qualification_name' => 'Master of Business Administration',
+        ]);
+        Qualification::create([
+            'job_id' => 8,
+            'qualification_name' => 'Master of Business Administration',
+        ]);
+
     }
 }

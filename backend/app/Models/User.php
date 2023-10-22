@@ -24,7 +24,7 @@ class User extends Authenticatable
         'gender',
         'address',
         'phone_number',
-        'linkedin link',
+        'linkedin_link',
         'image',
         'academic_specialization',
         'academic_level',

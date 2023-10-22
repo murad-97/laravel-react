@@ -170,7 +170,7 @@ const NavBar = (props) => {
                   <Link to="/">Home</Link>
                 </NavLink>
               </NavItem>
-              <NavItem className="dropdown dropdown-hover">
+              {/* <NavItem className="dropdown dropdown-hover">
                 <NavLink
                   to="/#"
                   id="jobsdropdown"
@@ -302,8 +302,23 @@ const NavBar = (props) => {
                     </Col>
                   </Row>
                 </div>
-              </li>
+              </li> */}
 
+              <NavItem>
+              <Link className="nav-link" to="/joblist/All">
+                          Jobs
+                        </Link>
+              </NavItem>
+              <NavItem>
+              <Link className="nav-link" to="/companylist">
+                          Companies
+                        </Link>
+              </NavItem>
+              <NavItem>
+              <Link className="nav-link" to="/candidategrid">
+                          Candidate
+                        </Link>
+              </NavItem>
               <NavItem>
                 <Link className="nav-link" to="/blogmasonary">
                   Posts
@@ -521,16 +536,7 @@ const NavBar = (props) => {
                   className="dropdown-menu-end"
                   aria-labelledby="userdropdown"
                   end>
-                  <li>
-                    <Link className="dropdown-item" to="/managejobs">
-                      Manage Jobs
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" to="/bookmarkjobs">
-                      Bookmarks Jobs
-                    </Link>
-                  </li>
+                 
                   <li>
                     <Link className="dropdown-item" to={`/myprofile/${user.id}`}>
                       My Profile

@@ -19,6 +19,10 @@ class PostController extends Controller
 
     public function index()
     {
+        $posts = Post::all();
+
+        // Pass the users data to the view
+        return view('dashboard.post' ,  compact('posts'));
     }
 
     /**
@@ -114,7 +118,7 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\HttpRequest  $request
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
@@ -129,8 +133,12 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
+    public function destroy( $id)
     public function delete(Post $post ,$id)
     {
+        Post::find($id)->delete();
+        Post::destroy($id);
+        return redirect('postdash')->with('flash_message', 'Post deleted successfully');
         $post = Post::where('id', $id)->delete();
 
         return response()->json();

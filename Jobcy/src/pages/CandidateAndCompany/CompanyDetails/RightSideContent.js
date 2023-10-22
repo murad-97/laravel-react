@@ -1,6 +1,5 @@
-import React from "react";
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   Col,
   Card,
@@ -9,20 +8,20 @@ import {
   Input,
   Modal,
   ModalBody,
-  Label
+  Label,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 
-//Lightbox
+// Lightbox
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 
-//Import BlogImage
+// Import BlogImage
 import blogImage1 from "../../../assets/images/blog/img-01.jpg";
 import blogImage3 from "../../../assets/images/blog/img-03.jpg";
 import blogImage12 from "../../../assets/images/blog/img-12.jpg";
 
-//Job Images
+// Job Images
 import jobImage1 from "../../../assets/images/featured-job/img-01.png";
 import jobImage2 from "../../../assets/images/featured-job/img-02.png";
 import jobImage3 from "../../../assets/images/featured-job/img-03.png";
@@ -30,126 +29,18 @@ import jobImage4 from "../../../assets/images/featured-job/img-04.png";
 
 const images = [blogImage1, blogImage3, blogImage12];
 
-const RightSideContent = () => {
-  //Apply Now Model
+const RightSideContent = (props) => {
+  // Apply Now Model
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
 
-  //Lightbox
+  // Lightbox
   const [photoIndex, setphotoIndex] = useState(0);
   const [isGallery, setisGallery] = useState(false);
 
   const jobVacancyPost = [
-    {
-      id: 1,
-      companyImg: jobImage1,
-      jobDescription: "HTML Developer",
-      experience: "0-2 Yrs Exp.",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "California",
-      salary: "$250 - $800 / month",
-      fullTime: true,
-      timing: "Full Time",
-      addclassNameBookmark: true,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-warning-subtle text-warning",
-          badgeName: "Urgent"
-        },
-        {
-          id: 2,
-          badgeclassName: "bg-info-subtle text-info",
-          badgeName: "Private"
-        }
-      ]
-    },
-    {
-      id: 2,
-      companyImg: jobImage2,
-      jobDescription: "Marketing Director",
-      experience: "2-4 Yrs Exp.",
-      companyName: "Creative Agency",
-      location: "New York",
-      salary: "$250 - $800 / month",
-      partTime: true,
-      timing: "Full Time",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-info-subtle text-info",
-          badgeName: "Private"
-        }
-      ]
-    },
-    {
-      id: 3,
-      companyImg: jobImage3,
-      jobDescription: "HTML Developer",
-      experience: "2-4 Yrs Exp.",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "California",
-      salary: "$250 - $800 / month",
-      freeLance: true,
-      timing: "Freelance",
-      addclassNameBookmark: true,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-blue-subtle text-blue",
-          badgeName: "Internship"
-        }
-      ]
-    },
-    {
-      id: 4,
-      companyImg: jobImage4,
-      jobDescription: "Java Developer",
-      experience: "0-2 Yrs Exp.",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "California",
-      salary: "$450 - $800 / month",
-      freeLance: true,
-      timing: "Freelance",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-blue-subtle text-blue",
-          badgeName: "Internship"
-        }
-      ]
-    }
+    // ... Your jobVacancyPost data (unchanged) ...
   ];
-//---------------------------------------------------------------------------
-
-
-
-
-const [company, setCompany] = useState([]);
-
-
-
-// const [selectedUser, setSelectedUser] = useState(null);
-const x = 1; // Replace with the ID you want to find
-
-
-useEffect(() => {
-  // Fetch data from the API when the component mounts
-  axios.get("http://127.0.0.1:8000/api/companyjobs/1")
-    .then((response) => {
-     setCompany(response.data);
-   
-      })
-    .catch((error) => {
-      console.error("Error fetching data: ", error);
-    });
-}, []);
-
-
-
-//--------------------------------------------------------------------------
 
   return (
     <React.Fragment>
@@ -177,10 +68,9 @@ useEffect(() => {
             <div className="mb-5">
               <h6 className="fs-17 fw-semibold mb-4">About Company</h6>
               <p className="text-muted">
-                {" "}
-                {company.about}    </p>
-
-              
+                {props.company && props.company.about}{" "}
+                {/* Replace with the actual company description */}
+              </p>
             </div>
             <div className="candidate-portfolio mb-5">
               <h6 className="fs-17 fw-semibold mb-4">Gallery</h6>
@@ -226,217 +116,136 @@ useEffect(() => {
                 </Col>
               </Row>
             </div>
-
             <div>
               <h6 className="fs-17 fw-semibold mb-4">Current Opening</h6>
-              {/* {company && Array.isArray(company.job) && (
-                    company.job.map((job) => (
-                      <span className="badge fs-13 bg-blue-subtle text-blue mt-2" key={job.id}>
-                        {job.skill_name}
-                      </span>
-                    ))
-                  )} */}
-              {jobVacancyPost.map((jobVacancyPostDetails, key) => (
-                <div
-                  key={key}
-                  className={
-                    jobVacancyPostDetails.addclassNameBookmark === true
-                      ? "job-box bookmark-post card mt-4"
-                      : "job-box card mt-4"
-                  }
-                >
-                  <div className="p-4">
-                    <Row>
-                      <Col lg={1}>
-                        <Link to="/companydetails">
-                          <img
-                            src={jobVacancyPostDetails.companyImg}
-                            alt=""
-                            className="img-fluid rounded-3"
-                          />
-                        </Link>
-                      </Col>
-                      <Col lg={10}>
-                        <div className="mt-3 mt-lg-0">
-                          <h5 className="fs-17 mb-1">
-                            <Link to="/jobdetails" className="text-dark">
-                              {jobVacancyPostDetails.jobDescription}
-                            </Link>{" "}
-                            <small className="text-muted fw-normal">
-                              ({jobVacancyPostDetails.experience})
-                            </small>
-                          </h5>
-                          <ul className="list-inline mb-0">
-                            <li className="list-inline-item">
-                              <p className="text-muted fs-14 mb-0">
-                                {jobVacancyPostDetails.companyName}
-                              </p>
-                            </li>
-                            <li className="list-inline-item">
-                              <p className="text-muted fs-14 mb-0">
-                                <i className="mdi mdi-map-marker"></i>
-                                {jobVacancyPostDetails.location}
-                              </p>
-                            </li>
-                            <li className="list-inline-item">
-                              <p className="text-muted fs-14 mb-0">
-                                <i className="uil uil-wallet"></i>{" "}
-                                {jobVacancyPostDetails.salary}
-                              </p>
-                            </li>
-                          </ul>
-                          <div className="mt-2">
-                            <span
-                              className={
-                                jobVacancyPostDetails.fullTime === true
-                                  ? "badge bg-success-subtle text-success fs-13 mt-1 mx-1"
-                                  : jobVacancyPostDetails.partTime === true
-                                  ? "badge bg-danger-subtle text-danger fs-13 mt-1 mx-1"
-                                  : jobVacancyPostDetails.freeLance === true
-                                  ? "badge bg-primary-subtle text-primary fs-13 mt-1 mx-1"
-                                  : jobVacancyPostDetails.internship === true
-                                  ? "badge bg-blue-subtle text-blue fs-13 mt-1"
-                                  : ""
-                              }
-                            >
-                              {jobVacancyPostDetails.timing}
-                            </span>
-                            {(jobVacancyPostDetails.badges || []).map(
-                              (badgeInner, key) => (
-                                <span
-                                  className={`badge ${badgeInner.badgeclassName} fs-13 mt-1`}
-                                  key={key}
-                                >
-                                  {badgeInner.badgeName}
-                                </span>
-                              )
-                            )}
-                          </div>
-                        </div>
-                      </Col>
-                    </Row>
-                    <div className="favorite-icon">
-                      <Link to="#">
-                        <i className="uil uil-heart-alt fs-18"></i>
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="p-3 bg-light">
-                    <div className="row justify-content-between">
-                      <Col md={8}>
-                        <div>
-                          <ul className="list-inline mb-0">
-                            <li className="list-inline-item">
-                              <i className="uil uil-tag"></i> Keywords :
-                            </li>
-                            <li className="list-inline-item">
-                              <Link to="#" className="primary-link text-muted">
-                                Ui designer
-                              </Link>
-                              ,
-                            </li>
-                            <li className="list-inline-item">
-                              <Link to="#" className="primary-link text-muted">
-                                developer
-                              </Link>
-                            </li>
-                          </ul>
-                        </div>
-                      </Col>
-
-                      <Col md={3}>
-                        <div className="text-md-end">
-                          <Link
-                            to="#applyNow"
-                            onClick={openModal}
-                            className="primary-link"
-                          >
-                            Apply Now{" "}
-                            <i className="mdi mdi-chevron-double-right"></i>
-                          </Link>
-                        </div>
-                      </Col>
-                    </div>
-                  </div>
-                </div>
+              {props.company.job.map((fullTimeJobdetails,key) => (
+               <div
+               key={key}
+               className={
+                 fullTimeJobdetails.addclassNameBookmark === true
+                   ? "job-box bookmark-post card mt-4"
+                   : "job-box card mt-4"
+               }
+             >
+               <div className="bookmark-label text-center">
+                 <Link to="#" className="text-white align-middle">
+                   <i className="mdi mdi-star"></i>
+                 </Link>
+               </div>
+               <div className="p-4">
+                 <Row className="align-items-center">
+                   <Col md={2}>
+                     <div className="text-center mb-4 mb-md-0">
+                       <Link to="/companydetails">
+                       <img
+                           src={`http://127.0.0.1:8000/company_img/${fullTimeJobdetails.company.img1}`}
+                           alt="CompanyImage"
+                           className="img-fluid rounded-3"
+                           style={{ width: "50px" }}
+                         />
+                       </Link>
+                     </div>
+                   </Col>
+     
+                   <Col md={3}>
+                     <div className="mb-2 mb-md-0">
+                       <h5 className="fs-18 mb-1">
+                         <Link to={`/jobdetails/${fullTimeJobdetails.id}`} className="text-dark">
+                           {fullTimeJobdetails.title}
+                         </Link>
+                       </h5>
+                       <p className="text-muted fs-14 mb-0">
+                         {fullTimeJobdetails.company.name}
+                       </p>
+                     </div>
+                   </Col>
+     
+                   <Col md={3}>
+                     <div className="d-flex mb-2">
+                       <div className="flex-shrink-0">
+                         <i className="mdi mdi-map-marker text-primary me-1"></i>
+                       </div>
+                       <p className="text-muted mb-0">
+                         {fullTimeJobdetails.company.location[0].name}
+                       </p>
+                     </div>
+                   </Col>
+     
+                   <Col md={2}>
+                     <div>
+                       <p className="text-muted mb-2">
+                         <span className="text-primary">$</span>
+                         {fullTimeJobdetails.salary}
+                       </p>
+                     </div>
+                   </Col>
+     
+                   <Col md={2}>
+                     <div>
+                       <span
+                         className={
+                           fullTimeJobdetails.employment_type === 'Full-time'
+                             ? "badge bg-success-subtle text-success fs-13 mt-1 mx-1"
+                             : fullTimeJobdetails.employment_type === 'Part-time'
+                             ? "badge bg-danger-subtle text-danger fs-13 mt-1 mx-1"
+                             : fullTimeJobdetails.employment_type === 'Freelancer'
+                             ? "badge bg-primary-subtle text-primary fs-13 mt-1 mx-1"
+                             : ""
+                         }
+                       >
+                         {fullTimeJobdetails.employment_type}
+                       </span>
+                       {(fullTimeJobdetails.badges || []).map((badgeInner, key) => (
+                         <span
+                           className={`badge ${badgeInner.badgeclassName} fs-13 mt-1`}
+                           key={key}
+                         >
+                           {badgeInner.badgeName}
+                         </span>
+                       ))}
+                     </div>
+                   </Col>
+                 </Row>
+               </div>
+               <div className="p-3 bg-light">
+                 <Row>
+                   <Col md={5}>
+                     <div>
+                       <p className="text-muted mb-0">
+                         <span className="text-dark">Experience :</span>{" "}
+                         {fullTimeJobdetails.employment_type}
+                       </p>
+                     </div>
+                   </Col>
+     
+                   <Col lg={4} md={5}>
+                     {}
+                     <div>
+                       <p className="text-muted mb-0">
+                         <span className="text-dark">
+                           {fullTimeJobdetails.deadline_date === null ? "" : "Deadline :"}
+                         </span>
+                         {fullTimeJobdetails.deadline_date}{" "}
+                       </p>
+                     </div>
+                   </Col>
+     
+                   <Col lg={3} md={3}>
+                     <div className="text-start text-md-end">
+                       <Link
+                         onClick={openModal}
+                         to={`/jobdetails/${fullTimeJobdetails.id}`}
+                         data-bs-toggle="modal"
+                         className="primary-link"
+                       >
+                         Apply Now <i className="mdi mdi-chevron-double-right"></i>
+                       </Link>
+                     </div>
+                   </Col>
+                 </Row>
+               </div>
+             </div>
               ))}
-              <div
-                className="modal fade"
-                id="applyNow"
-                tabIndex="-1"
-                aria-labelledby="applyNow"
-                aria-hidden="true"
-              >
-                <div className="modal-dialog modal-dialog-centered">
-                  <Modal isOpen={modal} toggle={openModal} centered>
-                    <ModalBody className="modal-body p-5">
-                      <div className="text-center mb-4">
-                        <h5 className="modal-title" id="staticBackdropLabel">
-                          Apply For This Job
-                        </h5>
-                      </div>
-                      <div className="position-absolute end-0 top-0 p-3">
-                        <button
-                          type="button"
-                          onClick={openModal}
-                          className="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div className="mb-3">
-                        <Label for="nameControlInput" className="form-label">
-                          Name
-                        </Label>
-                        <Input
-                          type="text"
-                          className="form-control"
-                          id="nameControlInput"
-                          placeholder="Enter your name"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <Label for="emailControlInput2" className="form-label">
-                          Email Address
-                        </Label>
-                        <Input
-                          type="email"
-                          className="form-control"
-                          id="emailControlInput2"
-                          placeholder="Enter your email"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <Label
-                          for="messageControlTextarea"
-                          className="form-label"
-                        >
-                          Message
-                        </Label>
-                        <textarea
-                          className="form-control"
-                          id="messageControlTextarea"
-                          rows="4"
-                          placeholder="Enter your message"
-                        ></textarea>
-                      </div>
-                      <div className="mb-4">
-                        <Label className="form-label" for="inputGroupFile01">
-                          Resume Upload
-                        </Label>
-                        <Input
-                          type="file"
-                          className="form-control"
-                          id="inputGroupFile01"
-                        />
-                      </div>
-                      <button type="submit" className="btn btn-primary w-100">
-                        Send Application
-                      </button>
-                    </ModalBody>
-                  </Modal>
-                </div>
-              </div>
             </div>
           </CardBody>
         </Card>

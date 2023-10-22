@@ -23,5 +23,29 @@ class SkillSeeder extends Seeder
             'job_id' => 2,
             'skill_name' => 'Database Management',
         ]);
+        Skill::create([
+            'job_id' => 3,
+            'skill_name' => 'Database Management',
+        ]);
+        Skill::create([
+            'job_id' => 4,
+            'skill_name' => 'Database Management',
+        ]);
+        Skill::create([
+            'job_id' => 5,
+            'skill_name' => 'Database Management',
+        ]);
+        Skill::create([
+            'job_id' => 6,
+            'skill_name' => 'Database Management',
+        ]);
+        Skill::create([
+            'job_id' => 7,
+            'skill_name' => 'Database Management',
+        ]);
+        Skill::create([
+            'job_id' => 8,
+            'skill_name' => 'Database Management',
+        ]);
     }
 }

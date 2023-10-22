@@ -14,7 +14,10 @@ class UserSkillController extends Controller
      */
     public function index()
     {
-        //
+        $userskills = UserSkill::all();
+
+        // Pass the users data to the view
+        return view('dashboard.userskill' ,  compact('userskills'));
     }
 
     /**
@@ -24,7 +27,7 @@ class UserSkillController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -35,7 +38,7 @@ class UserSkillController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
     }
 
     /**
@@ -78,8 +81,10 @@ class UserSkillController extends Controller
      * @param  \App\Models\UserSkill  $userSkill
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserSkill $userSkill)
+    public function destroy( $id)
     {
-        //
+        UserSkill::find($id)->delete();
+        UserSkill::destroy($id);
+        return redirect('userskilldash')->with('flash_message', 'UserSkill deleted successfully');
     }
 }

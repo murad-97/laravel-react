@@ -10,72 +10,7 @@ import GitData from '../ApiData/GitDataApi';
 
 const Jobcatogaries = () => {
   
-  // const categories = [
-  //   {
-  //     id: 1,
-  //     icon: "uim-layers-alt",
-  //     name: "IT & Software",
-  //     job: 2024
-  //   },
-  //   {
-  //     id: 2,
-  //     icon: "uim-airplay",
-  //     name: "Technology",
-  //     job: 1250
-  //   },
-  //   {
-  //     id: 3,
-  //     icon: "uim-bag",
-  //     name: "Government",
-  //     job: 802
-  //   },
-  //   {
-  //     id: 4,
-  //     icon: "uim-user-md",
-  //     name: "Accounting / Finance",
-  //     job: 577
-  //   },
-  //   {
-  //     id: 5,
-  //     icon: "uim-hospital",
-  //     name: "Construction / Facilities",
-  //     job: 285
-  //   },
-  //   {
-  //     id: 6,
-  //     icon: "uim-telegram-alt",
-  //     name: "Tele-communications",
-  //     job: 495
-  //   },
-  //   {
-  //     id: 7,
-  //     icon: "uim-scenery",
-  //     name: "Design & Multimedia",
-  //     job: 1045
-  //   },
-  //   {
-  //     id: 8,
-  //     icon: "uim-android-alt",
-  //     name: "Human Resource",
-  //     job: 1516
-  //   }
-  // ];
 
-
-
-  // const [industries, setIndustries] = useState([])
-
-  // useEffect(()=>{
-  //     fetchIndustries() ;
-      
-  // },[])
-
-  // const fetchIndustries = async () => {
-  //     await axios.get(`http://127.0.0.1:8000/api/industries`).then(({data})=>{
-  //       setIndustries(data)
-        
-  //     })
-  // }
 
 
 
@@ -107,7 +42,7 @@ const Jobcatogaries = () => {
                     <Icon icon={item.logo} className="text-primary" />
                   </div>
                   <div className="popu-category-content mt-4">
-                    <Link to="/jobscategories" className="text-dark stretched-link">
+                    <Link to="/joblist/All" className="text-dark stretched-link">
                       <h5 className="fs-18">{item.name}</h5>
                     </Link>
                     <p className="text-muted mb-0">Jobs</p>
@@ -120,10 +55,10 @@ const Jobcatogaries = () => {
             <Col lg={12}>
               <div className="mt-5 text-center">
                 <Link
-                  to="/jobscategories"
+                  to="/joblist/All"
                   className="btn btn-primary btn-hover"
                 >
-                  Browse All Categories <i className="uil uil-arrow-right"></i>
+                  Browse All Jobs <i className="uil uil-arrow-right"></i>
                 </Link>
               </div>
             </Col>

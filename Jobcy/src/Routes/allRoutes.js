@@ -73,14 +73,14 @@ const userRoutes = [
 
   // Blog Section
   { path: "/blogauther", component: <BlogAuther /> },
-  { path: "/blogdetails", component: <BlogDetails /> },
+  { path: "/blogdetails/:id", component: <BlogDetails /> },
   { path: "/blogmodern", component: <BlogModern /> },
   { path: "/blogmasonary", component: <BlogMasonary /> },
   { path: "/bloggrid", component: <BlogGrid /> },
   { path: "/blog", component: <Blog /> },
 
   //Candidate and Company Section
-  { path: "/companydetails", component: <CompanyDetails /> },
+  { path: "/companydetails/:id", component: <CompanyDetails /> },
   { path: "/companylist", component: <CompanyList /> },
   // { path: "/candidatedetails", component: <CandidateDetails /> },
   { path: "/candidatedetails/:id", component: <CandidateDetails /> },
