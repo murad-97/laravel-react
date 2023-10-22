@@ -133,7 +133,7 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $id)
+    // public function destroy( $id)
     public function delete(Post $post ,$id)
     {
         Post::find($id)->delete();
