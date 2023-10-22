@@ -17,14 +17,14 @@
     <section class="content">
         <a href="{{ route('admindash.create') }}" class="add-user-button"><button class="btn btn-primary mb-2">Add New
             Admin</button></a>
-     
+
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Admins</h3>
                     </div>
-                  
+
                     <table id="example2" class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -47,13 +47,13 @@
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-m" onclick="return confirm('Confirm Delete?')">Delete</button>
                                     </form>
-                                    
+
                                     <a  class="btn btn-success" href="{{ route('admindash.edit',$admin->id)}}"> Edit </a>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
-                        
+
                     </table>
                 </div>
             </div>

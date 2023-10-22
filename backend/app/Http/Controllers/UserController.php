@@ -22,7 +22,10 @@ class UserController extends Controller
      */
     public function index()
     {
-      
+        $users = User::all();
+
+        // Pass the users data to the view
+        return view('dashboard.user')->with('users', $users);
     }
     public function best($id)
     {
@@ -64,13 +67,13 @@ class UserController extends Controller
             $user->name = $request->name;
             // $user->experiences->position = "ggggg";
 
-        
+
         // Store the image path or URL in the user's database record
         $user->image =  $filename;
         $user->email = $request->email;
         $user->academic_specialization = $request->academic_specialization;
         $user->name = $request->name;
-        // $user->experiences->position = "ggggg";   
+        // $user->experiences->position = "ggggg";
 
         $user->update();
 
@@ -116,7 +119,7 @@ class UserController extends Controller
     }
 
 
-        
+
         return response()->json();
     }
 
