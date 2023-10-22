@@ -4,6 +4,7 @@ import { Card, CardBody, Col } from "reactstrap";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Murad from "../../../components/axios";
+import PopularPost from "../../Blog/BlogGrid/PopularPost";
 import axios from "axios";
 
 // import RightSideContent from './RightSideContent';
@@ -216,7 +217,8 @@ const LeftSideContent = (props) => {
               </div>
             </CardBody>
           </Card>
-          <Card className="profile-sidebar me-lg-4">
+          <PopularPost user={props.user} fetchData={props.fetchData} handleDelete={handleDeletePost} />
+          {/* <Card className="profile-sidebar me-lg-4">
             <CardBody className="p-4">
               {props.user.post.map((post, index) => (
                 <div key={index}>
@@ -287,7 +289,7 @@ const LeftSideContent = (props) => {
                 </div>
               ))}
             </CardBody>
-          </Card>
+          </Card> */}
         </Col>
       ) : (
         <p>User with ID {props.user.id} not found.</p>

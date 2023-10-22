@@ -264,12 +264,6 @@ const RightSideContent = (props) => {
                       <p>User with ID {props.user.id} not found.</p>
                     )}
                   </p>
-                  <p className="text-muted">
-                    It describes the candidate's relevant experience, skills,
-                    and achievements. The purpose of this career summary is to
-                    explain your qualifications for the job in 3-5 sentences and
-                    convince the manager to read the whole resume document.
-                  </p>
                 </div>
                 <div className="candidate-education-details mt-4">
                   <h6 className="fs-18 fw-bold mb-0">Education</h6>
