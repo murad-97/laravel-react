@@ -79,7 +79,7 @@ const Section = () => {
 
             <Col lg={5}>
               <div className="mt-5 mt-md-0">
-                <img src={processImage2} alt="" className="home-img" />
+                <img src={processImage2} alt="" className="home-img"  style={{ width: "120%"}}/>
               </div>
             </Col>
           </Row>

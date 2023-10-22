@@ -254,6 +254,7 @@ const RightSideContent = (props) => {
 
           <CardBody className="p-4">
             <TabContent activeTab={activeTab}>
+              
               <TabPane tabId="1">
                 <div>
                   <h5 className="fs-18 fw-bold">About</h5>
@@ -334,6 +335,7 @@ const RightSideContent = (props) => {
                     ))}
                 </div>
               </TabPane>
+
               <TabPane tabId="2">
                 <form
                   action="#"
@@ -910,6 +912,7 @@ const RightSideContent = (props) => {
 
                
               </TabPane>
+
             </TabContent>
           </CardBody>
         </Card>
