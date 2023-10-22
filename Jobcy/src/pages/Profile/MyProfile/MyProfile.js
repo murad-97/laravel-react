@@ -3,8 +3,7 @@ import { Container, Row } from "reactstrap";
 import LeftSideContent from "./LeftSideContent";
 import RightSideContent from "./RightSideContent";
 import Section from "./Section";
-import MyPosts from "./MyPosts";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import axios from "../../../components/axios";
 import { useSelector, useDispatch } from "react-redux";
 import { loginSuccess } from "../../ExtraPages/Components/redux/authActions";
@@ -44,7 +43,6 @@ const MyProfile = () => {
           )}
         </Container>
       </section>
-       <MyPosts/>
     </React.Fragment>
   );
 };
