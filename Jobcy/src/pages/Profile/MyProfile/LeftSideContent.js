@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { Card, CardBody, Col } from "reactstrap";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-
+import Murad from "../../../components/axios";
 import axios from "axios";
+
 // import RightSideContent from './RightSideContent';
 
 
@@ -16,6 +17,53 @@ import profileImage from "../../../assets/images/profile.jpg";
 const LeftSideContent = () => {
 
 
+  const handleDeletePost = async (posts_id) => {
+    const csrfResponse = await Murad.get("/get-csrf-token");
+    const csrfToken = csrfResponse.data.csrf_token;
+    axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
+
+    Murad.delete(`/posts/${posts_id}`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error uploading image: ", error);
+      });
+  };
+  //---------------------------------------------
+    const [post, setPost] = useState({
+      image: null,
+      title: "",
+      text: "",
+    });
+
+      const handleImage = (e) => {
+        setPost({ ...post, image: e.target.files[0] });
+      };
+    const handleUpdatePost = async (posts_id) => {
+
+      
+
+
+      const csrfResponse = await Murad.get("/get-csrf-token");
+      const csrfToken = csrfResponse.data.csrf_token;
+      axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
+
+      const postData = new FormData();
+      postData.append("image", post.image);
+      postData.append("id", userb.id);
+      postData.append("email", post.title);
+      postData.append("name", post.text);
+
+      Murad.put(`/posts/${posts_id}`,postData)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("Error uploading image: ", error);
+        });
+    };
+  //---------------------------------------------
 
   const [users, setUsers] = useState([]);
       const userb = useSelector((state) => state.user);
@@ -31,7 +79,6 @@ const [selectedUser, setSelectedUser] = useState(null);
 
 
 useEffect(() => {
-  // Fetch data from the API when the component mounts
   axios.get("http://127.0.0.1:8000/api/user1")
     .then((response) => {
      setUsers(response.data);
@@ -191,6 +238,78 @@ useEffect(() => {
                   </ul>
                 </div>
               </div>
+            </CardBody>
+          </Card>
+          <Card className="profile-sidebar me-lg-4">
+            <CardBody className="p-4">
+              {selectedUser.post.map((post, index) => (
+                <div key={index}>
+                  <p
+                    style={{
+                      background: "black",
+                      color: "white",
+                      textAlign: "center",
+                    }}
+                  >
+                    {index + 1}
+                  </p>
+                  {post.isUpdating ? ( // Check if the post is being edited
+                    <div>
+                      <form
+                        action="#"
+                        onSubmit={handleUpdatePost}
+                        formData="multipart/form-data"
+                      >
+                        <input type="file" name="image" onClick={handleImage} />
+                        <input
+                          type="text"
+                          name="title"
+                          value={post.updatedTitle}
+                          onChange={(e) =>
+                            setPost((prev) => ({
+                              ...prev,
+                              title: e.target.value,
+                            }))
+                          }
+                        />
+                        <input
+                          type="text"
+                          name="text"
+                          value={post.text}
+                          onChange={(e) =>
+                            setPost((prev) => ({
+                              ...prev,
+                              text: e.target.value,
+                            }))
+                          }
+                        />
+                        <button type="submit">Save</button>
+                      </form>
+                    </div>
+                  ) : (
+                    <div>
+                      <p>
+                        <b>Title:</b> {post.title}
+                      </p>
+                      <p>
+                        <b>Text:</b> {post.text}
+                      </p>
+                      <img
+                        src={`http://localhost:8000/img/${post.image}`}
+                        style={{ width: "100%", height: "50%" }}
+                        id="profile-img"
+                        alt=""
+                      />
+                      <button onClick={() => handleUpdatePost(post.id)}>
+                        Edit
+                      </button>
+                      <button onClick={() => handleDeletePost(post.id)}>
+                        Delete
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ))}
             </CardBody>
           </Card>
         </Col>

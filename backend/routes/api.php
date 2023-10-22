@@ -54,6 +54,7 @@ Route::get('/user', [AuthenticatedSessionController::class, 'user'])
 Route::get('/industries', [IndustryController::class, 'getAllIndustries']);
 Route::get('/users', [UserController::class, 'allUsers']);
 Route::post('/image', [UserController::class, 'updateInformation']);
+Route::post('/about', [UserController::class, 'updateAbout']);
 Route::post('/language', [UserController::class, 'addLanguage']);
 Route::get('/users/{id}', [UserController::class, 'index']);
 
@@ -65,6 +66,10 @@ Route::get('/locations', [LocationController::class, 'getAllLocations']);
 
 //all posts with users
 Route::get('/posts', [PostController::class, 'getAllPosts']);
+Route::post('/posts', [PostController::class, 'create']);
+Route::delete('/posts/{id}', [PostController::class, 'delete']);
+Route::put('/posts/{id}', [PostController::class, 'update']);
+Route::post('/skills', [UserController::class, 'addSkills']);
 
 
 //all Companies
@@ -86,6 +91,8 @@ Route::get('/samejob/{id}', [JobController::class, 'sameJobs']);
  Route::post('/apply', [ApplicationController::class, 'store']);
 
 Route::get('/userlanguage/{userId}', [UserController::class, 'getLanguagesForUser']);
+Route::delete('/language/{user_id}/{id}', [UserController::class, 'deleteLanguage']);
+Route::delete('/skills/{id}', [UserController::class, 'deleteSkills']);
 
 
 Route::get('/userskills/{userId}', [UserController::class, 'getUserSkills']);
