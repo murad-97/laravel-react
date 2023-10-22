@@ -28,16 +28,16 @@ const PopularPost = (props) => {
                 className="widget-popular-post-img rounded"
               />
               <div className="flex-grow-1 text-truncate ms-3">
-                <Link to="blog-details" className="text-dark">
+                <Link to={`/blogdetails/${popularPostDetails.id}`} className="text-dark">
                   {popularPostDetails.title}
                 </Link>
                 <span className="d-block text-muted fs-14">
   {new Date(popularPostDetails.created_at).toLocaleDateString()}
 </span>
-<button  onClick={() => props.handleDelete(popularPostDetails.id)}>
+              </div>
+<button className = "btn btn-danger" onClick={() => props.handleDelete(popularPostDetails.id)}>
                         Delete
                       </button>
-              </div>
             </li>
           ))}
         </ul>
