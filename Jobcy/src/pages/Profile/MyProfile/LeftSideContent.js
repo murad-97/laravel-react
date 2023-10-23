@@ -70,7 +70,12 @@ const LeftSideContent = () => {
 
 
 const [selectedUser, setSelectedUser] = useState(null);
- 
+  // const userId = useSelector((state) =>
+  //   state.auth.user ? state.auth.user.id : null
+  // );
+  // console.log(userId);
+
+ // Replace with the ID you want to find
 
 
 useEffect(() => {
@@ -248,61 +253,24 @@ useEffect(() => {
                   >
                     {index + 1}
                   </p>
-                  {post.isUpdating ? ( // Check if the post is being edited
-                    <div>
-                      <form
-                        action="#"
-                        onSubmit={handleUpdatePost}
-                        formData="multipart/form-data"
-                      >
-                        <input type="file" name="image" onClick={handleImage} />
-                        <input
-                          type="text"
-                          name="title"
-                          value={post.updatedTitle}
-                          onChange={(e) =>
-                            setPost((prev) => ({
-                              ...prev,
-                              title: e.target.value,
-                            }))
-                          }
-                        />
-                        <input
-                          type="text"
-                          name="text"
-                          value={post.text}
-                          onChange={(e) =>
-                            setPost((prev) => ({
-                              ...prev,
-                              text: e.target.value,
-                            }))
-                          }
-                        />
-                        <button type="submit">Save</button>
-                      </form>
-                    </div>
-                  ) : (
-                    <div>
-                      <p>
-                        <b>Title:</b> {post.title}
-                      </p>
-                      <p>
-                        <b>Text:</b> {post.text}
-                      </p>
-                      <img
-                        src={`http://localhost:8000/img/${post.image}`}
-                        style={{ width: "100%", height: "50%" }}
-                        id="profile-img"
-                        alt=""
-                      />
-                      <button onClick={() => handleUpdatePost(post.id)}>
-                        Edit
-                      </button>
-                      <button onClick={() => handleDeletePost(post.id)}>
-                        Delete
-                      </button>
-                    </div>
-                  )}
+                  <p>
+                    <b>Title:</b> {post.title}
+                  </p>
+                  <p>
+                    <b>Text:</b> {post.text}
+                  </p>
+                  <img
+                    src={`http://localhost:8000/img/${post.image}`}
+                    style={{ width: "100%",height: "50%"}}
+                    id="profile-img"
+                    alt=""
+                  />
+                  <button onClick={() => handleUpdatePost(post.id)}>
+                    Update
+                  </button>
+                  <button onClick={() => handleDeletePost(post.id)}>
+                    Delete
+                  </button>
                 </div>
               ))}
             </CardBody>
