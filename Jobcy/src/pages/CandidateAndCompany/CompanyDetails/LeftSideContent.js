@@ -1,17 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Card, CardBody, Col } from "reactstrap";
-import { useState, useEffect } from "react";
-import axios from "axios";
+
 
 //Import images
 import featureImage from "../../../assets/images/featured-job/img-01.png";
 
-const LeftSideContent = () => {
+const LeftSideContent = (props) => {
 
 
 
-  const [company, setCompany] = useState();
+ 
 
 
 
@@ -19,49 +18,39 @@ const LeftSideContent = () => {
   const x = 1; // Replace with the ID you want to find
 
 
-  useEffect(() => {
-    // Fetch data from the API when the component mounts
-    axios.get("http://127.0.0.1:8000/api/companyWithWorkingDays/1")
-      .then((response) => {
-        setCompany(response.data);
-
-      })
-      .catch((error) => {
-        console.error("Error fetching data: ", error);
-      });
-  }, []);
+ 
 
 
 
 
   return (
     <React.Fragment>
-      {company ? (
+      {props.company ? (
         <Col lg={4}>
           <Card className="side-bar">
             <CardBody className="p-4">
               <div className="candidate-profile text-center">
                 <img
-                  src={featureImage}
+                   src={`http://127.0.0.1:8000/company_img/${props.company.img1}`}
                   alt=""
                   className="avatar-lg rounded-circle"
                 />
-                <h6 className="fs-18 mb-1 mt-4">{company.name}</h6>
-                <p className="text-muted mb-4">{company.startDate}</p>
+                <h6 className="fs-18 mb-1 mt-4">{props.company.name}</h6>
+                <p className="text-muted mb-4">{props.company.startDate}</p>
                 <ul className="candidate-detail-social-menu list-inline mb-0">
                   <li className="list-inline-item">
-                    <Link to={company.Facebook} className="social-link">
+                    <Link to={props.company.Facebook} className="social-link">
 
                       <i className="uil uil-facebook"></i>
                     </Link>
                   </li>
                   <li className="list-inline-item">
-                    <Link to={company.Whatsap} className="social-link">
+                    <Link to={props.company.Whatsap} className="social-link">
                       <i className="uil uil-whatsapp"></i>
                     </Link>
                   </li>
                   <li className="list-inline-item">
-                    <Link to={company.phone_number} className="social-link">
+                    <Link to={props.company.phone_number} className="social-link">
                       <i className="uil uil-phone-alt"></i>
                     </Link>
                   </li>
@@ -84,7 +73,7 @@ const LeftSideContent = () => {
                   <div className="d-flex">
                     <label className="text-dark">Employees</label>
                     <div>
-                      <p className="text-muted mb-0">{company.Employees}</p>
+                      <p className="text-muted mb-0">{props.company.Employees}</p>
                     </div>
                   </div>
                 </li>
@@ -92,7 +81,7 @@ const LeftSideContent = () => {
                   <div className="d-flex">
                     <label className="text-dark">Location</label>
                     <div>
-                      <p className="text-muted mb-0">{company.address}</p>
+                      <p className="text-muted mb-0">{props.company.address}</p>
                     </div>
                   </div>
                 </li>
@@ -101,7 +90,7 @@ const LeftSideContent = () => {
                     <label className="text-dark">Website</label>
                     <div>
                       <p className="text-muted text-break mb-0">
-                        {company.website}
+                        {props.company.website}
                       </p>
                     </div>
                   </div>
@@ -110,13 +99,13 @@ const LeftSideContent = () => {
                   <div className="d-flex">
                     <label className="text-dark">Established</label>
                     <div>
-                      <p className="text-muted mb-0">{company.startDate}</p>
+                      <p className="text-muted mb-0">{props.company.startDate}</p>
                     </div>
                   </div>
                 </li>
               </ul>
               <div className="mt-3">
-                <Link to={company.phone_number} className="btn btn-danger btn-hover w-100">
+                <Link to={props.company.phone_number} className="btn btn-danger btn-hover w-100">
                   <i className="uil uil-phone"></i> Contact
                 </Link>
               </div>
@@ -134,56 +123,56 @@ const LeftSideContent = () => {
                     <li>
                       Monday{" "}
                       <span>
-                        {company.day_of_work.Monday
-                          ? `${company.day_of_work.From} - ${company.day_of_work.To}`
+                        {props.company.day_of_work.Monday
+                          ? `${props.company.day_of_work.From} - ${props.company.day_of_work.To}`
                           : "Closed"}
                       </span>
                     </li>
                     <li>
                       Tuesday{" "}
                       <span>
-                        {company.day_of_work.Tuesday
-                          ? `${company.day_of_work.From} - ${company.day_of_work.To}`
+                        {props.company.day_of_work.Tuesday
+                          ? `${props.company.day_of_work.From} - ${props.company.day_of_work.To}`
                           : "Closed"}
                       </span>
                     </li>
                     <li>
                       Wednesday{" "}
                       <span>
-                        {company.day_of_work.Wednesday
-                          ? `${company.day_of_work.From} - ${company.day_of_work.To}`
+                        {props.company.day_of_work.Wednesday
+                          ? `${props.company.day_of_work.From} - ${props.company.day_of_work.To}`
                           : "Closed"}
                       </span>
                     </li>
                     <li>
                       Thursday{" "}
                       <span>
-                        {company.day_of_work.Thursday
-                          ? `${company.day_of_work.From} - ${company.day_of_work.To}`
+                        {props.company.day_of_work.Thursday
+                          ? `${props.company.day_of_work.From} - ${props.company.day_of_work.To}`
                           : "Closed"}
                       </span>
                     </li>
                     <li>
                       Friday{" "}
                       <span>
-                        {company.day_of_work.Friday
-                          ? `${company.day_of_work.From} - ${company.day_of_work.To}`
+                        {props.company.day_of_work.Friday
+                          ? `${props.company.day_of_work.From} - ${props.company.day_of_work.To}`
                           : "Closed"}
                       </span>
                     </li>
                     <li>
                       Saturday{" "}
                       <span>
-                        {company.day_of_work.Saturday
-                          ? `${company.day_of_work.From} - ${company.day_of_work.To}`
+                        {props.company.day_of_work.Saturday
+                          ? `${props.company.day_of_work.From} - ${props.company.day_of_work.To}`
                           : "Closed"}
                       </span>
                     </li>
                     <li>
                       Sunday{" "}
                       <span>
-                        {company.day_of_work.Sunday
-                          ? `${company.day_of_work.From} - ${company.day_of_work.To}`
+                        {props.company.day_of_work.Sunday
+                          ? `${props.company.day_of_work.From} - ${props.company.day_of_work.To}`
                           : "Closed"}
                       </span>
                     </li>
@@ -194,9 +183,9 @@ const LeftSideContent = () => {
               </div>
             </CardBody>
             <CardBody className="p-4 border-top">
-              <h6 className="fs-17 fw-semibold mb-4">Company Location</h6>
+              <h6 className="fs-17 fw-semibold mb-4">company Location</h6>
               <iframe
-                src={company.location_map}
+                src={props.company.location_map}
                 title="title"
                 style={{ width: `100%`, height: `250` }}
                 allowFullScreen=""

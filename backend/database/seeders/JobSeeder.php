@@ -21,7 +21,7 @@ class JobSeeder extends Seeder
             'description' => 'Develop software applications',
             'salary' => 800,
             'deadline_date' => '2023-12-31',
-            'professional_level' => 'Experienced',
+            'professional_level' => 'Junior',
             'location_type' => 'On-site',
             'employment_type' => 'Full-time',
             'company_id' => 1,
@@ -33,7 +33,7 @@ class JobSeeder extends Seeder
             'description' => 'Develop software applications',
             'salary' => 800,
             'deadline_date' => '2023-12-31',
-            'professional_level' => 'Experienced',
+            'professional_level' => 'Mid-Senior Level',
             'location_type' => 'On-site',
             'employment_type' => 'Full-time',
             'company_id' => 1,
@@ -43,10 +43,65 @@ class JobSeeder extends Seeder
             'title' => 'Data Analyst',
             'description' => 'Analyze and interpret data',
             'salary' => 600,
-            'deadline_date' => '2023-12-15', 
-            'professional_level' => 'Entry-level',
+            'deadline_date' => '2023-12-15',
+            'professional_level' => 'Entry Level',
             'location_type' => 'Remote',
             'employment_type' => 'Part-time',
+            'company_id' => 1,
+        ]);
+        Job::create([
+
+            'title' => 'Data Analyst',
+            'description' => 'Analyze and interpret data',
+            'salary' => 600,
+            'deadline_date' => '2023-12-15',
+            'professional_level' => 'Senior',
+            'location_type' => 'Hybrid',
+            'employment_type' => 'Freelancer',
+            'company_id' => 2,
+        ]);
+        Job::create([
+
+            'title' => 'Data Analyst',
+            'description' => 'Analyze and interpret data',
+            'salary' => 600,
+            'deadline_date' => '2023-12-15',
+            'professional_level' => 'Senior',
+            'location_type' => 'Remote',
+            'employment_type' => 'Freelancer',
+            'company_id' => 3,
+        ]);
+        Job::create([
+
+            'title' => 'Data Analyst',
+            'description' => 'Analyze and interpret data',
+            'salary' => 600,
+            'deadline_date' => '2023-12-15',
+            'professional_level' => 'Entry Level',
+            'location_type' => 'On-site',
+            'employment_type' => 'Part-time',
+            'company_id' => 3,
+        ]);
+        Job::create([
+
+            'title' => 'Data Analyst',
+            'description' => 'Analyze and interpret data',
+            'salary' => 600,
+            'deadline_date' => '2023-12-15',
+            'professional_level' => 'Entry Level',
+            'location_type' => 'On-site',
+            'employment_type' => 'Internship',
+            'company_id' => 5,
+        ]);
+        Job::create([
+
+            'title' => 'Data Analyst',
+            'description' => 'Analyze and interpret data',
+            'salary' => 600,
+            'deadline_date' => '2023-12-15',
+            'professional_level' => 'Entry Level',
+            'location_type' => 'Hybrid',
+            'employment_type' => 'Internship',
             'company_id' => 2,
         ]);
     }

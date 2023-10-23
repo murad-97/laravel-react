@@ -16,7 +16,7 @@ const JobDetailsDescription = (props) => {
           <img src={JobDetailImage} alt="" className="img-fluid" />
           <div className="job-details-compnay-profile">
             <img
-              src={JobImage10}
+               src={`http://127.0.0.1:8000/company_img/${props.job.company.img1}`}
               alt=""
               className="img-fluid rounded-3 rounded-3"
             />

@@ -10,7 +10,7 @@ const Section = () => {
           <Row className="justify-content-center">
             <Col md={6} className="col-md-6">
               <div className="text-center text-white">
-                <h3 className="mb-4">MY Profile</h3>
+                <h3 className="mb-4">My Profile</h3>
                 <div className="page-next">
                   <nav
                     className="d-inline-block"

@@ -50,7 +50,7 @@ console.log();
         <img
         
           className="rounded-circle avatar-md img-thumbnail"
-          src={comment.user.image}
+          src={`http://localhost:8000/img/${comment.user.image}`}
           alt="img"
         />
       </div>

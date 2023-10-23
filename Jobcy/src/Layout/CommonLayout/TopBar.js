@@ -17,11 +17,11 @@ import {
 import { Link } from "react-router-dom";
 
 //import images
-import flagUs from "../../assets/images/flags/us.jpg";
-import flagSp from "../../assets/images/flags/spain.jpg";
-import flagGr from "../../assets/images/flags/germany.jpg";
-import flagIt from "../../assets/images/flags/italy.jpg";
-import flagRu from "../../assets/images/flags/russia.jpg";
+// import flagUs from "../../assets/images/flags/us.jpg";
+// import flagSp from "../../assets/images/flags/spain.jpg";
+// import flagGr from "../../assets/images/flags/germany.jpg";
+// import flagIt from "../../assets/images/flags/italy.jpg";
+// import flagRu from "../../assets/images/flags/russia.jpg";
 
 const TopBar = () => {
   const iconTobar = [
@@ -68,7 +68,7 @@ const TopBar = () => {
                     {" "}
                     <i className="mdi mdi-map-marker"></i> Your Location:{" "}
                     <Link to="#" className="text-dark">
-                      New Caledonia
+                      Amman/Jordan
                     </Link>
                   </p>
                 </li>
@@ -86,7 +86,7 @@ const TopBar = () => {
               </ul>
             </Col>
 
-            <Col md={5}>
+            {/* <Col md={5}>
               <ul className="list-inline mb-0 text-center text-md-end">
                 <li className="list-inline-item py-2 me-2 align-middle">
                   <span
@@ -265,7 +265,7 @@ const TopBar = () => {
                   </Dropdown>
                 </li>
               </ul>
-            </Col>
+            </Col> */}
           </Row>
         </Container>
       </div>

@@ -142,7 +142,7 @@ const CandidateGridDetails = () => {
                   <div className="d-flex mb-4">
                     <div className="flex-shrink-0 position-relative">
                       <img
-                        src={userImage1}
+                        src={`http://localhost:8000/img/${details.image}`}
                         alt=""
                         className="avatar-md rounded"
                       />
@@ -151,7 +151,7 @@ const CandidateGridDetails = () => {
                       </span>
                     </div>
                     <div className="ms-3">
-                      <Link to="/candidate-details" className="primary-link">
+                      <Link to={`/candidatedetails/${details.id}`} className="primary-link">
                         <h5 className="fs-17">{details.name}</h5>
                       </Link>
                       <span className="badge bg-info-subtle text-info fs-13">

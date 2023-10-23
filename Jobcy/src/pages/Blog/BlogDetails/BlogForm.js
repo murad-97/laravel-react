@@ -12,6 +12,7 @@ const BlogForm = (props) => {
   const [modal, setModal] = useState(false);
 
   const openModal = () => setModal(!modal);
+  
 const [text,setText]=useState("")
 console.log(text);
   const user = useSelector((state) => state.user)

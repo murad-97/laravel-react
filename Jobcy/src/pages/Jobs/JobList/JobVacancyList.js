@@ -273,10 +273,10 @@ console.log(id);
                   <div className="text-center mb-4 mb-md-0">
                     <Link to="/companydetails">
                       <img
-                        src="/company.jpg"
+                        src={`http://127.0.0.1:8000/company_img/${jobVacancyListDetails.company.img1}`}
                         alt="CompanyImage"
                         className="img-fluid rounded-3"
-                        style={{ width: "80px" }}
+                        style={{ width: "50px" }}
                       />
                     </Link>
                   </div>
