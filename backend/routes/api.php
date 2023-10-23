@@ -71,6 +71,8 @@ Route::delete('/posts/{id}', [PostController::class, 'delete']);
 Route::put('/posts/{id}', [PostController::class, 'update']);
 Route::post('/skills', [UserController::class, 'addSkills']);
 
+//user userPosts
+Route::get('/userPosts/{id}', [PostController::class, 'getUserPosts']);
 
 //all Companies
 // Route::get('/companies', [CompanyController::class, 'getAllCompanies']);

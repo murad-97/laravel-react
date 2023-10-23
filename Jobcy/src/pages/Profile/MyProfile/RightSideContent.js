@@ -150,8 +150,10 @@ const RightSideContent = (props) => {
     Murad.post("/posts", postData)
       .then((response) => {
         console.log(response.data);
-        setUserc({
-          about: "",
+        setPost({
+          title: "",
+          text: "",
+          image: null,
         })
         props.fetchData();
       })
@@ -252,6 +254,7 @@ const RightSideContent = (props) => {
 
           <CardBody className="p-4">
             <TabContent activeTab={activeTab}>
+              
               <TabPane tabId="1">
                 <div>
                   <h5 className="fs-18 fw-bold">About</h5>
@@ -261,12 +264,6 @@ const RightSideContent = (props) => {
                     ) : (
                       <p>User with ID {props.user.id} not found.</p>
                     )}
-                  </p>
-                  <p className="text-muted">
-                    It describes the candidate's relevant experience, skills,
-                    and achievements. The purpose of this career summary is to
-                    explain your qualifications for the job in 3-5 sentences and
-                    convince the manager to read the whole resume document.
                   </p>
                 </div>
                 <div className="candidate-education-details mt-4">
@@ -338,6 +335,7 @@ const RightSideContent = (props) => {
                     ))}
                 </div>
               </TabPane>
+
               <TabPane tabId="2">
                 <form
                   action="#"
@@ -769,7 +767,7 @@ const RightSideContent = (props) => {
                             name="level"
                             className="form-control mb-2"
                             id="firstName"
-                            value={language.Lang1}
+                            value={language.level}
                             onChange={(e) =>
                               setLanguage((prev) => ({
                                 ...prev,
@@ -914,6 +912,7 @@ const RightSideContent = (props) => {
 
                
               </TabPane>
+
             </TabContent>
           </CardBody>
         </Card>

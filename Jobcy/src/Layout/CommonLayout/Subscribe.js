@@ -42,7 +42,7 @@ const Subscribe = () => {
           </Row>
         </Container>
         <div className="email-img d-none d-lg-block">
-          <img src={subscribeImg} alt="" className="img-fluid" />
+          <img src={subscribeImg} alt="" className="img-fluid" style={{ width: "20%" , marginLeft:'80%'}} />
         </div>
       </section>
     </React.Fragment>

@@ -17,14 +17,14 @@
     <section class="content">
         <a href="{{ route('companiesdash.create') }}" class="add-user-button"><button class="btn btn-primary mb-2">Add New
             Company</button></a>
-     
+
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Companies</h3>
                     </div>
-                  
+
                     <table id="example2" class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -33,7 +33,6 @@
                                 <th>Description</th>
                                 <th>Website</th>
                                 <th>Phone Number</th>
-                                <th>Location Map</th>
                                 <th>Industry ID</th>
                                 <th>Action</th>
                             </tr>
@@ -46,7 +45,6 @@
                                 <td>{{ $company->description }}</td>
                                 <td>{{ $company->website }}</td>
                                 <td>{{ $company->phone_number }}</td>
-                                <td>{{ $company->location_map }}</td>
                                 <td>{{ $company->industry_id }}</td>
                                 <td>
                                     <form method="POST" action="{{ url('/companiesdash' . '/' . $company->id) }}" style="display: inline;">
@@ -54,13 +52,13 @@
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-m" onclick="return confirm('Confirm Delete?')">Delete</button>
                                     </form>
-                                    
+
                                     <a  class="btn btn-success" href="{{ route('companiesdash.edit',$company->id)}}"> Edit </a>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
-                        
+
                     </table>
                 </div>
             </div>

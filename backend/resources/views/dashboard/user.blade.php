@@ -50,7 +50,7 @@
                             <tr>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td><img src="{{ $user->image }}" alt="User Image" width="50"></td>
+                                <td><img src="/img/{{ $user->image }}" alt="User Image" width="50"></td>
                                 <td>{{ $user->gender }}</td>
                                 <td>{{ $user->address }}</td>
                                 <td>{{ $user->phone_number }}</td>
@@ -69,12 +69,12 @@
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-m" onclick="return confirm('Confirm Delete?')">Delete</button>
                                     </form>
-                                    
+
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
-                        
+
                     </table>
                 </div>
             </div>

@@ -151,7 +151,7 @@ const CandidateGridDetails = () => {
                       </span>
                     </div>
                     <div className="ms-3">
-                      <Link to="/candidate-details" className="primary-link">
+                      <Link to={`/candidatedetails/${details.id}`} className="primary-link">
                         <h5 className="fs-17">{details.name}</h5>
                       </Link>
                       <span className="badge bg-info-subtle text-info fs-13">
