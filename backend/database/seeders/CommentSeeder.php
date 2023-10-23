@@ -22,6 +22,11 @@ class CommentSeeder extends Seeder
             'post_id' => 1,
         ]);
         Comment::create([
+            'text' => 'This is the second comment.',
+            'user_id' => 1,
+            'post_id' => 1,
+        ]);
+        Comment::create([
             'text' => 'Another comment on the same post.',
             'user_id' => 2,
             'post_id' => 1,
@@ -31,5 +36,14 @@ class CommentSeeder extends Seeder
             'user_id' => 1,
             'post_id' => 2,
         ]);
+
+
+
+        Comment::create([
+            'text' => 'This is the first comment.',
+            'user_id' => 1,
+            'post_id' => 1,
+        ]);
+       
     }
 }

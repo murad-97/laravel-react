@@ -14,10 +14,19 @@ class PostController extends Controller
         $posts = Post::with('user')->get();
         return response()->json($posts);
     }
-    
-    public function index()
+
+
+
+    public function getUserPosts($id)
     {
 
+        $userPosts = Post::where('user_id', $id)->with('comment')->with('user')->get();
+        return response()->json($userPosts);
+    }
+
+
+    public function index()
+    {
     }
 
     /**
@@ -50,8 +59,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::with(['user', 'comment.user'])->find($id);
-return response()->JSON($post);
-
+        return response()->JSON($post);
     }
     public function comment(Request $request)
     {
@@ -64,7 +72,6 @@ return response()->JSON($post);
             'text' => $request->text,
 
         ]);
-
     }
 
     /**

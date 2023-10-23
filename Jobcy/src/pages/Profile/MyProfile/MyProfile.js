@@ -5,7 +5,7 @@ import RightSideContent from "./RightSideContent";
 import Section from "./Section";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
+// import MyPosts from './myposts';
 const MyProfile = () => {
 
 
@@ -21,6 +21,8 @@ const MyProfile = () => {
           <Row>
             <LeftSideContent />
             <RightSideContent/>
+            {/* <MyPosts/> */}
+
           </Row>
         </Container>
       </section>

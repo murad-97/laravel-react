@@ -21,9 +21,20 @@ class PostSeeder extends Seeder
             'text' => 'This is the first post.',
         ]);
         Post::create([
+            'user_id' => 1,
+            'title' => 'This is the secon post.',
+            'text' => 'This is the second post.',
+        ]);
+        Post::create([
             'user_id' => 2,
             'title' => 'Another po  st with text and media.',
             'text' => 'Another post with text and media.',
         ]);
+        Post::create([
+            'user_id' => 1,
+            'title' => 'This is the first post.',
+            'text' => 'This is the first post.',
+        ]);
+    
     }
 }

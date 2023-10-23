@@ -67,6 +67,10 @@ Route::get('/locations', [LocationController::class, 'getAllLocations']);
 Route::get('/posts', [PostController::class, 'getAllPosts']);
 
 
+//user posts userPosts
+Route::get('/userPosts/{id}', [PostController::class, 'getUserPosts']);
+
+
 //all Companies
 // Route::get('/companies', [CompanyController::class, 'getAllCompanies']);
 

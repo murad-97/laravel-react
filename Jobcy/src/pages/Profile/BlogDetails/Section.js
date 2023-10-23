@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
+import { Link } from "react-router-dom";
 
 const Section = () => {
   return (
@@ -8,9 +8,9 @@ const Section = () => {
       <section className="page-title-box">
         <Container>
           <Row className="justify-content-center">
-            <Col md={6} className="col-md-6">
+            <Col md={6}>
               <div className="text-center text-white">
-                <h3 className="mb-4">MY Profile</h3>
+                <h3 className="mb-4">Blog Details</h3>
                 <div className="page-next">
                   <nav
                     className="d-inline-block"
@@ -21,14 +21,14 @@ const Section = () => {
                         <Link to="/">Home</Link>
                       </li>
                       <li className="breadcrumb-item">
-                        <Link to="#">Pages</Link>
+                        <Link to="#">Blog</Link>
                       </li>
                       <li
                         className="breadcrumb-item active"
                         aria-current="page"
                       >
                         {" "}
-                        My Profile{" "}
+                        Blog Details{" "}
                       </li>
                     </ol>
                   </nav>
